@@ -1,0 +1,29 @@
+Package: lumbermark
+Type: Package
+Title: The Lumbermark Clustering Algorithm (TODO)
+Version: 0.9.0
+Date: 2025-07-25
+Authors@R:
+    person("Marek", "Gagolewski",
+        role = c("aut", "cre", "cph"),
+        email = "marek@gagolewski.com",
+        comment = c(ORCID = "0000-0003-0637-6028")
+    )
+Description:
+    TODO...
+    The 'Python' version of 'lumbermark' is available via 'PyPI'.
+BugReports: https://github.com/gagolews/lumbermark/issues
+URL:
+    https://lumbermark.gagolewski.com/,
+    https://clustering-benchmarks.gagolewski.com/,
+    https://github.com/gagolews/lumbermark
+License: AGPL-3
+Imports:
+    Rcpp,
+    genieclust
+Suggests:
+    datasets,
+LinkingTo: Rcpp
+Encoding: UTF-8
+SystemRequirements: OpenMP, C++17
+RoxygenNote: 7.3.2
