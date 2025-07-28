@@ -120,6 +120,9 @@ cpdef dict lumbermark_from_mst(
         n_clusters : integer
             actual number of clusters found, 0 if labels is None.
 
+        iters : None
+            unused.
+
         links : ndarray, shape (n_clusters-1, )
             cut edges (indexes) of the spanning tree whose removal
             leads to the formation of clusters (connected components).
@@ -166,6 +169,7 @@ cpdef dict lumbermark_from_mst(
     return dict(
         labels=labels_,
         n_clusters=n_clusters_,
+        iters=None,
         links=links_,
         is_noise=is_noise_
     )

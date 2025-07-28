@@ -19,9 +19,11 @@
             "/home/gagolews/.local/lib/python3.13/site-packages/numpy/_core/include/numpy/ndarrayobject.h",
             "/home/gagolews/.local/lib/python3.13/site-packages/numpy/_core/include/numpy/ndarraytypes.h",
             "/home/gagolews/.local/lib/python3.13/site-packages/numpy/_core/include/numpy/ufuncobject.h",
+            "src/RcppExports.cpp",
+            "src/RcppLumbermark.cpp",
             "src/c_common.h",
             "src/c_lumbermark.h",
-            "src/c_preprocess.h"
+            "src/py_lumbermark.cpp"
         ],
         "extra_compile_args": [
             "-fopenmp",
@@ -3584,6 +3586,7 @@ static const char __pyx_k_error[] = "error";
 static const char __pyx_k_flags[] = "flags";
 static const char __pyx_k_float[] = "float";
 static const char __pyx_k_index[] = "index";
+static const char __pyx_k_iters[] = "iters";
 static const char __pyx_k_links[] = "links";
 static const char __pyx_k_mst_d[] = "mst_d";
 static const char __pyx_k_mst_i[] = "mst_i";
@@ -3681,7 +3684,7 @@ static const char __pyx_k_pyx_fuse_0lumbermark_from_mst[] = "__pyx_fuse_0lumberm
 static const char __pyx_k_pyx_fuse_1lumbermark_from_mst[] = "__pyx_fuse_1lumbermark_from_mst";
 static const char __pyx_k_unable_to_allocate_array_data[] = "unable to allocate array data.";
 static const char __pyx_k_Internal_functions_and_classes[] = "\nInternal functions and classes\n";
-static const char __pyx_k_h_V1Baq_t2S_a_j_t1ARs_vQc_Rr_j[] = "\200\001\360\010\000%&\330\"#\330\031\032\360h\001\000\005\031\230\005\230V\2401\240B\240a\240q\340\004\007\200t\2102\210S\220\016\230a\330\010\016\210j\230\001\230\021\330\004\007\200t\2101\210A\210R\210s\220%\220v\230Q\230c\240\024\240R\240r\250\021\330\010\016\210j\230\001\230\021\360\022\000\005\024\2208\2301\230A\230U\240!\2404\240q\250\005\250Q\250b\260\004\260C\260q\340\004\022\220!\2208\2301\330\010\024\320\024&\240a\360\006\000\005\010\200|\2203\220a\330\010\016\210l\230!\2301\330\t\025\220S\230\001\330\010\020\220\005\220Q\220a\340\004\r\210R\210v\220Q\220k\240\021\240#\240V\2502\250Q\330\004\005\200Z\210q\220\001\220\026\220q\230\001\340\004\016\210b\220\006\220a\220s\230&\240\002\240!\330\004\005\200[\220\001\220\021\220'\230\021\230!\340\004\020\220\002\220&\230\001\230\023\230F\240\"\240A\330\004\005\200]\220!\2201\220I\230Q\230a\340\004\005\330\010\017\210q\330\010\023\2201\330\010\016\210a\330\010\021\220\021";
+static const char __pyx_k_n_V1Baq_t2S_a_j_t1ARs_vQc_Rr_j[] = "\200\001\360\010\000%&\330\"#\330\031\032\360n\001\000\005\031\230\005\230V\2401\240B\240a\240q\340\004\007\200t\2102\210S\220\016\230a\330\010\016\210j\230\001\230\021\330\004\007\200t\2101\210A\210R\210s\220%\220v\230Q\230c\240\024\240R\240r\250\021\330\010\016\210j\230\001\230\021\360\022\000\005\024\2208\2301\230A\230U\240!\2404\240q\250\005\250Q\250b\260\004\260C\260q\340\004\022\220!\2208\2301\330\010\024\320\024&\240a\360\006\000\005\010\200|\2203\220a\330\010\016\210l\230!\2301\330\t\025\220S\230\001\330\010\020\220\005\220Q\220a\340\004\r\210R\210v\220Q\220k\240\021\240#\240V\2502\250Q\330\004\005\200Z\210q\220\001\220\026\220q\230\001\340\004\016\210b\220\006\220a\220s\230&\240\002\240!\330\004\005\200[\220\001\220\021\220'\230\021\230!\340\004\020\220\002\220&\230\001\230\023\230F\240\"\240A\330\004\005\200]\220!\2201\220I\230Q\230a\340\004\005\330\010\017\210q\330\010\023\2201\330\010\016\210a\330\010\016\210a\330\010\021\220\021";
 static const char __pyx_k_strided_and_direct_or_indirect[] = "<strided and direct or indirect>";
 static const char __pyx_k_the_number_of_clusters_detected[] = "the number of clusters detected does not match the requested one";
 static const char __pyx_k_All_dimensions_preceding_dimensi[] = "All dimensions preceding dimension %d must be indexed and not sliced";
@@ -3823,7 +3826,7 @@ typedef struct {
   PyObject *__pyx_slice[1];
   PyObject *__pyx_tuple[5];
   PyObject *__pyx_codeobj_tab[3];
-  PyObject *__pyx_string_tab[167];
+  PyObject *__pyx_string_tab[168];
   PyObject *__pyx_float_0_25;
   PyObject *__pyx_int_0;
   PyObject *__pyx_int_1;
@@ -3972,77 +3975,78 @@ static __pyx_mstatetype * const __pyx_mstate_global = &__pyx_mstate_global_stati
 #define __pyx_kp_u_isenabled __pyx_string_tab[93]
 #define __pyx_n_u_itemsize __pyx_string_tab[94]
 #define __pyx_kp_u_itemsize_0_for_cython_array __pyx_string_tab[95]
-#define __pyx_n_u_kind __pyx_string_tab[96]
-#define __pyx_n_u_kwargs __pyx_string_tab[97]
-#define __pyx_n_u_labels __pyx_string_tab[98]
-#define __pyx_n_u_links __pyx_string_tab[99]
-#define __pyx_n_u_lumbermark_from_mst __pyx_string_tab[100]
-#define __pyx_n_u_lumbermark_internal __pyx_string_tab[101]
-#define __pyx_n_u_main __pyx_string_tab[102]
-#define __pyx_n_u_memview __pyx_string_tab[103]
-#define __pyx_n_u_min_cluster_factor __pyx_string_tab[104]
-#define __pyx_n_u_min_cluster_size __pyx_string_tab[105]
-#define __pyx_n_u_mode __pyx_string_tab[106]
-#define __pyx_n_u_module __pyx_string_tab[107]
-#define __pyx_n_u_mst_d __pyx_string_tab[108]
-#define __pyx_n_u_mst_i __pyx_string_tab[109]
-#define __pyx_n_u_n_clusters __pyx_string_tab[110]
-#define __pyx_n_u_name __pyx_string_tab[111]
-#define __pyx_n_u_name_2 __pyx_string_tab[112]
-#define __pyx_n_u_ndim __pyx_string_tab[113]
-#define __pyx_n_u_new __pyx_string_tab[114]
-#define __pyx_kp_u_no_clusters_detected __pyx_string_tab[115]
-#define __pyx_kp_u_no_default___reduce___due_to_non __pyx_string_tab[116]
-#define __pyx_n_u_np __pyx_string_tab[117]
-#define __pyx_n_u_numpy __pyx_string_tab[118]
-#define __pyx_kp_u_numpy__core_multiarray_failed_to __pyx_string_tab[119]
-#define __pyx_kp_u_numpy__core_umath_failed_to_impo __pyx_string_tab[120]
-#define __pyx_n_u_obj __pyx_string_tab[121]
-#define __pyx_kp_u_object __pyx_string_tab[122]
-#define __pyx_n_u_pack __pyx_string_tab[123]
-#define __pyx_n_u_pickle __pyx_string_tab[124]
-#define __pyx_n_u_pop __pyx_string_tab[125]
-#define __pyx_n_u_pyx_checksum __pyx_string_tab[126]
-#define __pyx_n_u_pyx_fuse_0lumbermark_from_mst __pyx_string_tab[127]
-#define __pyx_n_u_pyx_fuse_1lumbermark_from_mst __pyx_string_tab[128]
-#define __pyx_n_u_pyx_state __pyx_string_tab[129]
-#define __pyx_n_u_pyx_type __pyx_string_tab[130]
-#define __pyx_n_u_pyx_unpickle_Enum __pyx_string_tab[131]
-#define __pyx_n_u_pyx_vtable __pyx_string_tab[132]
-#define __pyx_n_u_qualname __pyx_string_tab[133]
-#define __pyx_n_u_range __pyx_string_tab[134]
-#define __pyx_n_u_reduce __pyx_string_tab[135]
-#define __pyx_n_u_reduce_cython __pyx_string_tab[136]
-#define __pyx_n_u_reduce_ex __pyx_string_tab[137]
-#define __pyx_n_u_register __pyx_string_tab[138]
-#define __pyx_n_u_set_name __pyx_string_tab[139]
-#define __pyx_n_u_setstate __pyx_string_tab[140]
-#define __pyx_n_u_setstate_cython __pyx_string_tab[141]
-#define __pyx_n_u_shape __pyx_string_tab[142]
-#define __pyx_n_u_signatures __pyx_string_tab[143]
-#define __pyx_n_u_size __pyx_string_tab[144]
-#define __pyx_n_u_skip_leaves __pyx_string_tab[145]
-#define __pyx_n_u_spec __pyx_string_tab[146]
-#define __pyx_n_u_split __pyx_string_tab[147]
-#define __pyx_kp_u_src_py_lumbermark_pyx __pyx_string_tab[148]
-#define __pyx_n_u_start __pyx_string_tab[149]
-#define __pyx_n_u_step __pyx_string_tab[150]
-#define __pyx_n_u_stop __pyx_string_tab[151]
-#define __pyx_kp_u_strided_and_direct __pyx_string_tab[152]
-#define __pyx_kp_u_strided_and_direct_or_indirect __pyx_string_tab[153]
-#define __pyx_kp_u_strided_and_indirect __pyx_string_tab[154]
-#define __pyx_n_u_strip __pyx_string_tab[155]
-#define __pyx_n_u_struct __pyx_string_tab[156]
-#define __pyx_n_u_test __pyx_string_tab[157]
-#define __pyx_kp_u_the_number_of_clusters_detected __pyx_string_tab[158]
-#define __pyx_kp_u_unable_to_allocate_array_data __pyx_string_tab[159]
-#define __pyx_kp_u_unable_to_allocate_shape_and_str __pyx_string_tab[160]
-#define __pyx_n_u_unpack __pyx_string_tab[161]
-#define __pyx_n_u_update __pyx_string_tab[162]
-#define __pyx_n_u_values __pyx_string_tab[163]
-#define __pyx_n_u_warn __pyx_string_tab[164]
-#define __pyx_n_u_warnings __pyx_string_tab[165]
-#define __pyx_n_u_x __pyx_string_tab[166]
+#define __pyx_n_u_iters __pyx_string_tab[96]
+#define __pyx_n_u_kind __pyx_string_tab[97]
+#define __pyx_n_u_kwargs __pyx_string_tab[98]
+#define __pyx_n_u_labels __pyx_string_tab[99]
+#define __pyx_n_u_links __pyx_string_tab[100]
+#define __pyx_n_u_lumbermark_from_mst __pyx_string_tab[101]
+#define __pyx_n_u_lumbermark_internal __pyx_string_tab[102]
+#define __pyx_n_u_main __pyx_string_tab[103]
+#define __pyx_n_u_memview __pyx_string_tab[104]
+#define __pyx_n_u_min_cluster_factor __pyx_string_tab[105]
+#define __pyx_n_u_min_cluster_size __pyx_string_tab[106]
+#define __pyx_n_u_mode __pyx_string_tab[107]
+#define __pyx_n_u_module __pyx_string_tab[108]
+#define __pyx_n_u_mst_d __pyx_string_tab[109]
+#define __pyx_n_u_mst_i __pyx_string_tab[110]
+#define __pyx_n_u_n_clusters __pyx_string_tab[111]
+#define __pyx_n_u_name __pyx_string_tab[112]
+#define __pyx_n_u_name_2 __pyx_string_tab[113]
+#define __pyx_n_u_ndim __pyx_string_tab[114]
+#define __pyx_n_u_new __pyx_string_tab[115]
+#define __pyx_kp_u_no_clusters_detected __pyx_string_tab[116]
+#define __pyx_kp_u_no_default___reduce___due_to_non __pyx_string_tab[117]
+#define __pyx_n_u_np __pyx_string_tab[118]
+#define __pyx_n_u_numpy __pyx_string_tab[119]
+#define __pyx_kp_u_numpy__core_multiarray_failed_to __pyx_string_tab[120]
+#define __pyx_kp_u_numpy__core_umath_failed_to_impo __pyx_string_tab[121]
+#define __pyx_n_u_obj __pyx_string_tab[122]
+#define __pyx_kp_u_object __pyx_string_tab[123]
+#define __pyx_n_u_pack __pyx_string_tab[124]
+#define __pyx_n_u_pickle __pyx_string_tab[125]
+#define __pyx_n_u_pop __pyx_string_tab[126]
+#define __pyx_n_u_pyx_checksum __pyx_string_tab[127]
+#define __pyx_n_u_pyx_fuse_0lumbermark_from_mst __pyx_string_tab[128]
+#define __pyx_n_u_pyx_fuse_1lumbermark_from_mst __pyx_string_tab[129]
+#define __pyx_n_u_pyx_state __pyx_string_tab[130]
+#define __pyx_n_u_pyx_type __pyx_string_tab[131]
+#define __pyx_n_u_pyx_unpickle_Enum __pyx_string_tab[132]
+#define __pyx_n_u_pyx_vtable __pyx_string_tab[133]
+#define __pyx_n_u_qualname __pyx_string_tab[134]
+#define __pyx_n_u_range __pyx_string_tab[135]
+#define __pyx_n_u_reduce __pyx_string_tab[136]
+#define __pyx_n_u_reduce_cython __pyx_string_tab[137]
+#define __pyx_n_u_reduce_ex __pyx_string_tab[138]
+#define __pyx_n_u_register __pyx_string_tab[139]
+#define __pyx_n_u_set_name __pyx_string_tab[140]
+#define __pyx_n_u_setstate __pyx_string_tab[141]
+#define __pyx_n_u_setstate_cython __pyx_string_tab[142]
+#define __pyx_n_u_shape __pyx_string_tab[143]
+#define __pyx_n_u_signatures __pyx_string_tab[144]
+#define __pyx_n_u_size __pyx_string_tab[145]
+#define __pyx_n_u_skip_leaves __pyx_string_tab[146]
+#define __pyx_n_u_spec __pyx_string_tab[147]
+#define __pyx_n_u_split __pyx_string_tab[148]
+#define __pyx_kp_u_src_py_lumbermark_pyx __pyx_string_tab[149]
+#define __pyx_n_u_start __pyx_string_tab[150]
+#define __pyx_n_u_step __pyx_string_tab[151]
+#define __pyx_n_u_stop __pyx_string_tab[152]
+#define __pyx_kp_u_strided_and_direct __pyx_string_tab[153]
+#define __pyx_kp_u_strided_and_direct_or_indirect __pyx_string_tab[154]
+#define __pyx_kp_u_strided_and_indirect __pyx_string_tab[155]
+#define __pyx_n_u_strip __pyx_string_tab[156]
+#define __pyx_n_u_struct __pyx_string_tab[157]
+#define __pyx_n_u_test __pyx_string_tab[158]
+#define __pyx_kp_u_the_number_of_clusters_detected __pyx_string_tab[159]
+#define __pyx_kp_u_unable_to_allocate_array_data __pyx_string_tab[160]
+#define __pyx_kp_u_unable_to_allocate_shape_and_str __pyx_string_tab[161]
+#define __pyx_n_u_unpack __pyx_string_tab[162]
+#define __pyx_n_u_update __pyx_string_tab[163]
+#define __pyx_n_u_values __pyx_string_tab[164]
+#define __pyx_n_u_warn __pyx_string_tab[165]
+#define __pyx_n_u_warnings __pyx_string_tab[166]
+#define __pyx_n_u_x __pyx_string_tab[167]
 /* #### Code section: module_state_clear ### */
 #if CYTHON_USE_MODULE_STATE
 static CYTHON_SMALL_CODE int __pyx_m_clear(PyObject *m) {
@@ -4092,7 +4096,7 @@ static CYTHON_SMALL_CODE int __pyx_m_clear(PyObject *m) {
   for (int i=0; i<1; ++i) { Py_CLEAR(clear_module_state->__pyx_slice[i]); }
   for (int i=0; i<5; ++i) { Py_CLEAR(clear_module_state->__pyx_tuple[i]); }
   for (int i=0; i<3; ++i) { Py_CLEAR(clear_module_state->__pyx_codeobj_tab[i]); }
-  for (int i=0; i<167; ++i) { Py_CLEAR(clear_module_state->__pyx_string_tab[i]); }
+  for (int i=0; i<168; ++i) { Py_CLEAR(clear_module_state->__pyx_string_tab[i]); }
   Py_CLEAR(clear_module_state->__pyx_float_0_25);
   Py_CLEAR(clear_module_state->__pyx_int_0);
   Py_CLEAR(clear_module_state->__pyx_int_1);
@@ -4150,7 +4154,7 @@ static CYTHON_SMALL_CODE int __pyx_m_traverse(PyObject *m, visitproc visit, void
   for (int i=0; i<1; ++i) { __Pyx_VISIT_CONST(traverse_module_state->__pyx_slice[i]); }
   for (int i=0; i<5; ++i) { __Pyx_VISIT_CONST(traverse_module_state->__pyx_tuple[i]); }
   for (int i=0; i<3; ++i) { __Pyx_VISIT_CONST(traverse_module_state->__pyx_codeobj_tab[i]); }
-  for (int i=0; i<167; ++i) { __Pyx_VISIT_CONST(traverse_module_state->__pyx_string_tab[i]); }
+  for (int i=0; i<168; ++i) { __Pyx_VISIT_CONST(traverse_module_state->__pyx_string_tab[i]); }
   __Pyx_VISIT_CONST(traverse_module_state->__pyx_float_0_25);
   __Pyx_VISIT_CONST(traverse_module_state->__pyx_int_0);
   __Pyx_VISIT_CONST(traverse_module_state->__pyx_int_1);
@@ -19271,7 +19275,7 @@ static CYTHON_INLINE NPY_DATETIMEUNIT __pyx_f_5numpy_get_datetime64_unit(PyObjec
 
 /* Python wrapper */
 static PyObject *__pyx_pw_10lumbermark_8internal_1lumbermark_from_mst(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-PyDoc_STRVAR(__pyx_doc_10lumbermark_8internal_lumbermark_from_mst, "The Lumbermark Clustering Algorithm\n\n    Determines a dataset's partition based on a precomputed MST.\n\n    TODO: citation\n    Gagolewski, M., TODO, 2025\n\n\n\n    Parameters\n    ----------\n\n    mst_d, mst_i : ndarray\n        A spanning tree defined by a pair (mst_i, mst_d),\n        see genieclust.mst.\n    n_clusters : int\n        Number of clusters the dataset is split into.\n    min_cluster_size : int\n        Minimal cluster size\n    min_cluster_factor : float\n        Output cluster sizes won't be smaller than\n        min_cluster_factor/n_clusters*n_points (noise points excluding)\n    skip_leaves : bool\n        Marks leaves and degree-2 nodes incident to cut edges as noise\n        and does not take them into account whilst determining the partition\n        sizes.  Noise markers can be fetched separately.\n        Noise points will still be assigned to nearest clusters.\n\n\n    Returns\n    -------\n\n    res : dict, with the following elements:\n        labels : ndarray, shape (n,)\n\n            labels[i] gives the cluster id of the i-th input point;\n            a number between 0 and n_clusters-1.\n\n        n_clusters : integer\n            actual number of clusters found, 0 if labels is None.\n\n        links : ndarray, shape (n_clusters-1, )\n            cut edges (indexes) of the spanning tree whose removal\n            leads to the formation of clusters (connected components).\n\n        is_noise : ndarray, shape (n,)\n            is_noise[i] is True if the i-th point is a noise/boundary node.\n\n\n    ");
+PyDoc_STRVAR(__pyx_doc_10lumbermark_8internal_lumbermark_from_mst, "The Lumbermark Clustering Algorithm\n\n    Determines a dataset's partition based on a precomputed MST.\n\n    TODO: citation\n    Gagolewski, M., TODO, 2025\n\n\n\n    Parameters\n    ----------\n\n    mst_d, mst_i : ndarray\n        A spanning tree defined by a pair (mst_i, mst_d),\n        see genieclust.mst.\n    n_clusters : int\n        Number of clusters the dataset is split into.\n    min_cluster_size : int\n        Minimal cluster size\n    min_cluster_factor : float\n        Output cluster sizes won't be smaller than\n        min_cluster_factor/n_clusters*n_points (noise points excluding)\n    skip_leaves : bool\n        Marks leaves and degree-2 nodes incident to cut edges as noise\n        and does not take them into account whilst determining the partition\n        sizes.  Noise markers can be fetched separately.\n        Noise points will still be assigned to nearest clusters.\n\n\n    Returns\n    -------\n\n    res : dict, with the following elements:\n        labels : ndarray, shape (n,)\n\n            labels[i] gives the cluster id of the i-th input point;\n            a number between 0 and n_clusters-1.\n\n        n_clusters : integer\n            actual number of clusters found, 0 if labels is None.\n\n        iters : None\n            unused.\n\n        links : ndarray, shape (n_clusters-1, )\n            cut edges (indexes) of the spanning tree whose removal\n            leads to the formation of clusters (connected components).\n\n        is_noise : ndarray, shape (n,)\n            is_noise[i] is True if the i-th point is a noise/boundary node.\n\n\n    ");
 static PyMethodDef __pyx_mdef_10lumbermark_8internal_1lumbermark_from_mst = {"lumbermark_from_mst", (PyCFunction)(void(*)(void))(PyCFunctionWithKeywords)__pyx_pw_10lumbermark_8internal_1lumbermark_from_mst, METH_VARARGS|METH_KEYWORDS, __pyx_doc_10lumbermark_8internal_lumbermark_from_mst};
 static PyObject *__pyx_pw_10lumbermark_8internal_1lumbermark_from_mst(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_signatures = 0;
@@ -20250,7 +20254,7 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   __pyx_pybuffernd_is_noise_.data = NULL;
   __pyx_pybuffernd_is_noise_.rcbuffer = &__pyx_pybuffer_is_noise_;
 
-  /* "src/py_lumbermark.pyx":132
+  /* "src/py_lumbermark.pyx":135
  * 
  *     """
  *     cdef Py_ssize_t n = mst_i.shape[0]+1             # <<<<<<<<<<<<<<
@@ -20259,7 +20263,7 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
 */
   __pyx_v_n = ((__pyx_v_mst_i.shape[0]) + 1);
 
-  /* "src/py_lumbermark.pyx":134
+  /* "src/py_lumbermark.pyx":137
  *     cdef Py_ssize_t n = mst_i.shape[0]+1
  * 
  *     if not 1 <= n_clusters <= n:             # <<<<<<<<<<<<<<
@@ -20273,7 +20277,7 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   __pyx_t_2 = (!__pyx_t_1);
   if (unlikely(__pyx_t_2)) {
 
-    /* "src/py_lumbermark.pyx":135
+    /* "src/py_lumbermark.pyx":138
  * 
  *     if not 1 <= n_clusters <= n:
  *         raise ValueError("incorrect n_clusters")             # <<<<<<<<<<<<<<
@@ -20289,14 +20293,14 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
       __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+__pyx_t_6, (2-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 135, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
     }
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 135, __pyx_L1_error)
+    __PYX_ERR(0, 138, __pyx_L1_error)
 
-    /* "src/py_lumbermark.pyx":134
+    /* "src/py_lumbermark.pyx":137
  *     cdef Py_ssize_t n = mst_i.shape[0]+1
  * 
  *     if not 1 <= n_clusters <= n:             # <<<<<<<<<<<<<<
@@ -20305,7 +20309,7 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
 */
   }
 
-  /* "src/py_lumbermark.pyx":136
+  /* "src/py_lumbermark.pyx":139
  *     if not 1 <= n_clusters <= n:
  *         raise ValueError("incorrect n_clusters")
  *     if not n-1 == mst_d.shape[0] and n > 1:             # <<<<<<<<<<<<<<
@@ -20323,7 +20327,7 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   __pyx_L5_bool_binop_done:;
   if (unlikely(__pyx_t_2)) {
 
-    /* "src/py_lumbermark.pyx":137
+    /* "src/py_lumbermark.pyx":140
  *         raise ValueError("incorrect n_clusters")
  *     if not n-1 == mst_d.shape[0] and n > 1:
  *         raise ValueError("ill-defined MST")             # <<<<<<<<<<<<<<
@@ -20339,14 +20343,14 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
       __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+__pyx_t_6, (2-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 137, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 140, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
     }
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 137, __pyx_L1_error)
+    __PYX_ERR(0, 140, __pyx_L1_error)
 
-    /* "src/py_lumbermark.pyx":136
+    /* "src/py_lumbermark.pyx":139
  *     if not 1 <= n_clusters <= n:
  *         raise ValueError("incorrect n_clusters")
  *     if not n-1 == mst_d.shape[0] and n > 1:             # <<<<<<<<<<<<<<
@@ -20355,7 +20359,7 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
 */
   }
 
-  /* "src/py_lumbermark.pyx":146
+  /* "src/py_lumbermark.pyx":149
  * 
  *     cdef CLumbermark[floatT] l
  *     l = CLumbermark[floatT](&mst_d[0], &mst_i[0,0], n, skip_leaves)             # <<<<<<<<<<<<<<
@@ -20369,11 +20373,11 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
     __pyx_t_10 = CLumbermark<float> ((&(*((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_mst_d.data) + __pyx_t_7)) )))), (&(*((Py_ssize_t *) ( /* dim=1 */ ((char *) (((Py_ssize_t *) ( /* dim=0 */ (__pyx_v_mst_i.data + __pyx_t_8 * __pyx_v_mst_i.strides[0]) )) + __pyx_t_9)) )))), __pyx_v_n, __pyx_v_skip_leaves);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 146, __pyx_L1_error)
+    __PYX_ERR(0, 149, __pyx_L1_error)
   }
   __pyx_v_l = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_10);
 
-  /* "src/py_lumbermark.pyx":148
+  /* "src/py_lumbermark.pyx":151
  *     l = CLumbermark[floatT](&mst_d[0], &mst_i[0,0], n, skip_leaves)
  * 
  *     n_clusters_ = l.compute(             # <<<<<<<<<<<<<<
@@ -20384,11 +20388,11 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
     __pyx_t_11 = __pyx_v_l.compute(__pyx_v_n_clusters, __pyx_v_min_cluster_size, __pyx_v_min_cluster_factor);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 148, __pyx_L1_error)
+    __PYX_ERR(0, 151, __pyx_L1_error)
   }
   __pyx_v_n_clusters_ = __pyx_t_11;
 
-  /* "src/py_lumbermark.pyx":152
+  /* "src/py_lumbermark.pyx":155
  *     )
  * 
  *     if n_clusters_ <= 0:             # <<<<<<<<<<<<<<
@@ -20398,7 +20402,7 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   __pyx_t_2 = (__pyx_v_n_clusters_ <= 0);
   if (unlikely(__pyx_t_2)) {
 
-    /* "src/py_lumbermark.pyx":153
+    /* "src/py_lumbermark.pyx":156
  * 
  *     if n_clusters_ <= 0:
  *         raise RuntimeError("no clusters detected")             # <<<<<<<<<<<<<<
@@ -20414,14 +20418,14 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
       __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+__pyx_t_6, (2-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 153, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 156, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
     }
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 153, __pyx_L1_error)
+    __PYX_ERR(0, 156, __pyx_L1_error)
 
-    /* "src/py_lumbermark.pyx":152
+    /* "src/py_lumbermark.pyx":155
  *     )
  * 
  *     if n_clusters_ <= 0:             # <<<<<<<<<<<<<<
@@ -20430,7 +20434,7 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
 */
   }
 
-  /* "src/py_lumbermark.pyx":154
+  /* "src/py_lumbermark.pyx":157
  *     if n_clusters_ <= 0:
  *         raise RuntimeError("no clusters detected")
  *     elif n_clusters_ != n_clusters:             # <<<<<<<<<<<<<<
@@ -20440,7 +20444,7 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   __pyx_t_2 = (__pyx_v_n_clusters_ != __pyx_v_n_clusters);
   if (__pyx_t_2) {
 
-    /* "src/py_lumbermark.pyx":155
+    /* "src/py_lumbermark.pyx":158
  *         raise RuntimeError("no clusters detected")
  *     elif n_clusters_ != n_clusters:
  *         warnings.warn("the number of clusters detected does not match the requested one")             # <<<<<<<<<<<<<<
@@ -20448,9 +20452,9 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
  *     links_ = np.empty(n_clusters_-1, dtype=np.intp)
 */
     __pyx_t_5 = NULL;
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_mstate_global->__pyx_n_u_warnings); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 155, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_mstate_global->__pyx_n_u_warnings); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_mstate_global->__pyx_n_u_warn); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 155, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_mstate_global->__pyx_n_u_warn); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_6 = 1;
@@ -20470,12 +20474,12 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
       __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_12, __pyx_callargs+__pyx_t_6, (2-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 158, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "src/py_lumbermark.pyx":154
+    /* "src/py_lumbermark.pyx":157
  *     if n_clusters_ <= 0:
  *         raise RuntimeError("no clusters detected")
  *     elif n_clusters_ != n_clusters:             # <<<<<<<<<<<<<<
@@ -20484,7 +20488,7 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
 */
   }
 
-  /* "src/py_lumbermark.pyx":157
+  /* "src/py_lumbermark.pyx":160
  *         warnings.warn("the number of clusters detected does not match the requested one")
  * 
  *     links_ = np.empty(n_clusters_-1, dtype=np.intp)             # <<<<<<<<<<<<<<
@@ -20492,16 +20496,16 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
  * 
 */
   __pyx_t_12 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyLong_FromSsize_t((__pyx_v_n_clusters_ - 1)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_t_5 = PyLong_FromSsize_t((__pyx_v_n_clusters_ - 1)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_intp); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_intp); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
   __pyx_t_6 = 1;
@@ -20518,19 +20522,19 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   #endif
   {
     PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_12, __pyx_t_5};
-    __pyx_t_13 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 157, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_14, __pyx_t_13, __pyx_callargs+2, 0) < 0) __PYX_ERR(0, 157, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_14, __pyx_t_13, __pyx_callargs+2, 0) < 0) __PYX_ERR(0, 160, __pyx_L1_error)
     __pyx_t_3 = __Pyx_Object_Vectorcall_CallFromBuilder(__pyx_t_4, __pyx_callargs+__pyx_t_6, (2-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_13);
     __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 157, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   }
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_mstate_global->__pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 157, __pyx_L1_error)
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_mstate_global->__pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 160, __pyx_L1_error)
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_links_.rcbuffer->pybuffer);
@@ -20546,12 +20550,12 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
       __pyx_t_16 = __pyx_t_17 = __pyx_t_18 = 0;
     }
     __pyx_pybuffernd_links_.diminfo[0].strides = __pyx_pybuffernd_links_.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_links_.diminfo[0].shape = __pyx_pybuffernd_links_.rcbuffer->pybuffer.shape[0];
-    if (unlikely((__pyx_t_15 < 0))) __PYX_ERR(0, 157, __pyx_L1_error)
+    if (unlikely((__pyx_t_15 < 0))) __PYX_ERR(0, 160, __pyx_L1_error)
   }
   __pyx_v_links_ = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "src/py_lumbermark.pyx":158
+  /* "src/py_lumbermark.pyx":161
  * 
  *     links_ = np.empty(n_clusters_-1, dtype=np.intp)
  *     l.get_links(&links_[0])             # <<<<<<<<<<<<<<
@@ -20561,7 +20565,7 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   __pyx_t_9 = 0;
   __pyx_v_l.get_links((&(*__Pyx_BufPtrStrided1d(Py_ssize_t *, __pyx_pybuffernd_links_.rcbuffer->pybuffer.buf, __pyx_t_9, __pyx_pybuffernd_links_.diminfo[0].strides))));
 
-  /* "src/py_lumbermark.pyx":160
+  /* "src/py_lumbermark.pyx":163
  *     l.get_links(&links_[0])
  * 
  *     labels_ = np.empty(n, dtype=np.intp)             # <<<<<<<<<<<<<<
@@ -20569,16 +20573,16 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
  * 
 */
   __pyx_t_4 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_empty); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_empty); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-  __pyx_t_13 = PyLong_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __pyx_t_13 = PyLong_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_intp); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_intp); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_6 = 1;
@@ -20595,19 +20599,19 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   #endif
   {
     PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_4, __pyx_t_13};
-    __pyx_t_5 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_12, __pyx_t_5, __pyx_callargs+2, 0) < 0) __PYX_ERR(0, 160, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_12, __pyx_t_5, __pyx_callargs+2, 0) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
     __pyx_t_3 = __Pyx_Object_Vectorcall_CallFromBuilder(__pyx_t_14, __pyx_callargs+__pyx_t_6, (2-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 160, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   }
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_mstate_global->__pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 160, __pyx_L1_error)
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_mstate_global->__pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 163, __pyx_L1_error)
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_labels_.rcbuffer->pybuffer);
@@ -20623,12 +20627,12 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
       __pyx_t_18 = __pyx_t_17 = __pyx_t_16 = 0;
     }
     __pyx_pybuffernd_labels_.diminfo[0].strides = __pyx_pybuffernd_labels_.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_labels_.diminfo[0].shape = __pyx_pybuffernd_labels_.rcbuffer->pybuffer.shape[0];
-    if (unlikely((__pyx_t_15 < 0))) __PYX_ERR(0, 160, __pyx_L1_error)
+    if (unlikely((__pyx_t_15 < 0))) __PYX_ERR(0, 163, __pyx_L1_error)
   }
   __pyx_v_labels_ = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "src/py_lumbermark.pyx":161
+  /* "src/py_lumbermark.pyx":164
  * 
  *     labels_ = np.empty(n, dtype=np.intp)
  *     l.get_labels(&labels_[0])             # <<<<<<<<<<<<<<
@@ -20638,7 +20642,7 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   __pyx_t_9 = 0;
   __pyx_v_l.get_labels((&(*__Pyx_BufPtrStrided1d(Py_ssize_t *, __pyx_pybuffernd_labels_.rcbuffer->pybuffer.buf, __pyx_t_9, __pyx_pybuffernd_labels_.diminfo[0].strides))));
 
-  /* "src/py_lumbermark.pyx":163
+  /* "src/py_lumbermark.pyx":166
  *     l.get_labels(&labels_[0])
  * 
  *     is_noise_ = np.empty(n, dtype=np.bool)             # <<<<<<<<<<<<<<
@@ -20646,16 +20650,16 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
  * 
 */
   __pyx_t_14 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_empty); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_empty); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyLong_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_5 = PyLong_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_bool); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_bool); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
   __pyx_t_6 = 1;
@@ -20672,19 +20676,19 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   #endif
   {
     PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_14, __pyx_t_5};
-    __pyx_t_13 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 163, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 166, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_4, __pyx_t_13, __pyx_callargs+2, 0) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_4, __pyx_t_13, __pyx_callargs+2, 0) < 0) __PYX_ERR(0, 166, __pyx_L1_error)
     __pyx_t_3 = __Pyx_Object_Vectorcall_CallFromBuilder(__pyx_t_12, __pyx_callargs+__pyx_t_6, (2-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_13);
     __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 166, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   }
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_mstate_global->__pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 163, __pyx_L1_error)
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_mstate_global->__pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 166, __pyx_L1_error)
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_is_noise_.rcbuffer->pybuffer);
@@ -20700,12 +20704,12 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
       __pyx_t_16 = __pyx_t_17 = __pyx_t_18 = 0;
     }
     __pyx_pybuffernd_is_noise_.diminfo[0].strides = __pyx_pybuffernd_is_noise_.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_is_noise_.diminfo[0].shape = __pyx_pybuffernd_is_noise_.rcbuffer->pybuffer.shape[0];
-    if (unlikely((__pyx_t_15 < 0))) __PYX_ERR(0, 163, __pyx_L1_error)
+    if (unlikely((__pyx_t_15 < 0))) __PYX_ERR(0, 166, __pyx_L1_error)
   }
   __pyx_v_is_noise_ = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "src/py_lumbermark.pyx":164
+  /* "src/py_lumbermark.pyx":167
  * 
  *     is_noise_ = np.empty(n, dtype=np.bool)
  *     l.get_is_noise(&is_noise_[0])             # <<<<<<<<<<<<<<
@@ -20715,7 +20719,7 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   __pyx_t_9 = 0;
   __pyx_v_l.get_is_noise((&(*__Pyx_BufPtrStrided1d(bool *, __pyx_pybuffernd_is_noise_.rcbuffer->pybuffer.buf, __pyx_t_9, __pyx_pybuffernd_is_noise_.diminfo[0].strides))));
 
-  /* "src/py_lumbermark.pyx":166
+  /* "src/py_lumbermark.pyx":169
  *     l.get_is_noise(&is_noise_[0])
  * 
  *     return dict(             # <<<<<<<<<<<<<<
@@ -20724,45 +20728,54 @@ static PyObject *__pyx_fuse_0__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
 */
   __Pyx_XDECREF(__pyx_r);
 
-  /* "src/py_lumbermark.pyx":167
+  /* "src/py_lumbermark.pyx":170
  * 
  *     return dict(
  *         labels=labels_,             # <<<<<<<<<<<<<<
  *         n_clusters=n_clusters_,
- *         links=links_,
+ *         iters=None,
 */
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 170, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_labels, ((PyObject *)__pyx_v_labels_)) < 0) __PYX_ERR(0, 167, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_labels, ((PyObject *)__pyx_v_labels_)) < 0) __PYX_ERR(0, 170, __pyx_L1_error)
 
-  /* "src/py_lumbermark.pyx":168
+  /* "src/py_lumbermark.pyx":171
  *     return dict(
  *         labels=labels_,
  *         n_clusters=n_clusters_,             # <<<<<<<<<<<<<<
+ *         iters=None,
+ *         links=links_,
+*/
+  __pyx_t_12 = PyLong_FromSsize_t(__pyx_v_n_clusters_); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_12);
+  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_n_clusters, __pyx_t_12) < 0) __PYX_ERR(0, 170, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+
+  /* "src/py_lumbermark.pyx":172
+ *         labels=labels_,
+ *         n_clusters=n_clusters_,
+ *         iters=None,             # <<<<<<<<<<<<<<
  *         links=links_,
  *         is_noise=is_noise_
 */
-  __pyx_t_12 = PyLong_FromSsize_t(__pyx_v_n_clusters_); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 168, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_12);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_n_clusters, __pyx_t_12) < 0) __PYX_ERR(0, 167, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_iters, Py_None) < 0) __PYX_ERR(0, 170, __pyx_L1_error)
 
-  /* "src/py_lumbermark.pyx":169
- *         labels=labels_,
+  /* "src/py_lumbermark.pyx":173
  *         n_clusters=n_clusters_,
+ *         iters=None,
  *         links=links_,             # <<<<<<<<<<<<<<
  *         is_noise=is_noise_
  *     )
 */
-  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_links, ((PyObject *)__pyx_v_links_)) < 0) __PYX_ERR(0, 167, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_links, ((PyObject *)__pyx_v_links_)) < 0) __PYX_ERR(0, 170, __pyx_L1_error)
 
-  /* "src/py_lumbermark.pyx":170
- *         n_clusters=n_clusters_,
+  /* "src/py_lumbermark.pyx":174
+ *         iters=None,
  *         links=links_,
  *         is_noise=is_noise_             # <<<<<<<<<<<<<<
  *     )
 */
-  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_is_noise, ((PyObject *)__pyx_v_is_noise_)) < 0) __PYX_ERR(0, 167, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_is_noise, ((PyObject *)__pyx_v_is_noise_)) < 0) __PYX_ERR(0, 170, __pyx_L1_error)
   __pyx_r = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
   goto __pyx_L0;
@@ -21064,7 +21077,7 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   __pyx_pybuffernd_is_noise_.data = NULL;
   __pyx_pybuffernd_is_noise_.rcbuffer = &__pyx_pybuffer_is_noise_;
 
-  /* "src/py_lumbermark.pyx":132
+  /* "src/py_lumbermark.pyx":135
  * 
  *     """
  *     cdef Py_ssize_t n = mst_i.shape[0]+1             # <<<<<<<<<<<<<<
@@ -21073,7 +21086,7 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
 */
   __pyx_v_n = ((__pyx_v_mst_i.shape[0]) + 1);
 
-  /* "src/py_lumbermark.pyx":134
+  /* "src/py_lumbermark.pyx":137
  *     cdef Py_ssize_t n = mst_i.shape[0]+1
  * 
  *     if not 1 <= n_clusters <= n:             # <<<<<<<<<<<<<<
@@ -21087,7 +21100,7 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   __pyx_t_2 = (!__pyx_t_1);
   if (unlikely(__pyx_t_2)) {
 
-    /* "src/py_lumbermark.pyx":135
+    /* "src/py_lumbermark.pyx":138
  * 
  *     if not 1 <= n_clusters <= n:
  *         raise ValueError("incorrect n_clusters")             # <<<<<<<<<<<<<<
@@ -21103,14 +21116,14 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
       __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+__pyx_t_6, (2-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 135, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
     }
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 135, __pyx_L1_error)
+    __PYX_ERR(0, 138, __pyx_L1_error)
 
-    /* "src/py_lumbermark.pyx":134
+    /* "src/py_lumbermark.pyx":137
  *     cdef Py_ssize_t n = mst_i.shape[0]+1
  * 
  *     if not 1 <= n_clusters <= n:             # <<<<<<<<<<<<<<
@@ -21119,7 +21132,7 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
 */
   }
 
-  /* "src/py_lumbermark.pyx":136
+  /* "src/py_lumbermark.pyx":139
  *     if not 1 <= n_clusters <= n:
  *         raise ValueError("incorrect n_clusters")
  *     if not n-1 == mst_d.shape[0] and n > 1:             # <<<<<<<<<<<<<<
@@ -21137,7 +21150,7 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   __pyx_L5_bool_binop_done:;
   if (unlikely(__pyx_t_2)) {
 
-    /* "src/py_lumbermark.pyx":137
+    /* "src/py_lumbermark.pyx":140
  *         raise ValueError("incorrect n_clusters")
  *     if not n-1 == mst_d.shape[0] and n > 1:
  *         raise ValueError("ill-defined MST")             # <<<<<<<<<<<<<<
@@ -21153,14 +21166,14 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
       __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_4, __pyx_callargs+__pyx_t_6, (2-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 137, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 140, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
     }
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 137, __pyx_L1_error)
+    __PYX_ERR(0, 140, __pyx_L1_error)
 
-    /* "src/py_lumbermark.pyx":136
+    /* "src/py_lumbermark.pyx":139
  *     if not 1 <= n_clusters <= n:
  *         raise ValueError("incorrect n_clusters")
  *     if not n-1 == mst_d.shape[0] and n > 1:             # <<<<<<<<<<<<<<
@@ -21169,7 +21182,7 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
 */
   }
 
-  /* "src/py_lumbermark.pyx":146
+  /* "src/py_lumbermark.pyx":149
  * 
  *     cdef CLumbermark[floatT] l
  *     l = CLumbermark[floatT](&mst_d[0], &mst_i[0,0], n, skip_leaves)             # <<<<<<<<<<<<<<
@@ -21183,11 +21196,11 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
     __pyx_t_10 = CLumbermark<double> ((&(*((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_mst_d.data) + __pyx_t_7)) )))), (&(*((Py_ssize_t *) ( /* dim=1 */ ((char *) (((Py_ssize_t *) ( /* dim=0 */ (__pyx_v_mst_i.data + __pyx_t_8 * __pyx_v_mst_i.strides[0]) )) + __pyx_t_9)) )))), __pyx_v_n, __pyx_v_skip_leaves);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 146, __pyx_L1_error)
+    __PYX_ERR(0, 149, __pyx_L1_error)
   }
   __pyx_v_l = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_10);
 
-  /* "src/py_lumbermark.pyx":148
+  /* "src/py_lumbermark.pyx":151
  *     l = CLumbermark[floatT](&mst_d[0], &mst_i[0,0], n, skip_leaves)
  * 
  *     n_clusters_ = l.compute(             # <<<<<<<<<<<<<<
@@ -21198,11 +21211,11 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
     __pyx_t_11 = __pyx_v_l.compute(__pyx_v_n_clusters, __pyx_v_min_cluster_size, __pyx_v_min_cluster_factor);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 148, __pyx_L1_error)
+    __PYX_ERR(0, 151, __pyx_L1_error)
   }
   __pyx_v_n_clusters_ = __pyx_t_11;
 
-  /* "src/py_lumbermark.pyx":152
+  /* "src/py_lumbermark.pyx":155
  *     )
  * 
  *     if n_clusters_ <= 0:             # <<<<<<<<<<<<<<
@@ -21212,7 +21225,7 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   __pyx_t_2 = (__pyx_v_n_clusters_ <= 0);
   if (unlikely(__pyx_t_2)) {
 
-    /* "src/py_lumbermark.pyx":153
+    /* "src/py_lumbermark.pyx":156
  * 
  *     if n_clusters_ <= 0:
  *         raise RuntimeError("no clusters detected")             # <<<<<<<<<<<<<<
@@ -21228,14 +21241,14 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
       __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_5, __pyx_callargs+__pyx_t_6, (2-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 153, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 156, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
     }
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __PYX_ERR(0, 153, __pyx_L1_error)
+    __PYX_ERR(0, 156, __pyx_L1_error)
 
-    /* "src/py_lumbermark.pyx":152
+    /* "src/py_lumbermark.pyx":155
  *     )
  * 
  *     if n_clusters_ <= 0:             # <<<<<<<<<<<<<<
@@ -21244,7 +21257,7 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
 */
   }
 
-  /* "src/py_lumbermark.pyx":154
+  /* "src/py_lumbermark.pyx":157
  *     if n_clusters_ <= 0:
  *         raise RuntimeError("no clusters detected")
  *     elif n_clusters_ != n_clusters:             # <<<<<<<<<<<<<<
@@ -21254,7 +21267,7 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   __pyx_t_2 = (__pyx_v_n_clusters_ != __pyx_v_n_clusters);
   if (__pyx_t_2) {
 
-    /* "src/py_lumbermark.pyx":155
+    /* "src/py_lumbermark.pyx":158
  *         raise RuntimeError("no clusters detected")
  *     elif n_clusters_ != n_clusters:
  *         warnings.warn("the number of clusters detected does not match the requested one")             # <<<<<<<<<<<<<<
@@ -21262,9 +21275,9 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
  *     links_ = np.empty(n_clusters_-1, dtype=np.intp)
 */
     __pyx_t_5 = NULL;
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_mstate_global->__pyx_n_u_warnings); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 155, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_mstate_global->__pyx_n_u_warnings); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_mstate_global->__pyx_n_u_warn); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 155, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_mstate_global->__pyx_n_u_warn); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 158, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_6 = 1;
@@ -21284,12 +21297,12 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
       __pyx_t_3 = __Pyx_PyObject_FastCall(__pyx_t_12, __pyx_callargs+__pyx_t_6, (2-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET));
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 158, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "src/py_lumbermark.pyx":154
+    /* "src/py_lumbermark.pyx":157
  *     if n_clusters_ <= 0:
  *         raise RuntimeError("no clusters detected")
  *     elif n_clusters_ != n_clusters:             # <<<<<<<<<<<<<<
@@ -21298,7 +21311,7 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
 */
   }
 
-  /* "src/py_lumbermark.pyx":157
+  /* "src/py_lumbermark.pyx":160
  *         warnings.warn("the number of clusters detected does not match the requested one")
  * 
  *     links_ = np.empty(n_clusters_-1, dtype=np.intp)             # <<<<<<<<<<<<<<
@@ -21306,16 +21319,16 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
  * 
 */
   __pyx_t_12 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_empty); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyLong_FromSsize_t((__pyx_v_n_clusters_ - 1)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_t_5 = PyLong_FromSsize_t((__pyx_v_n_clusters_ - 1)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_intp); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 157, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_intp); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
   __pyx_t_6 = 1;
@@ -21332,19 +21345,19 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   #endif
   {
     PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_12, __pyx_t_5};
-    __pyx_t_13 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 157, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_14, __pyx_t_13, __pyx_callargs+2, 0) < 0) __PYX_ERR(0, 157, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_14, __pyx_t_13, __pyx_callargs+2, 0) < 0) __PYX_ERR(0, 160, __pyx_L1_error)
     __pyx_t_3 = __Pyx_Object_Vectorcall_CallFromBuilder(__pyx_t_4, __pyx_callargs+__pyx_t_6, (2-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_13);
     __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 157, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 160, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   }
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_mstate_global->__pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 157, __pyx_L1_error)
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_mstate_global->__pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 160, __pyx_L1_error)
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_links_.rcbuffer->pybuffer);
@@ -21360,12 +21373,12 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
       __pyx_t_16 = __pyx_t_17 = __pyx_t_18 = 0;
     }
     __pyx_pybuffernd_links_.diminfo[0].strides = __pyx_pybuffernd_links_.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_links_.diminfo[0].shape = __pyx_pybuffernd_links_.rcbuffer->pybuffer.shape[0];
-    if (unlikely((__pyx_t_15 < 0))) __PYX_ERR(0, 157, __pyx_L1_error)
+    if (unlikely((__pyx_t_15 < 0))) __PYX_ERR(0, 160, __pyx_L1_error)
   }
   __pyx_v_links_ = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "src/py_lumbermark.pyx":158
+  /* "src/py_lumbermark.pyx":161
  * 
  *     links_ = np.empty(n_clusters_-1, dtype=np.intp)
  *     l.get_links(&links_[0])             # <<<<<<<<<<<<<<
@@ -21375,7 +21388,7 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   __pyx_t_9 = 0;
   __pyx_v_l.get_links((&(*__Pyx_BufPtrStrided1d(Py_ssize_t *, __pyx_pybuffernd_links_.rcbuffer->pybuffer.buf, __pyx_t_9, __pyx_pybuffernd_links_.diminfo[0].strides))));
 
-  /* "src/py_lumbermark.pyx":160
+  /* "src/py_lumbermark.pyx":163
  *     l.get_links(&links_[0])
  * 
  *     labels_ = np.empty(n, dtype=np.intp)             # <<<<<<<<<<<<<<
@@ -21383,16 +21396,16 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
  * 
 */
   __pyx_t_4 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_empty); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_empty); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-  __pyx_t_13 = PyLong_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __pyx_t_13 = PyLong_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_intp); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 160, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_intp); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 163, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_6 = 1;
@@ -21409,19 +21422,19 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   #endif
   {
     PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_4, __pyx_t_13};
-    __pyx_t_5 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 160, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_12, __pyx_t_5, __pyx_callargs+2, 0) < 0) __PYX_ERR(0, 160, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_12, __pyx_t_5, __pyx_callargs+2, 0) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
     __pyx_t_3 = __Pyx_Object_Vectorcall_CallFromBuilder(__pyx_t_14, __pyx_callargs+__pyx_t_6, (2-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 160, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   }
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_mstate_global->__pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 160, __pyx_L1_error)
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_mstate_global->__pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 163, __pyx_L1_error)
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_labels_.rcbuffer->pybuffer);
@@ -21437,12 +21450,12 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
       __pyx_t_18 = __pyx_t_17 = __pyx_t_16 = 0;
     }
     __pyx_pybuffernd_labels_.diminfo[0].strides = __pyx_pybuffernd_labels_.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_labels_.diminfo[0].shape = __pyx_pybuffernd_labels_.rcbuffer->pybuffer.shape[0];
-    if (unlikely((__pyx_t_15 < 0))) __PYX_ERR(0, 160, __pyx_L1_error)
+    if (unlikely((__pyx_t_15 < 0))) __PYX_ERR(0, 163, __pyx_L1_error)
   }
   __pyx_v_labels_ = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "src/py_lumbermark.pyx":161
+  /* "src/py_lumbermark.pyx":164
  * 
  *     labels_ = np.empty(n, dtype=np.intp)
  *     l.get_labels(&labels_[0])             # <<<<<<<<<<<<<<
@@ -21452,7 +21465,7 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   __pyx_t_9 = 0;
   __pyx_v_l.get_labels((&(*__Pyx_BufPtrStrided1d(Py_ssize_t *, __pyx_pybuffernd_labels_.rcbuffer->pybuffer.buf, __pyx_t_9, __pyx_pybuffernd_labels_.diminfo[0].strides))));
 
-  /* "src/py_lumbermark.pyx":163
+  /* "src/py_lumbermark.pyx":166
  *     l.get_labels(&labels_[0])
  * 
  *     is_noise_ = np.empty(n, dtype=np.bool)             # <<<<<<<<<<<<<<
@@ -21460,16 +21473,16 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
  * 
 */
   __pyx_t_14 = NULL;
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_empty); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_mstate_global->__pyx_n_u_empty); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyLong_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_5 = PyLong_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_bool); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_mstate_global->__pyx_n_u_bool); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 166, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
   __pyx_t_6 = 1;
@@ -21486,19 +21499,19 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   #endif
   {
     PyObject *__pyx_callargs[2 + ((CYTHON_VECTORCALL) ? 1 : 0)] = {__pyx_t_14, __pyx_t_5};
-    __pyx_t_13 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 163, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_MakeVectorcallBuilderKwds(1); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 166, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_13);
-    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_4, __pyx_t_13, __pyx_callargs+2, 0) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
+    if (__Pyx_VectorcallBuilder_AddArg(__pyx_mstate_global->__pyx_n_u_dtype, __pyx_t_4, __pyx_t_13, __pyx_callargs+2, 0) < 0) __PYX_ERR(0, 166, __pyx_L1_error)
     __pyx_t_3 = __Pyx_Object_Vectorcall_CallFromBuilder(__pyx_t_12, __pyx_callargs+__pyx_t_6, (2-__pyx_t_6) | (__pyx_t_6*__Pyx_PY_VECTORCALL_ARGUMENTS_OFFSET), __pyx_t_13);
     __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 166, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
   }
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_mstate_global->__pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 163, __pyx_L1_error)
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_mstate_global->__pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 166, __pyx_L1_error)
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_is_noise_.rcbuffer->pybuffer);
@@ -21514,12 +21527,12 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
       __pyx_t_16 = __pyx_t_17 = __pyx_t_18 = 0;
     }
     __pyx_pybuffernd_is_noise_.diminfo[0].strides = __pyx_pybuffernd_is_noise_.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_is_noise_.diminfo[0].shape = __pyx_pybuffernd_is_noise_.rcbuffer->pybuffer.shape[0];
-    if (unlikely((__pyx_t_15 < 0))) __PYX_ERR(0, 163, __pyx_L1_error)
+    if (unlikely((__pyx_t_15 < 0))) __PYX_ERR(0, 166, __pyx_L1_error)
   }
   __pyx_v_is_noise_ = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "src/py_lumbermark.pyx":164
+  /* "src/py_lumbermark.pyx":167
  * 
  *     is_noise_ = np.empty(n, dtype=np.bool)
  *     l.get_is_noise(&is_noise_[0])             # <<<<<<<<<<<<<<
@@ -21529,7 +21542,7 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
   __pyx_t_9 = 0;
   __pyx_v_l.get_is_noise((&(*__Pyx_BufPtrStrided1d(bool *, __pyx_pybuffernd_is_noise_.rcbuffer->pybuffer.buf, __pyx_t_9, __pyx_pybuffernd_is_noise_.diminfo[0].strides))));
 
-  /* "src/py_lumbermark.pyx":166
+  /* "src/py_lumbermark.pyx":169
  *     l.get_is_noise(&is_noise_[0])
  * 
  *     return dict(             # <<<<<<<<<<<<<<
@@ -21538,45 +21551,54 @@ static PyObject *__pyx_fuse_1__pyx_f_10lumbermark_8internal_lumbermark_from_mst(
 */
   __Pyx_XDECREF(__pyx_r);
 
-  /* "src/py_lumbermark.pyx":167
+  /* "src/py_lumbermark.pyx":170
  * 
  *     return dict(
  *         labels=labels_,             # <<<<<<<<<<<<<<
  *         n_clusters=n_clusters_,
- *         links=links_,
+ *         iters=None,
 */
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 170, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_labels, ((PyObject *)__pyx_v_labels_)) < 0) __PYX_ERR(0, 167, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_labels, ((PyObject *)__pyx_v_labels_)) < 0) __PYX_ERR(0, 170, __pyx_L1_error)
 
-  /* "src/py_lumbermark.pyx":168
+  /* "src/py_lumbermark.pyx":171
  *     return dict(
  *         labels=labels_,
  *         n_clusters=n_clusters_,             # <<<<<<<<<<<<<<
+ *         iters=None,
+ *         links=links_,
+*/
+  __pyx_t_12 = PyLong_FromSsize_t(__pyx_v_n_clusters_); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 171, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_12);
+  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_n_clusters, __pyx_t_12) < 0) __PYX_ERR(0, 170, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+
+  /* "src/py_lumbermark.pyx":172
+ *         labels=labels_,
+ *         n_clusters=n_clusters_,
+ *         iters=None,             # <<<<<<<<<<<<<<
  *         links=links_,
  *         is_noise=is_noise_
 */
-  __pyx_t_12 = PyLong_FromSsize_t(__pyx_v_n_clusters_); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 168, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_12);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_n_clusters, __pyx_t_12) < 0) __PYX_ERR(0, 167, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_iters, Py_None) < 0) __PYX_ERR(0, 170, __pyx_L1_error)
 
-  /* "src/py_lumbermark.pyx":169
- *         labels=labels_,
+  /* "src/py_lumbermark.pyx":173
  *         n_clusters=n_clusters_,
+ *         iters=None,
  *         links=links_,             # <<<<<<<<<<<<<<
  *         is_noise=is_noise_
  *     )
 */
-  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_links, ((PyObject *)__pyx_v_links_)) < 0) __PYX_ERR(0, 167, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_links, ((PyObject *)__pyx_v_links_)) < 0) __PYX_ERR(0, 170, __pyx_L1_error)
 
-  /* "src/py_lumbermark.pyx":170
- *         n_clusters=n_clusters_,
+  /* "src/py_lumbermark.pyx":174
+ *         iters=None,
  *         links=links_,
  *         is_noise=is_noise_             # <<<<<<<<<<<<<<
  *     )
 */
-  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_is_noise, ((PyObject *)__pyx_v_is_noise_)) < 0) __PYX_ERR(0, 167, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_mstate_global->__pyx_n_u_is_noise, ((PyObject *)__pyx_v_is_noise_)) < 0) __PYX_ERR(0, 170, __pyx_L1_error)
   __pyx_r = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
   goto __pyx_L0;
@@ -24310,6 +24332,7 @@ static const __Pyx_StringTabEntry __pyx_string_tab[] = {
   {__pyx_k_isenabled, sizeof(__pyx_k_isenabled), 0, 1, 0}, /* PyObject cname: __pyx_kp_u_isenabled */
   {__pyx_k_itemsize, sizeof(__pyx_k_itemsize), 0, 1, 1}, /* PyObject cname: __pyx_n_u_itemsize */
   {__pyx_k_itemsize_0_for_cython_array, sizeof(__pyx_k_itemsize_0_for_cython_array), 0, 1, 0}, /* PyObject cname: __pyx_kp_u_itemsize_0_for_cython_array */
+  {__pyx_k_iters, sizeof(__pyx_k_iters), 0, 1, 1}, /* PyObject cname: __pyx_n_u_iters */
   {__pyx_k_kind, sizeof(__pyx_k_kind), 0, 1, 1}, /* PyObject cname: __pyx_n_u_kind */
   {__pyx_k_kwargs, sizeof(__pyx_k_kwargs), 0, 1, 1}, /* PyObject cname: __pyx_n_u_kwargs */
   {__pyx_k_labels, sizeof(__pyx_k_labels), 0, 1, 1}, /* PyObject cname: __pyx_n_u_labels */
@@ -24392,7 +24415,7 @@ static int __Pyx_InitCachedBuiltins(__pyx_mstatetype *__pyx_mstate) {
   CYTHON_UNUSED_VAR(__pyx_mstate);
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 74, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 74, __pyx_L1_error)
-  __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(0, 153, __pyx_L1_error)
+  __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(0, 156, __pyx_L1_error)
   __pyx_builtin___import__ = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_import); if (!__pyx_builtin___import__) __PYX_ERR(1, 101, __pyx_L1_error)
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(1, 154, __pyx_L1_error)
   __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_mstate->__pyx_n_u_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(1, 157, __pyx_L1_error)
@@ -24520,19 +24543,19 @@ static int __Pyx_CreateCodeObjects(__pyx_mstatetype *__pyx_mstate) {
   PyObject* tuple_dedup_map = PyDict_New();
   if (unlikely(!tuple_dedup_map)) return -1;
   {
-    const __Pyx_PyCode_New_function_description descr = {6, 0, 0, 6, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 74, 298};
+    const __Pyx_PyCode_New_function_description descr = {6, 0, 0, 6, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 74, 303};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_mst_d, __pyx_mstate->__pyx_n_u_mst_i, __pyx_mstate->__pyx_n_u_n_clusters, __pyx_mstate->__pyx_n_u_min_cluster_size, __pyx_mstate->__pyx_n_u_min_cluster_factor, __pyx_mstate->__pyx_n_u_skip_leaves};
-    __pyx_mstate_global->__pyx_codeobj_tab[0] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_py_lumbermark_pyx, __pyx_mstate->__pyx_n_u_pyx_fuse_0lumbermark_from_mst, __pyx_k_h_V1Baq_t2S_a_j_t1ARs_vQc_Rr_j, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[0])) goto bad;
+    __pyx_mstate_global->__pyx_codeobj_tab[0] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_py_lumbermark_pyx, __pyx_mstate->__pyx_n_u_pyx_fuse_0lumbermark_from_mst, __pyx_k_n_V1Baq_t2S_a_j_t1ARs_vQc_Rr_j, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[0])) goto bad;
   }
   {
-    const __Pyx_PyCode_New_function_description descr = {6, 0, 0, 6, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 74, 298};
+    const __Pyx_PyCode_New_function_description descr = {6, 0, 0, 6, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 74, 303};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_mst_d, __pyx_mstate->__pyx_n_u_mst_i, __pyx_mstate->__pyx_n_u_n_clusters, __pyx_mstate->__pyx_n_u_min_cluster_size, __pyx_mstate->__pyx_n_u_min_cluster_factor, __pyx_mstate->__pyx_n_u_skip_leaves};
-    __pyx_mstate_global->__pyx_codeobj_tab[1] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_py_lumbermark_pyx, __pyx_mstate->__pyx_n_u_pyx_fuse_1lumbermark_from_mst, __pyx_k_h_V1Baq_t2S_a_j_t1ARs_vQc_Rr_j, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[1])) goto bad;
+    __pyx_mstate_global->__pyx_codeobj_tab[1] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_py_lumbermark_pyx, __pyx_mstate->__pyx_n_u_pyx_fuse_1lumbermark_from_mst, __pyx_k_n_V1Baq_t2S_a_j_t1ARs_vQc_Rr_j, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[1])) goto bad;
   }
   {
-    const __Pyx_PyCode_New_function_description descr = {6, 0, 0, 6, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 74, 298};
+    const __Pyx_PyCode_New_function_description descr = {6, 0, 0, 6, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 74, 303};
     PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_mst_d, __pyx_mstate->__pyx_n_u_mst_i, __pyx_mstate->__pyx_n_u_n_clusters, __pyx_mstate->__pyx_n_u_min_cluster_size, __pyx_mstate->__pyx_n_u_min_cluster_factor, __pyx_mstate->__pyx_n_u_skip_leaves};
-    __pyx_mstate_global->__pyx_codeobj_tab[2] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_py_lumbermark_pyx, __pyx_mstate->__pyx_n_u_pyx_fuse_0lumbermark_from_mst, __pyx_k_h_V1Baq_t2S_a_j_t1ARs_vQc_Rr_j, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[2])) goto bad;
+    __pyx_mstate_global->__pyx_codeobj_tab[2] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_src_py_lumbermark_pyx, __pyx_mstate->__pyx_n_u_pyx_fuse_0lumbermark_from_mst, __pyx_k_n_V1Baq_t2S_a_j_t1ARs_vQc_Rr_j, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[2])) goto bad;
   }
   Py_DECREF(tuple_dedup_map);
   return 0;

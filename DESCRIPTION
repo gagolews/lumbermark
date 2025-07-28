@@ -1,8 +1,8 @@
 Package: lumbermark
 Type: Package
-Title: The Lumbermark Clustering Algorithm (TODO)
+Title: Lumbermark: Fast and Robust Clustering with Noise Point Detection
 Version: 0.9.0
-Date: 2025-07-25
+Date: 2025-07-28
 Authors@R:
     person("Marek", "Gagolewski",
         role = c("aut", "cre", "cph"),
