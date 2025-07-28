@@ -110,6 +110,8 @@ class Lumbermark(genieclust.MSTClusterMixin):
     -----
 
     TODO: describe Lumbermark
+    A robust divisive clustering algorithm based on spanning trees,
+    aiming to detect a specific number of clusters.
 
 
     The Genie algorithm itself has :math:`O(TODO)` time complexity provided
