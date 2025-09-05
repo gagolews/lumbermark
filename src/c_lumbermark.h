@@ -142,7 +142,7 @@ void Cget_graph_node_inclists(
  *   as well as classifies points as noise/outliers.
  *
  *   References
- *   ===========
+ *   ==========
  *
  *   Gagolewski, M., TODO, 2025
  */
