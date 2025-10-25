@@ -160,14 +160,14 @@ class Lumbermark(genieclust.MSTClusterMixin):
     """
     def __init__(
             self,
-            n_clusters=2,
             *,
+            n_clusters=2,
             min_cluster_size=10,
             min_cluster_factor=0.15,
-            M=1,
+            M=0,
             metric="l2",
             postprocess="none",
-            quitefastmst_params=dict(),
+            quitefastmst_params=dict(mutreach_ties="dcore_min", mutreach_leaves="reconnect_dcore_min"),
             verbose=False
         ):
         # # # # # # # # # # # #
@@ -248,7 +248,7 @@ class Lumbermark(genieclust.MSTClusterMixin):
             n_clusters=cur_state["n_clusters"],
             min_cluster_size=cur_state["min_cluster_size"],
             min_cluster_factor=cur_state["min_cluster_factor"],
-            skip_leaves=(cur_state["M"] > 1),
+            skip_leaves=(cur_state["M"] > 0),
         )
 
         self.labels_     = res["labels"]
@@ -262,8 +262,10 @@ class Lumbermark(genieclust.MSTClusterMixin):
                             cur_state["n_clusters"]))
         self.n_clusters_ = res["n_clusters"]
 
-        if cur_state["postprocess"] == "none" and cur_state["M"] > 1:
+        if cur_state["postprocess"] == "none" and cur_state["M"] > 0:
             res["labels"][res["is_noise"]] = -1
+
+        # TODO: postprocess midliers????
 
         if cur_state["verbose"]:
             print("[lumbermark] Done.", file=sys.stderr)
