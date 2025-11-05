@@ -67,6 +67,9 @@ class Lumbermark(genieclust.MSTClusterMixin):
         :any:`genieclust.MSTClusterMixin` for more details.
         Defaults to ``"l2"``, i.e., the Euclidean distance.
 
+    preprocess : TODO
+        TODO
+
     postprocess : {``"none"``, ``"all"``}
         Controls the treatment of noise/boundary points once the clusters are
         identified.
@@ -166,6 +169,7 @@ class Lumbermark(genieclust.MSTClusterMixin):
             min_cluster_factor=0.15,
             M=0,
             metric="l2",
+            preprocess="auto",  # TODO
             postprocess="none",
             quitefastmst_params=dict(mutreach_ties="dcore_min", mutreach_leaves="reconnect_dcore_min"),
             verbose=False
@@ -182,6 +186,7 @@ class Lumbermark(genieclust.MSTClusterMixin):
 
         self.min_cluster_size      = min_cluster_size
         self.min_cluster_factor    = min_cluster_factor
+        self.preprocess            = preprocess
         self._check_params()
 
 
@@ -197,6 +202,11 @@ class Lumbermark(genieclust.MSTClusterMixin):
         cur_state["min_cluster_size"] = int(self.min_cluster_size)
         if cur_state["min_cluster_size"] < 1:
             raise ValueError("`min_cluster_size` must be >= 1.")
+
+        _preprocess_options = ("auto", "none", "leaves")  # TODO
+        cur_state["preprocess"] = str(self.preprocess).lower()
+        if cur_state["preprocess"] not in _preprocess_options:
+            raise ValueError("`preprocess` should be one of %s" % repr(_preprocess_options))
 
         return cur_state
 
@@ -238,6 +248,12 @@ class Lumbermark(genieclust.MSTClusterMixin):
         if cur_state["n_clusters"] >= self.n_samples_:
             raise ValueError("n_clusters must be < n_samples_")
 
+        if cur_state["preprocess"] == "auto":
+            if cur_state["M"] > 0:
+                cur_state["preprocess"] = "leaves"
+            else:
+                cur_state["preprocess"] = "none"
+
         if cur_state["verbose"]:
             print("[lumbermark] Determining clusters with Lumbermark.", file=sys.stderr)
 
@@ -248,7 +264,7 @@ class Lumbermark(genieclust.MSTClusterMixin):
             n_clusters=cur_state["n_clusters"],
             min_cluster_size=cur_state["min_cluster_size"],
             min_cluster_factor=cur_state["min_cluster_factor"],
-            skip_leaves=(cur_state["M"] > 0),
+            skip_leaves=(cur_state["preprocess"] == "leaves")
         )
 
         self.labels_     = res["labels"]
