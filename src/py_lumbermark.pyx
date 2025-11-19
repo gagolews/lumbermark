@@ -60,25 +60,25 @@ ctypedef fused floatT:
 cdef extern from "../src/c_lumbermark.h":
     cdef cppclass CLumbermark[T]:
         CLumbermark() except +
-        CLumbermark(T* mst_d, Py_ssize_t* mst_i, Py_ssize_t n, bint skip_leaves) except +
+        CLumbermark(T* mst_d, Py_ssize_t* mst_i, Py_ssize_t m, Py_ssize_t n) except +
         Py_ssize_t compute(
             Py_ssize_t n_clusters, Py_ssize_t min_cluster_size,
             T min_cluster_factor
         ) except +
         void get_labels(Py_ssize_t* res)
         void get_links(Py_ssize_t* res)
-        void get_is_noise(bint* res)
+        void get_is_unreachable(bint* res)
 
 
 
 cpdef dict lumbermark_from_mst(
         floatT[::1] mst_d,
         Py_ssize_t[:,::1] mst_i,
+        Py_ssize_t n,
         Py_ssize_t n_clusters,
         Py_ssize_t min_cluster_size=10,
-        floatT min_cluster_factor=0.25,
-        bint skip_leaves=True
-        ):
+        floatT min_cluster_factor=0.15
+    ):
     """The Lumbermark Clustering Algorithm
 
     Determines a dataset's partition based on a precomputed MST.
@@ -92,20 +92,18 @@ cpdef dict lumbermark_from_mst(
     ----------
 
     mst_d, mst_i : ndarray
-        A spanning tree defined by a pair (mst_i, mst_d),
-        see genieclust.mst.
+        A spanning tree defined by a pair (mst_i, mst_d);
+        see genieclust.mst.  Actually, not all points must be reachable;
+        in such a case, they are treated as outliers.
+    n : int
+        Number of points in the dataset.
     n_clusters : int
         Number of clusters the dataset is split into.
     min_cluster_size : int
-        Minimal cluster size
+        Minimal cluster size.
     min_cluster_factor : float
         Output cluster sizes won't be smaller than
-        min_cluster_factor/n_clusters*n_points (noise points excluding)
-    skip_leaves : bool
-        Marks leaves and degree-2 nodes incident to cut edges as noise
-        and does not take them into account whilst determining the partition
-        sizes.  Noise markers can be fetched separately.
-        Noise points will still be assigned to nearest clusters.
+        min_cluster_factor/n_clusters*n_points (excluding outliers)
 
 
     Returns
@@ -127,26 +125,26 @@ cpdef dict lumbermark_from_mst(
             cut edges (indexes) of the spanning tree whose removal
             leads to the formation of clusters (connected components).
 
-        is_noise : ndarray, shape (n,)
-            is_noise[i] is True if the i-th point is a noise/boundary node.
+        is_unreachable : ndarray, shape (n,)
+            is_unreachable[i] is True if the i-th point is unreachable.
 
 
     """
-    cdef Py_ssize_t n = mst_i.shape[0]+1
+    cdef Py_ssize_t m = mst_i.shape[0]
+
+    if not m == mst_d.shape[0] or m > n-1:
+        raise ValueError("ill-defined MST")
 
     if not 1 <= n_clusters <= n:
         raise ValueError("incorrect n_clusters")
-    if not n-1 == mst_d.shape[0] and n > 1:
-        raise ValueError("ill-defined MST")
-
 
     cdef np.ndarray[Py_ssize_t] labels_
     cdef np.ndarray[Py_ssize_t] links_
-    cdef np.ndarray[bool] is_noise_
+    cdef np.ndarray[bool] is_unreachable_
     cdef Py_ssize_t n_clusters_
 
     cdef CLumbermark[floatT] l
-    l = CLumbermark[floatT](&mst_d[0], &mst_i[0,0], n, skip_leaves)
+    l = CLumbermark[floatT](&mst_d[0], &mst_i[0,0], m, n)
 
     n_clusters_ = l.compute(
         n_clusters, min_cluster_size, min_cluster_factor
@@ -163,13 +161,13 @@ cpdef dict lumbermark_from_mst(
     labels_ = np.empty(n, dtype=np.intp)
     l.get_labels(&labels_[0])
 
-    is_noise_ = np.empty(n, dtype=np.bool)
-    l.get_is_noise(&is_noise_[0])
+    is_unreachable_ = np.empty(n, dtype=np.bool)
+    l.get_is_unreachable(&is_unreachable_[0])
 
     return dict(
         labels=labels_,
         n_clusters=n_clusters_,
         iters=None,
         links=links_,
-        is_noise=is_noise_
+        is_unreachable=is_unreachable_
     )

@@ -44,7 +44,7 @@ class Lumbermark(genieclust.MSTClusterMixin):
     n_clusters : int
         The number of clusters to detect.
 
-        If *M > 1* and *postprocess* is not ``"all"``, setting
+        TODO If *M > 1* and *postprocess* is not ``"all"``, setting
         *n_clusters = 1* makes the algorithm behave like a noise
         point/outlier detector.
 
@@ -170,7 +170,7 @@ class Lumbermark(genieclust.MSTClusterMixin):
             M=0,
             metric="l2",
             preprocess="auto",  # TODO
-            postprocess="none",
+            postprocess="none", # TODO
             quitefastmst_params=dict(mutreach_ties="dcore_min", mutreach_leaves="reconnect_dcore_min"),
             verbose=False
         ):
@@ -179,7 +179,8 @@ class Lumbermark(genieclust.MSTClusterMixin):
             n_clusters=n_clusters,
             M=M,
             metric=metric,
-            postprocess=postprocess,
+            #preprocess=preprocess,
+            #postprocess=postprocess,
             quitefastmst_params=quitefastmst_params,
             verbose=verbose
         )
@@ -187,9 +188,8 @@ class Lumbermark(genieclust.MSTClusterMixin):
         self.min_cluster_size      = min_cluster_size
         self.min_cluster_factor    = min_cluster_factor
         self.preprocess            = preprocess
+        self.postprocess           = postprocess
         self._check_params()
-
-
 
 
     def _check_params(self, cur_state=None):
@@ -207,6 +207,11 @@ class Lumbermark(genieclust.MSTClusterMixin):
         cur_state["preprocess"] = str(self.preprocess).lower()
         if cur_state["preprocess"] not in _preprocess_options:
             raise ValueError("`preprocess` should be one of %s" % repr(_preprocess_options))
+
+        _postprocess_options = ("none", "all")  # TODO
+        cur_state["postprocess"] = str(self.postprocess).lower()
+        if cur_state["postprocess"] not in _postprocess_options:
+            raise ValueError("`postprocess` should be one of %s" % repr(_postprocess_options))
 
         return cur_state
 
@@ -278,7 +283,7 @@ class Lumbermark(genieclust.MSTClusterMixin):
                             cur_state["n_clusters"]))
         self.n_clusters_ = res["n_clusters"]
 
-        if cur_state["postprocess"] == "none" and cur_state["M"] > 0:
+        if cur_state["postprocess"] == "none" and cur_state["preprocess"] == "leaves":
             res["labels"][res["is_noise"]] = -1
 
         # TODO: postprocess midliers????
