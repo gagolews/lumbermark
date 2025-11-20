@@ -66,7 +66,7 @@ cdef extern from "../src/c_lumbermark.h":
             T min_cluster_factor
         ) except +
         void get_labels(Py_ssize_t* res)
-        void get_links(Py_ssize_t* res)
+        void get_cut_edges(Py_ssize_t* res)
         void get_is_unreachable(bint* res)
 
 
@@ -121,7 +121,7 @@ cpdef dict lumbermark_from_mst(
         iters : None
             unused.
 
-        links : ndarray, shape (n_clusters-1, )
+        cut_edges : ndarray, shape (n_clusters-1, )
             cut edges (indexes) of the spanning tree whose removal
             leads to the formation of clusters (connected components).
 
@@ -139,7 +139,7 @@ cpdef dict lumbermark_from_mst(
         raise ValueError("incorrect n_clusters")
 
     cdef np.ndarray[Py_ssize_t] labels_
-    cdef np.ndarray[Py_ssize_t] links_
+    cdef np.ndarray[Py_ssize_t] cut_edges_
     cdef np.ndarray[bool] is_unreachable_
     cdef Py_ssize_t n_clusters_
 
@@ -155,8 +155,8 @@ cpdef dict lumbermark_from_mst(
     elif n_clusters_ != n_clusters:
         warnings.warn("the number of clusters detected does not match the requested one")
 
-    links_ = np.empty(n_clusters_-1, dtype=np.intp)
-    l.get_links(&links_[0])
+    cut_edges_ = np.empty(n_clusters_-1, dtype=np.intp)
+    l.get_cut_edges(&cut_edges_[0])
 
     labels_ = np.empty(n, dtype=np.intp)
     l.get_labels(&labels_[0])
@@ -168,6 +168,6 @@ cpdef dict lumbermark_from_mst(
         labels=labels_,
         n_clusters=n_clusters_,
         iters=None,
-        links=links_,
+        cut_edges=cut_edges_,
         is_unreachable=is_unreachable_
     )

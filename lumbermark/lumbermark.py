@@ -273,7 +273,7 @@ class Lumbermark(genieclust.MSTClusterMixin):
         )
 
         self.labels_     = res["labels"]
-        self._links_     = res["links"]
+        self._cut_edges_ = res["cut_edges"]
         self._iters_     = res["iters"]
 
         if res["n_clusters"] != cur_state["n_clusters"]:

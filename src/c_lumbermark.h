@@ -436,12 +436,12 @@ public:
     }
 
 
-    /*! Get the cut edges of the spanning tree that lead to n_clusters
-     *  connected components.
+    /*! Get the indexes of the cut edges of the spanning tree that lead
+     *  to n_clusters connected components.
      *
      *  @param res [out] array of length n_clusters-1
      */
-    void get_links(Py_ssize_t* res)
+    void get_cut_edges(Py_ssize_t* res)
     {
         for (size_t i=0; i<cut_edges.size(); ++i)
             res[i] = cut_edges[i];
