@@ -14,6 +14,8 @@ pytest/__pycache__
 *.Rmd-tmp-*
 src/*.o
 src/*.so
+src/py_*.cpp
+src/py_*.c
 cache-*
 coverage.xml
 .coverage
