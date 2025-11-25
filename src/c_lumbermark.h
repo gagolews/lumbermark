@@ -33,9 +33,11 @@
 /*! Compute the degree of each vertex in an undirected graph
  *  over a vertex set {0,...,n-1}.
  *
+ *  NOTE: We have the same function in genieclust+lumbermark
+ *
  * @param ind c_contiguous matrix of size m*2,
  *     where {ind[i,0], ind[i,1]} is the i-th edge with ind[i,j] < n.
- *     Edges with ind[i,0] < 0 or ind[i,1] < 0 are purposely ignored.
+ *     Edges with ind[i,0] < 0 or ind[i,1] < 0 are purposely ignored
  * @param m number of edges (rows in ind)
  * @param n number of vertices
  * @param deg [out] array of size n, where
@@ -75,9 +77,11 @@ void Cget_graph_node_degrees(
 /*! Compute the incidence list of each vertex in an undirected graph
  *  over a vertex set {0,...,n-1}.
  *
+ *  NOTE: We have the same function in genieclust+lumbermark
+ *
  * @param ind c_contiguous matrix of size m*2,
  *     where {ind[i,0], ind[i,1]} is the i-th edge with ind[i,j] < n.
- *     Edges with ind[i,0] < 0 or ind[i,1] < 0 are purposely ignored.
+ *     Edges with ind[i,0] < 0 or ind[i,1] < 0 are purposely ignored
  * @param m number of edges (rows in ind)
  * @param n number of vertices
  * @param deg array of size n, where deg[i] gives the degree of the i-th vertex
