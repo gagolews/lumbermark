@@ -142,7 +142,7 @@ void Cget_graph_node_inclists(
 
 /*!  Lumbermark: A Robust Divisive Clustering Algorithm based on Spanning Trees
  *
- *   Detects a specific number of clusters.
+ *   Splits a tree into a given number of connected components.
  *   Unreachable vertices are treated as outliers/noise points.
  *
  *
@@ -151,11 +151,11 @@ void Cget_graph_node_inclists(
  *
  *   Gagolewski, M., TODO, 2025
  */
-template <class floatT>
+template <class FLOAT>
 class CLumbermark {
 protected:
 
-    const floatT* mst_d;  //<! m edge weights, sorted increasingly
+    const FLOAT* mst_d;  //<! m edge weights, sorted increasingly
 
     /*! m edges of the spanning tree given by c_contiguous m*2 indices;
      ** (-1, -1) denotes a no-edge and will be ignored;
@@ -274,7 +274,7 @@ protected:
 public:
     CLumbermark() : CLumbermark(NULL, NULL, 0, false) { }
 
-    CLumbermark(const floatT* mst_d, const Py_ssize_t* mst_i, Py_ssize_t m, Py_ssize_t n) :
+    CLumbermark(const FLOAT* mst_d, const Py_ssize_t* mst_i, Py_ssize_t m, Py_ssize_t n) :
         mst_d(mst_d), mst_i(mst_i), m(m), n(n)
     {
         if (n == 0) return;
@@ -308,14 +308,14 @@ public:
     /*! Run the Lumbermark algorithm
      *
      * @param n_clusters number of clusters to find
-     * @param min_cluster_size Minimal cluster size
-     * @param min_cluster_factor Output cluster sizes won't be smaller than
+     * @param min_cluster_size minimal cluster size
+     * @param min_cluster_factor output cluster sizes won't be smaller than
      *    min_cluster_factor/n_clusters*n_points (noise points excluding)
      *
      * @return number of clusters detected (can be smaller than the requested one)
      */
     Py_ssize_t compute(
-        Py_ssize_t n_clusters, Py_ssize_t min_cluster_size, floatT min_cluster_factor
+        Py_ssize_t n_clusters, Py_ssize_t min_cluster_size, FLOAT min_cluster_factor
     ) {
         LUMBERMARK_ASSERT(n > 2);
 

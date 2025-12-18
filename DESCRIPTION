@@ -2,7 +2,7 @@ Package: lumbermark
 Type: Package
 Title: Lumbermark: Fast and Robust Clustering with Noise Point Detection
 Version: 0.9.0
-Date: 2025-11-24
+Date: 2025-12-17
 Authors@R:
     person("Marek", "Gagolewski",
         role = c("aut", "cre", "cph"),
@@ -25,5 +25,5 @@ Suggests:
     datasets,
 LinkingTo: Rcpp
 Encoding: UTF-8
-SystemRequirements: OpenMP, C++17
+SystemRequirements: OpenMP
 RoxygenNote: 7.3.2
