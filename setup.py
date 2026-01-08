@@ -123,7 +123,7 @@ with open("lumbermark/__init__.py", "r", encoding="utf8") as fh:
 setuptools.setup(
     name="lumbermark",
     version=__version__,
-    description="lumbermark: Fast and Robust Clustering with Noise Point Detection",
+    description="Lumbermark: Fast and Robust Clustering with Noise Point Detection",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Marek Gagolewski",

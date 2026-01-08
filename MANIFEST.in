@@ -7,7 +7,7 @@ include src/knn_*.cpp
 include src/mst_*.cpp
 include *.in
 include *.txt
-include lumbermark/__init__.py
+include lumbermark/*.py
 exclude src/Rcpp*
 exclude src/.clangd
 exclude src/Makevars*
