@@ -12,7 +12,7 @@ Internal functions and classes
 
 # ############################################################################ #
 #                                                                              #
-#   Copyleft (C) 2025-2025, Marek Gagolewski <https://www.gagolewski.com>      #
+#   Copyleft (C) 2025-2026, Marek Gagolewski <https://www.gagolewski.com>      #
 #                                                                              #
 #                                                                              #
 #   This program is free software: you can redistribute it and/or modify       #
@@ -161,8 +161,8 @@ cpdef dict lumbermark_from_mst(
     labels_ = np.empty(n, dtype=np.intp)
     l.get_labels(&labels_[0])
 
-    is_unreachable_ = np.empty(n, dtype=np.bool)
-    l.get_is_unreachable(&is_unreachable_[0])
+    is_unreachable_ = np.empty(n, dtype=np.bool)  # TODO: do we need this?
+    l.get_is_unreachable(&is_unreachable_[0])  # label == -1 == unreachable
 
     return dict(
         labels=labels_,

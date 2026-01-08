@@ -6,21 +6,15 @@
 ![lumbermark for Python](https://github.com/gagolews/lumbermark/workflows/lumbermark%20for%20Python/badge.svg)
 ![lumbermark for R](https://github.com/gagolews/lumbermark/workflows/lumbermark%20for%20R/badge.svg)
 
-**Keywords**: Lumbermark, clustering, outlier detection, HDBSCAN\*, DBSCAN,
-Genie, MST, mutual reachability distance.
+**Keywords**: Lumbermark, clustering, Genie, HDBSCAN\*, DBSCAN,
+minimum spanning tree, MST, density estimation, mutual reachability distance.
 
 > **this package is a work in progress**
-
-
 
 Refer to the package **homepage** at <https://lumbermark.gagolewski.com/>
 for the reference manual, tutorials, examples, and benchmarks.
 
 **Author and Maintainer**: [Marek Gagolewski](https://www.gagolewski.com/)
-
-
-
-
 
 
 ## How to Install
@@ -37,8 +31,6 @@ pip3 install lumbermark  # python3 -m pip install lumbermark
 [Minimalist Data Wrangling in Python](https://datawranglingpy.gagolewski.com/).
 
 
-
-
 ### R Version
 
 To install from [CRAN](https://CRAN.R-project.org/package=lumbermark), call:
@@ -51,9 +43,6 @@ install.packages("lumbermark")
 [Deep R Programming](https://deepr.gagolewski.com/).
 
 
-
-
-
 ### Other
 
 The core functionality is implemented in the form of a C++ library.
@@ -62,20 +51,9 @@ It can thus be easily adapted for use in other projects.
 New contributions are welcome, e.g., Julia, Matlab/GNU Octave wrappers.
 
 
-
-### Other
-
-The core functionality is implemented in the form of a header-only
-C++ library. It can thus be easily adapted for use in other projects.
-
-New contributions are welcome, e.g., Julia, Matlab/GNU Octave wrappers.
-
-
-
-
 ## License
 
-Copyright (C) 2025–2025 Marek Gagolewski <https://www.gagolewski.com/>
+Copyright (C) 2025–2026 Marek Gagolewski <https://www.gagolewski.com/>
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the GNU Affero General Public License Version 3, 19

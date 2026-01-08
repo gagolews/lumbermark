@@ -1,7 +1,7 @@
 /*  Lumbermark: A Robust Divisive Clustering Algorithm based on Spanning Trees
  *
  *
- *  Copyleft (C) 2025-2025, Marek Gagolewski <https://www.gagolewski.com>
+ *  Copyleft (C) 2025-2026, Marek Gagolewski <https://www.gagolewski.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License
@@ -158,7 +158,7 @@ protected:
     const FLOAT* mst_d;  //<! m edge weights, sorted increasingly
 
     /*! m edges of the spanning tree given by c_contiguous m*2 indices;
-     ** (-1, -1) denotes a no-edge and will be ignored;
+     (-1, -1) denotes a no-edge and will be ignored;
      normally, m=n-1, but the tree does not have to span all the vertices;
      the unreachable nodes are treated as outliers
      */
@@ -345,21 +345,8 @@ public:
                 e_last--;
                 if (e_last < 0) {
                     cut_edges.resize(n_clusters_-1);
-                    return n_clusters_; // unfortunately, that's it.
+                    return n_clusters_;  // unfortunately, that's it.
                 }
-
-                // if (mst_labels[e_last] > 0)
-                //     GENIECLUST_PRINT("%3d: label=%3d cutsize=%3d clustsize=%3d\n",
-                //        e_last,
-                //        mst_labels[e_last],
-                //        mst_cutsizes[e_last],
-                //        cluster_sizes[mst_labels[e_last]]);
-                // else
-                //     GENIECLUST_PRINT("%3d\n", e_last);
-
-                // NOTE: we could be taking into account the fact that a node
-                // incident to a cut edge might become a leaf (size adjustment),
-                // but it's too much of a hassle; the benefits are questionable
             } while (!(
                 mst_labels[e_last] > 0 &&
                 std::min(
