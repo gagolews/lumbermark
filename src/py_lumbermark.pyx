@@ -81,10 +81,10 @@ cpdef dict lumbermark_from_mst(
     ):
     """The Lumbermark Clustering Algorithm
 
-    Determines a dataset's partition based on a precomputed MST.
+    Determines a dataset's partition based on a precomputed spanning tree.
 
     TODO: citation
-    Gagolewski, M., TODO, 2025
+    Gagolewski, M., TODO, 2026
 
 
 
@@ -92,18 +92,22 @@ cpdef dict lumbermark_from_mst(
     ----------
 
     mst_d, mst_i : ndarray
-        A spanning tree defined by a pair (mst_i, mst_d);
-        see genieclust.mst.  Actually, not all points must be reachable;
+        a spanning tree defined by a pair (mst_i, mst_d);
+        see ``quitefastmst.mst_euclid``.  Actually, not all points must be reachable;
         in such a case, they are treated as outliers.
+
     n : int
-        Number of points in the dataset.
+        the number of points in the dataset
+
     n_clusters : int
-        Number of clusters the dataset is split into.
+        the number of clusters requested
+
     min_cluster_size : int
         Minimal cluster size.
+
     min_cluster_factor : float
         Output cluster sizes won't be smaller than
-        min_cluster_factor/n_clusters*n_points (excluding outliers)
+        `min_cluster_factor/n_clusters*n_points` (excluding outliers)
 
 
     Returns
@@ -111,29 +115,25 @@ cpdef dict lumbermark_from_mst(
 
     res : dict, with the following elements:
         labels : ndarray, shape (n,)
-
-            labels[i] gives the cluster id of the i-th input point;
-            a number between 0 and n_clusters-1.
+            ``labels[i]`` gives the cluster ID of the `i`-th input point;
+            a number between `0` and `n_clusters-1`
 
         n_clusters : integer
-            actual number of clusters found, 0 if labels is None.
+            actual number of clusters found, 0 if ``labels`` is ``None``
 
         iters : None
-            unused.
+            unused
 
         cut_edges : ndarray, shape (n_clusters-1, )
-            cut edges (indexes) of the spanning tree whose removal
-            leads to the formation of clusters (connected components).
-
-        is_unreachable : ndarray, shape (n,)
-            is_unreachable[i] is True if the i-th point is unreachable.
+            indexes of the cut edges of the spanning tree; their removal
+            leads to the formation of clusters (connected components)
 
 
     """
     cdef Py_ssize_t m = mst_i.shape[0]
 
     if not m == mst_d.shape[0] or m > n-1:
-        raise ValueError("ill-defined MST")
+        raise ValueError("ill-defined spanning tree")
 
     if not 1 <= n_clusters <= n:
         raise ValueError("incorrect n_clusters")
@@ -161,13 +161,13 @@ cpdef dict lumbermark_from_mst(
     labels_ = np.empty(n, dtype=np.intp)
     l.get_labels(&labels_[0])
 
-    is_unreachable_ = np.empty(n, dtype=np.bool)  # TODO: do we need this?
-    l.get_is_unreachable(&is_unreachable_[0])  # label == -1 == unreachable
+    #is_unreachable_ = np.empty(n, dtype=np.bool)
+    #l.get_is_unreachable(&is_unreachable_[0])  # label == -1 == unreachable
 
     return dict(
         labels=labels_,
         n_clusters=n_clusters_,
         iters=None,
-        cut_edges=cut_edges_,
-        is_unreachable=is_unreachable_
+        cut_edges=cut_edges_
+        #is_unreachable=is_unreachable_
     )

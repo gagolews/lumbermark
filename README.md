@@ -1,12 +1,12 @@
 <a href="https://lumbermark.gagolewski.com/"><img src="https://www.gagolewski.com/_static/img/lumbermark.png" align="right" height="128" width="128" /></a>
 # [**lumbermark**](https://lumbermark.gagolewski.com/) Package for R and Python
 
-### *Lumbermark*: Fast and Robust Clustering with Noise Point Detection
+### *Lumbermark*: Fast and Robust Clustering with Outlier Detection
 
 ![lumbermark for Python](https://github.com/gagolews/lumbermark/workflows/lumbermark%20for%20Python/badge.svg)
 ![lumbermark for R](https://github.com/gagolews/lumbermark/workflows/lumbermark%20for%20R/badge.svg)
 
-**Keywords**: Lumbermark, clustering, Genie, HDBSCAN\*, DBSCAN,
+**Keywords**: Lumbermark, clustering, Genie, HDBSCAN\*, DBSCAN, outliers,
 minimum spanning tree, MST, density estimation, mutual reachability distance.
 
 > **this package is a work in progress**
