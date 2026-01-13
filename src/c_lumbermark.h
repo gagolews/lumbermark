@@ -149,7 +149,7 @@ void Cget_graph_node_inclists(
  *   References
  *   ==========
  *
- *   Gagolewski, M., TODO, 2025
+ *   Gagolewski, M., TODO, 2026
  */
 template <class FLOAT>
 class CLumbermark {
@@ -177,7 +177,7 @@ protected:
     // auxiliary data for generating clustering results:
     std::vector<Py_ssize_t> mst_labels;  //<! edge labels, size m
     std::vector<Py_ssize_t> labels;  //<! node labels, size n, in 1..n_clusters and -1..-n_clusters (outliers/noise points)
-    std::vector<Py_ssize_t> mst_cutsizes;  //<!  size m*2, each pair gives the sizes of the clusters that are formed when we cut out the corresponding edge
+    std::vector<Py_ssize_t> mst_cutsizes;  //<!  size m, each pair gives the sizes of the clusters that are formed when we cut out the corresponding edge
 
     std::vector<Py_ssize_t> cluster_sizes; //<!  size n_clusters+1
     std::vector<Py_ssize_t> cut_edges; //<!  size n_clusters-1

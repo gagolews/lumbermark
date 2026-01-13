@@ -26,14 +26,14 @@ import math
 import numpy as np
 from . import internal
 import warnings
-import genieclust
+import deadwood
 
 ###############################################################################
 ###############################################################################
 ###############################################################################
 
 
-class Lumbermark(genieclust.MSTClusterMixin):
+class Lumbermark(deadwood.MSTClusterMixin):
     """
     Lumbermark: TODO DESCRIBE
 
@@ -66,16 +66,6 @@ class Lumbermark(genieclust.MSTClusterMixin):
         The metric used to compute the linkage; see
         :any:`genieclust.MSTClusterMixin` for more details.
         Defaults to ``"l2"``, i.e., the Euclidean distance.
-
-    preprocess : TODO
-        TODO
-
-    postprocess : {``"none"``, ``"all"``}
-        Controls the treatment of noise/boundary points once the clusters are
-        identified.
-
-        ``"none"`` leaves noise points as-is.
-        ``"all"`` merges them with the nearest clusters.
 
     quitefastmst_params : dict
         Additional parameters to be passed to ``quitefastmst.mst_euclid``
@@ -130,10 +120,7 @@ class Lumbermark(genieclust.MSTClusterMixin):
     HDBSCAN\\* [2]_ algorithm that, contrary to its predecessor, is able to
     detect a *predefined* number of clusters.
 
-    Note that *M = 2* corresponds to the original distance.
-    If *M > 1*, all MST leaves are left out from the clustering process.
-    They may be merged with the nearest clusters at the postprocessing stage,
-    or left marked as "noise" observations.
+    Note that *M = 1* corresponds to the original distance.
 
 
     :Environment variables:
@@ -169,8 +156,8 @@ class Lumbermark(genieclust.MSTClusterMixin):
             min_cluster_factor=0.15,
             M=0,
             metric="l2",
-            preprocess="auto",  # TODO
-            postprocess="none", # TODO
+            #preprocess="auto",  # TODO
+            #postprocess="none", # TODO
             quitefastmst_params=dict(mutreach_ties="dcore_min", mutreach_leaves="reconnect_dcore_min"),
             verbose=False
         ):
@@ -202,16 +189,6 @@ class Lumbermark(genieclust.MSTClusterMixin):
         cur_state["min_cluster_size"] = int(self.min_cluster_size)
         if cur_state["min_cluster_size"] < 1:
             raise ValueError("`min_cluster_size` must be >= 1.")
-
-        _preprocess_options = ("auto", "none", "leaves")  # TODO
-        cur_state["preprocess"] = str(self.preprocess).lower()
-        if cur_state["preprocess"] not in _preprocess_options:
-            raise ValueError("`preprocess` should be one of %s" % repr(_preprocess_options))
-
-        _postprocess_options = ("none", "all")  # TODO
-        cur_state["postprocess"] = str(self.postprocess).lower()
-        if cur_state["postprocess"] not in _postprocess_options:
-            raise ValueError("`postprocess` should be one of %s" % repr(_postprocess_options))
 
         return cur_state
 
@@ -253,12 +230,6 @@ class Lumbermark(genieclust.MSTClusterMixin):
         if cur_state["n_clusters"] >= self.n_samples_:
             raise ValueError("n_clusters must be < n_samples_")
 
-        if cur_state["preprocess"] == "auto":
-            if cur_state["M"] > 0:
-                cur_state["preprocess"] = "leaves"
-            else:
-                cur_state["preprocess"] = "none"
-
         if cur_state["verbose"]:
             print("[lumbermark] Determining clusters with Lumbermark.", file=sys.stderr)
 
@@ -283,10 +254,9 @@ class Lumbermark(genieclust.MSTClusterMixin):
                             cur_state["n_clusters"]))
         self.n_clusters_ = res["n_clusters"]
 
-        if cur_state["postprocess"] == "none" and cur_state["preprocess"] == "leaves":
-            res["labels"][res["is_noise"]] = -1
-
-        # TODO: postprocess midliers????
+        # if cur_state["postprocess"] == "none" and cur_state["preprocess"] == "leaves":
+        #     res["labels"][res["is_noise"]] = -1
+        # # TODO: postprocess midliers????
 
         if cur_state["verbose"]:
             print("[lumbermark] Done.", file=sys.stderr)
