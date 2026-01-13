@@ -70,7 +70,6 @@ cdef extern from "../src/c_lumbermark.h":
         void get_is_unreachable(bint* res)
 
 
-
 cpdef dict lumbermark_from_mst(
         floatT[::1] mst_d,
         Py_ssize_t[:,::1] mst_i,

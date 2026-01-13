@@ -24,7 +24,7 @@ import os
 import sys
 import math
 import numpy as np
-from . import internal
+from . import core
 import warnings
 import deadwood
 
@@ -234,7 +234,7 @@ class Lumbermark(deadwood.MSTClusterMixin):
             print("[lumbermark] Determining clusters with Lumbermark.", file=sys.stderr)
 
         # apply the Lumbermark algorithm:
-        res = internal.lumbermark_from_mst(
+        res = core.lumbermark_from_mst(
             self._tree_w,
             self._tree_e,
             n_clusters=cur_state["n_clusters"],

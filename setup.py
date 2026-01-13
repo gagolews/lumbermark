@@ -33,7 +33,7 @@ import re
 
 
 cython_modules = {
-    "lumbermark.internal": [
+    "lumbermark.core": [
         os.path.join("src", "py_lumbermark.pyx"),
     ],
 }
