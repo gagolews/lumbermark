@@ -92,8 +92,8 @@ cpdef dict lumbermark_from_mst(
 
     mst_d, mst_i : ndarray
         a spanning tree defined by a pair (mst_i, mst_d);
-        see ``quitefastmst.mst_euclid``.  Actually, not all points must be reachable;
-        in such a case, they are treated as outliers.
+        see ``quitefastmst.mst_euclid``.  Actually, not all points
+        must be reachable; in such a case, they are treated as outliers.
 
     n : int
         the number of points in the dataset

@@ -28,12 +28,13 @@ from . import core
 import warnings
 import deadwood
 
+
 ###############################################################################
 ###############################################################################
 ###############################################################################
 
 
-class Lumbermark(deadwood.MSTClusterMixin):
+class Lumbermark(deadwood.MSTClusterer):
     """
     Lumbermark: TODO DESCRIBE
 
@@ -174,23 +175,18 @@ class Lumbermark(deadwood.MSTClusterMixin):
 
         self.min_cluster_size      = min_cluster_size
         self.min_cluster_factor    = min_cluster_factor
-        self.preprocess            = preprocess
-        self.postprocess           = postprocess
-        self._check_params()
 
 
-    def _check_params(self, cur_state=None):
-        cur_state = super()._check_params(cur_state)
+    def _check_params(self):
+        super()._check_params()
 
-        cur_state["min_cluster_factor"] = float(self.min_cluster_factor)
-        if not (0.0 <= cur_state["min_cluster_factor"] <= 1.0):
-            raise ValueError("`min_cluster_factor` not in [0,1].")
+        self.min_cluster_factor = float(self.min_cluster_factor)
+        if not (0.0 <= self.min_cluster_factor <= 1.0):
+            raise ValueError("min_cluster_factor must be in [0,1].")
 
-        cur_state["min_cluster_size"] = int(self.min_cluster_size)
-        if cur_state["min_cluster_size"] < 1:
-            raise ValueError("`min_cluster_size` must be >= 1.")
-
-        return cur_state
+        self.min_cluster_size = int(self.min_cluster_size)
+        if self.min_cluster_size < 1:
+            raise ValueError("min_cluster_size must be >= 1.")
 
 
     def fit(self, X, y=None):
@@ -223,42 +219,45 @@ class Lumbermark(deadwood.MSTClusterMixin):
         Refer to the `labels_` and `n_clusters_` attributes for the result.
 
         """
-        cur_state = self._check_params()  # re-check, they might have changed
+        self.labels_     = None
+        self.n_clusters_ = None
+        self._iters_     = None
+        self._cut_edges_ = None
 
-        cur_state = self._get_mst(X, cur_state)
+        self._check_params()  # re-check, they might have changed
+        self._get_mst(X)  # sets n_samples_, n_features, _tree_w, _tree_i, _d_core, etc.
 
-        if cur_state["n_clusters"] >= self.n_samples_:
-            raise ValueError("n_clusters must be < n_samples_")
+        if not (1 <= self.n_clusters < self.n_samples_):
+            raise ValueError("n_clusters must be between 1 and n_samples_-1")
 
-        if cur_state["verbose"]:
+        if self.verbose:
             print("[lumbermark] Determining clusters with Lumbermark.", file=sys.stderr)
+
+
+        # TODO: degrees and inclists......
 
         # apply the Lumbermark algorithm:
         res = core.lumbermark_from_mst(
             self._tree_w,
-            self._tree_e,
-            n_clusters=cur_state["n_clusters"],
-            min_cluster_size=cur_state["min_cluster_size"],
-            min_cluster_factor=cur_state["min_cluster_factor"],
-            skip_leaves=(cur_state["preprocess"] == "leaves")
+            self._tree_i,
+            n=self.n_samples_,
+            n_clusters=self.n_clusters,
+            min_cluster_size=self.min_cluster_size,
+            min_cluster_factor=self.min_cluster_factor
         )
 
         self.labels_     = res["labels"]
+        self.n_clusters_ = res["n_clusters"]
         self._cut_edges_ = res["cut_edges"]
         self._iters_     = res["iters"]
 
-        if res["n_clusters"] != cur_state["n_clusters"]:
+        if self.n_clusters_ != self.n_clusters:
             warnings.warn("The number of clusters detected (%d) is "
                           "different from the requested one (%d)." % (
-                            res["n_clusters"],
-                            cur_state["n_clusters"]))
-        self.n_clusters_ = res["n_clusters"]
+                            self.n_clusters_,
+                            self.n_clusters))
 
-        # if cur_state["postprocess"] == "none" and cur_state["preprocess"] == "leaves":
-        #     res["labels"][res["is_noise"]] = -1
-        # # TODO: postprocess midliers????
-
-        if cur_state["verbose"]:
+        if self.verbose:
             print("[lumbermark] Done.", file=sys.stderr)
 
         return self
