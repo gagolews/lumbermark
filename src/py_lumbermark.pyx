@@ -83,7 +83,7 @@ cpdef dict lumbermark_from_mst(
     Determines a dataset's partition based on a precomputed spanning tree.
 
     TODO: citation
-    Gagolewski, M., TODO, 2026
+    M. Gagolewski, *Lumbermark*, in preparation, 2026, TODO
 
 
 
@@ -141,6 +141,8 @@ cpdef dict lumbermark_from_mst(
     cdef np.ndarray[Py_ssize_t] cut_edges_
     cdef np.ndarray[bool] is_unreachable_
     cdef Py_ssize_t n_clusters_
+
+    # TODO: inclists
 
     cdef CLumbermark[floatT] l
     l = CLumbermark[floatT](&mst_d[0], &mst_i[0,0], m, n)

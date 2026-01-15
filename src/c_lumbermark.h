@@ -149,7 +149,7 @@ void Cget_graph_node_inclists(
  *   References
  *   ==========
  *
- *   Gagolewski, M., TODO, 2026
+ *   M. Gagolewski, *Lumbermark*, in preparation, 2026, TODO
  */
 template <class FLOAT>
 class CLumbermark {

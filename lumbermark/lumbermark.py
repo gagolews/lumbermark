@@ -94,10 +94,8 @@ class Lumbermark(deadwood.MSTClusterer):
     n_samples_ : int
         The number of points in the dataset.
 
-    n_features_ : int
+    n_features_ : int or None
         The number of features in the dataset.
-
-        If the information is not available, it will be set to ``-1``.
 
 
     Notes
@@ -134,31 +132,28 @@ class Lumbermark(deadwood.MSTClusterer):
     ----------
 
     .. [1]
-        TODO
+        M. Gagolewski, *Lumbermark*, in preparation, 2026, TODO
 
     .. [2]
-        Campello, R.J.G.B., Moulavi, D., Sander, J.,
+        R.J.G.B. Campello, D. Moulavi, J. Sander,
         Density-based clustering based on hierarchical density estimates,
         *Lecture Notes in Computer Science* 7819, 2013, 160-172,
-        DOI:10.1007/978-3-642-37456-2_14.
+        https://doi.org/10.1007/978-3-642-37456-2_14
 
     .. [3]
-        Gagolewski, M., Cena, A., Bartoszuk, M., Brzozowski, L.,
+        M. Gagolewski, A. Cena, M. Bartoszuk, Ł. Brzozowski,
         Clustering with minimum spanning trees: How good can it be?,
         *Journal of Classification* 42, 2025, 90-112,
-        DOI:10.1007/s00357-024-09483-1.
-
+        https://doi.org/10.1007/s00357-024-09483-1
     """
     def __init__(
             self,
-            *,
             n_clusters=2,
+            *,
             min_cluster_size=10,
             min_cluster_factor=0.15,
             M=0,
             metric="l2",
-            #preprocess="auto",  # TODO
-            #postprocess="none", # TODO
             quitefastmst_params=dict(mutreach_ties="dcore_min", mutreach_leaves="reconnect_dcore_min"),
             verbose=False
         ):
@@ -167,8 +162,6 @@ class Lumbermark(deadwood.MSTClusterer):
             n_clusters=n_clusters,
             M=M,
             metric=metric,
-            #preprocess=preprocess,
-            #postprocess=postprocess,
             quitefastmst_params=quitefastmst_params,
             verbose=verbose
         )
@@ -198,9 +191,9 @@ class Lumbermark(deadwood.MSTClusterer):
         ----------
 
         X : object
-            Typically a matrix with ``n_samples`` rows and ``n_features``
-            columns; see :any:`genieclust.MSTClusterMixin.fit_predict` for more
-            details.
+            Typically a matrix or a data frame with ``n_samples`` rows
+            and ``n_features`` columns;
+            see :any:`deadwood.MSTBase.fit_predict` for more details.
 
         y : None
             Ignored.
@@ -225,7 +218,7 @@ class Lumbermark(deadwood.MSTClusterer):
         self._cut_edges_ = None
 
         self._check_params()  # re-check, they might have changed
-        self._get_mst(X)  # sets n_samples_, n_features, _tree_w, _tree_i, _d_core, etc.
+        self._get_mst(X)  # sets n_samples_, n_features_, _tree_w, _tree_i, _d_core, etc.
 
         if not (1 <= self.n_clusters < self.n_samples_):
             raise ValueError("n_clusters must be between 1 and n_samples_-1")
@@ -238,8 +231,8 @@ class Lumbermark(deadwood.MSTClusterer):
 
         # apply the Lumbermark algorithm:
         res = core.lumbermark_from_mst(
-            self._tree_w,
-            self._tree_i,
+            self._tree_w_,
+            self._tree_i_,
             n=self.n_samples_,
             n_clusters=self.n_clusters,
             min_cluster_size=self.min_cluster_size,
