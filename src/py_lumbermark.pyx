@@ -35,7 +35,7 @@ import numpy as np
 cimport numpy as np
 np.import_array()
 
-import warnings
+# import warnings
 #import os
 
 #from libcpp.vector cimport vector
@@ -59,24 +59,33 @@ ctypedef fused floatT:
 
 cdef extern from "../src/c_lumbermark.h":
     cdef cppclass CLumbermark[T]:
+
         CLumbermark() except +
-        CLumbermark(T* mst_d, Py_ssize_t* mst_i, Py_ssize_t m, Py_ssize_t n) except +
+
+        CLumbermark(
+            T* mst_d, Py_ssize_t* mst_i, Py_ssize_t m, Py_ssize_t n,
+            const Py_ssize_t* cumdeg, const Py_ssize_t* inc
+        ) except +
+
         Py_ssize_t compute(
             Py_ssize_t n_clusters, Py_ssize_t min_cluster_size,
             T min_cluster_factor
         ) except +
+
         void get_labels(Py_ssize_t* res)
         void get_cut_edges(Py_ssize_t* res)
-        void get_is_unreachable(bint* res)
+        # void get_is_unreachable(bint* res)
 
 
 cpdef dict lumbermark_from_mst(
         floatT[::1] mst_d,
         Py_ssize_t[:,::1] mst_i,
+        Py_ssize_t[::1] mst_cumdeg,
+        Py_ssize_t[::1] mst_inc,
         Py_ssize_t n,
         Py_ssize_t n_clusters,
         Py_ssize_t min_cluster_size=10,
-        floatT min_cluster_factor=0.15
+        floatT min_cluster_factor=0.15,
     ):
     """The Lumbermark Clustering Algorithm
 
@@ -86,14 +95,18 @@ cpdef dict lumbermark_from_mst(
     M. Gagolewski, *Lumbermark*, in preparation, 2026, TODO
 
 
-
     Parameters
     ----------
 
     mst_d, mst_i : ndarray
-        a spanning tree defined by a pair (mst_i, mst_d);
-        see ``quitefastmst.mst_euclid``.  Actually, not all points
-        must be reachable; in such a case, they are treated as outliers.
+        a spanning tree with m==n-1 edges defined by a pair
+        (mst_i, mst_d); see ``quitefastmst.mst_euclid``
+
+    mst_cumdeg : ndarray, length n+1
+        see `deadwood.graph_vertex_incidences`
+
+    mst_inc : ndarray, length 2*m
+        see `deadwood.graph_vertex_incidences`
 
     n : int
         the number of points in the dataset
@@ -107,7 +120,6 @@ cpdef dict lumbermark_from_mst(
     min_cluster_factor : float
         Output cluster sizes won't be smaller than
         `min_cluster_factor/n_clusters*n_points` (excluding outliers)
-
 
     Returns
     -------
@@ -131,8 +143,14 @@ cpdef dict lumbermark_from_mst(
     """
     cdef Py_ssize_t m = mst_i.shape[0]
 
-    if not m == mst_d.shape[0] or m > n-1:
+    if not m == mst_d.shape[0] or m != n-1 or mst_i.shape[1] != 2:
         raise ValueError("ill-defined spanning tree")
+
+    if mst_cumdeg.shape[0] != n+1:
+        raise ValueError("mst_inc should be of length n+1")
+
+    if mst_inc.shape[0] != 2*m:
+        raise ValueError("mst_inc should be of length 2*m")
 
     if not 1 <= n_clusters <= n:
         raise ValueError("incorrect n_clusters")
@@ -142,33 +160,32 @@ cpdef dict lumbermark_from_mst(
     cdef np.ndarray[bool] is_unreachable_
     cdef Py_ssize_t n_clusters_
 
-    # TODO: inclists
+    cdef CLumbermark[floatT] lm
+    lm = CLumbermark[floatT](
+        &mst_d[0], &mst_i[0,0], m, n, &mst_cumdeg[0], &mst_inc[0]
+    )
 
-    cdef CLumbermark[floatT] l
-    l = CLumbermark[floatT](&mst_d[0], &mst_i[0,0], m, n)
-
-    n_clusters_ = l.compute(
+    n_clusters_ = lm.compute(
         n_clusters, min_cluster_size, min_cluster_factor
     )
 
     if n_clusters_ <= 0:
         raise RuntimeError("no clusters detected")
-    elif n_clusters_ != n_clusters:
-        warnings.warn("the number of clusters detected does not match the requested one")
+    # elif n_clusters_ != n_clusters:
+    #     warnings.warn("the number of clusters detected does not match the requested one")
 
     cut_edges_ = np.empty(n_clusters_-1, dtype=np.intp)
-    l.get_cut_edges(&cut_edges_[0])
+    lm.get_cut_edges(&cut_edges_[0])
 
     labels_ = np.empty(n, dtype=np.intp)
-    l.get_labels(&labels_[0])
+    lm.get_labels(&labels_[0])
 
     #is_unreachable_ = np.empty(n, dtype=np.bool)
-    #l.get_is_unreachable(&is_unreachable_[0])  # label == -1 == unreachable
+    #lm.get_is_unreachable(&is_unreachable_[0])  # label == -1 == unreachable
 
     return dict(
         labels=labels_,
         n_clusters=n_clusters_,
-        iters=None,
         cut_edges=cut_edges_
         #is_unreachable=is_unreachable_
     )

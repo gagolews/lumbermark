@@ -45,17 +45,12 @@ class Lumbermark(deadwood.MSTClusterer):
     n_clusters : int
         The number of clusters to detect.
 
-        TODO If *M > 1* and *postprocess* is not ``"all"``, setting
-        *n_clusters = 1* makes the algorithm behave like a noise
-        point/outlier detector.
-
     min_cluster_size : int
         Minimal cluster size.
 
     min_cluster_factor : float in [0,1]
         Output cluster sizes will not be smaller than
-        ``min_cluster_factor*n_points/n_clusters``, where
-        *n_points* excludes noise and boundary points (TODO: confirm)
+        ``min_cluster_factor*n_points/n_clusters``
 
     M : int
         The smoothing factor for the mutual reachability distance [2]_.
@@ -184,7 +179,7 @@ class Lumbermark(deadwood.MSTClusterer):
 
     def fit(self, X, y=None):
         """
-        Perform cluster analysis of a dataset.
+        Performs a cluster analysis of a dataset.
 
 
         Parameters
@@ -214,8 +209,8 @@ class Lumbermark(deadwood.MSTClusterer):
         """
         self.labels_     = None
         self.n_clusters_ = None
-        self._iters_     = None
         self._cut_edges_ = None
+        #self._iters_     = None
 
         self._check_params()  # re-check, they might have changed
         self._get_mst(X)  # sets n_samples_, n_features_, _tree_w, _tree_i, _d_core, etc.
@@ -233,6 +228,8 @@ class Lumbermark(deadwood.MSTClusterer):
         res = core.lumbermark_from_mst(
             self._tree_w_,
             self._tree_i_,
+            self._tree_cumdeg_,
+            self._tree_inc_,
             n=self.n_samples_,
             n_clusters=self.n_clusters,
             min_cluster_size=self.min_cluster_size,
@@ -242,7 +239,7 @@ class Lumbermark(deadwood.MSTClusterer):
         self.labels_     = res["labels"]
         self.n_clusters_ = res["n_clusters"]
         self._cut_edges_ = res["cut_edges"]
-        self._iters_     = res["iters"]
+        #self._iters_     = res["iters"]
 
         if self.n_clusters_ != self.n_clusters:
             warnings.warn("The number of clusters detected (%d) is "

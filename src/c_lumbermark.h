@@ -30,120 +30,10 @@
 
 
 
-/*! Compute the degree of each vertex in an undirected graph
- *  over a vertex set {0,...,n-1}.
- *
- *  NOTE: We have the same function in genieclust+lumbermark
- *
- * @param ind c_contiguous matrix of size m*2,
- *     where {ind[i,0], ind[i,1]} is the i-th edge with ind[i,j] < n.
- *     Edges with ind[i,0] < 0 or ind[i,1] < 0 are purposely ignored
- * @param m number of edges (rows in ind)
- * @param n number of vertices
- * @param deg [out] array of size n, where
- *     deg[i] will give the degree of the i-th vertex.
- */
-void Cget_graph_node_degrees(
-    const Py_ssize_t* ind,
-    const Py_ssize_t m,
-    const Py_ssize_t n,
-    Py_ssize_t* deg /*out*/
-) {
-    for (Py_ssize_t i=0; i<n; ++i)
-        deg[i] = 0;
-
-    for (Py_ssize_t i=0; i<m; ++i) {
-        Py_ssize_t u = ind[2*i+0];
-        Py_ssize_t v = ind[2*i+1];
-
-        if (u < 0) {
-            LUMBERMARK_ASSERT(v < 0);
-            continue; // represents a no-edge -> ignore
-        }
-        LUMBERMARK_ASSERT(v >= 0);
-
-        if (u >= n || v >= n)
-            throw std::domain_error("All elements must be < n");
-        if (u == v)
-            throw std::domain_error("Self-loops are not allowed");
-
-        deg[u]++;
-        deg[v]++;
-    }
-}
-
-
-
-/*! Compute the incidence list of each vertex in an undirected graph
- *  over a vertex set {0,...,n-1}.
- *
- *  NOTE: We have the same function in genieclust+lumbermark
- *
- * @param ind c_contiguous matrix of size m*2,
- *     where {ind[i,0], ind[i,1]} is the i-th edge with ind[i,j] < n.
- *     Edges with ind[i,0] < 0 or ind[i,1] < 0 are purposely ignored
- * @param m number of edges (rows in ind)
- * @param n number of vertices
- * @param deg array of size n, where deg[i] gives the degree of the i-th vertex
- * @param data [out] a data buffer of length 2*m, provides data for adj
- * @param adj [out] an array of length n+1, where adj[i] will be an array
- *     of length deg[i] giving the edges incident on the i-th vertex;
- *     adj[n] is a sentinel element
- */
-void Cget_graph_node_inclists(
-    const Py_ssize_t* ind,
-    const Py_ssize_t m,
-    const Py_ssize_t n,
-    const Py_ssize_t* deg,
-    Py_ssize_t* data,
-    Py_ssize_t** inc
-) {
-    Py_ssize_t cumdeg = 0;
-    inc[0] = data;
-    for (Py_ssize_t i=0; i<n; ++i) {
-        inc[i+1] = data+cumdeg;
-        cumdeg += deg[i];
-    }
-
-    LUMBERMARK_ASSERT(cumdeg <= 2*m);
-
-    for (Py_ssize_t i=0; i<m; ++i) {
-        Py_ssize_t u = ind[2*i+0];
-        Py_ssize_t v = ind[2*i+1];
-        if (u < 0 || v < 0)
-            continue; // represents a no-edge -> ignore
-
-#ifdef DEBUG
-        if (u >= n || v >= n)
-            throw std::domain_error("All elements must be < n");
-        if (u == v)
-            throw std::domain_error("Self-loops are not allowed");
-#endif
-
-        *(inc[u+1]) = i;
-        ++(inc[u+1]);
-
-        *(inc[v+1]) = i;
-        ++(inc[v+1]);
-    }
-
-#ifdef DEBUG
-    cumdeg = 0;
-    inc[0] = data;
-    for (Py_ssize_t i=0; i<n; ++i) {
-        LUMBERMARK_ASSERT(inc[i] == data+cumdeg);
-        cumdeg += deg[i];
-    }
-#endif
-}
-
-
-
-
 /*!  Lumbermark: A Robust Divisive Clustering Algorithm based on Spanning Trees
  *
- *   Splits a tree into a given number of connected components.
- *   Unreachable vertices are treated as outliers/noise points.
+ *   Splits a spanning tree into a given number of
+ *   connected components.
  *
  *
  *   References
@@ -156,28 +46,18 @@ class CLumbermark {
 protected:
 
     const FLOAT* mst_d;  //<! m edge weights, sorted increasingly
-
-    /*! m edges of the spanning tree given by c_contiguous m*2 indices;
-     (-1, -1) denotes a no-edge and will be ignored;
-     normally, m=n-1, but the tree does not have to span all the vertices;
-     the unreachable nodes are treated as outliers
-     */
-    const Py_ssize_t* mst_i;
-
-
-    Py_ssize_t m;        //<! number of edges
+    const Py_ssize_t* mst_i;  //<! 2*m edge definitions
+    Py_ssize_t m;        //<! number of edges, must be n-1
     Py_ssize_t n;        //<! number of points
 
-    std::vector<Py_ssize_t> deg;  //<! deg[i] denotes the degree of the i-th vertex
-
-    std::vector<Py_ssize_t*> inc;  //<! inc[i] is a length-deg[i] array of edges incident on the i-th vertex; inc's length is n+1 (inc[n] is a sentinel element)
-    std::vector<Py_ssize_t> _incdata;  //<! the underlying data buffer for inc
+    const Py_ssize_t* cumdeg;  // nullable or length n+1; see Cgraph_vertex_incidences in 'deadwood'
+    const Py_ssize_t* inc;  // nullable or length 2*m; see Cgraph_vertex_incidences in 'deadwood'
 
 
     // auxiliary data for generating clustering results:
     std::vector<Py_ssize_t> mst_labels;  //<! edge labels, size m
     std::vector<Py_ssize_t> labels;  //<! node labels, size n, in 1..n_clusters and -1..-n_clusters (outliers/noise points)
-    std::vector<Py_ssize_t> mst_cutsizes;  //<!  size m, each pair gives the sizes of the clusters that are formed when we cut out the corresponding edge
+    std::vector<Py_ssize_t> mst_cutsizes;  //<! size m, each pair gives the sizes of the clusters that are formed when we cut out the corresponding edge
 
     std::vector<Py_ssize_t> cluster_sizes; //<!  size n_clusters+1
     std::vector<Py_ssize_t> cut_edges; //<!  size n_clusters-1
@@ -205,8 +85,8 @@ protected:
         mst_labels[e] = 1;
         tot++;
 
-        for (Py_ssize_t* e2 = inc[w]; e2 != inc[w+1]; e2++) {
-            if (*e2 != e) tot += visit1(w, *e2);
+        for (const Py_ssize_t* pe = inc+cumdeg[w]; pe != inc+cumdeg[w+1]; pe++) {
+            if (*pe != e) tot += visit1(w, *pe);
         }
 
         mst_cutsizes[e] = tot;
@@ -233,8 +113,8 @@ protected:
         mst_labels[e] = c;
         tot++;
 
-        for (Py_ssize_t* e2 = inc[w]; e2 != inc[w+1]; e2++) {
-            if (*e2 != e) tot += visitk(w, *e2, c);
+        for (const Py_ssize_t* pe = inc+cumdeg[w]; pe != inc+cumdeg[w+1]; pe++) {
+            if (*pe != e) tot += visitk(w, *pe, c);
         }
 
         mst_cutsizes[e] = tot;
@@ -260,8 +140,8 @@ protected:
         Py_ssize_t v = mst_i[2*0+0];
         Py_ssize_t tot = 1;
         labels[v] = 1;
-        for (Py_ssize_t* e2 = inc[v]; e2 != inc[v+1]; e2++) {
-            tot += visit1(v, *e2);
+        for (const Py_ssize_t* pe = inc+cumdeg[v]; pe != inc+cumdeg[v+1]; pe++) {
+            tot += visit1(v, *pe);
         }
         cluster_sizes[1] = tot;
 
@@ -272,36 +152,23 @@ protected:
 
 
 public:
-    CLumbermark() : CLumbermark(NULL, NULL, 0, false) { }
+    CLumbermark() : CLumbermark(nullptr, nullptr, 0, false, nullptr, nullptr) { }
 
-    CLumbermark(const FLOAT* mst_d, const Py_ssize_t* mst_i, Py_ssize_t m, Py_ssize_t n) :
-        mst_d(mst_d), mst_i(mst_i), m(m), n(n)
+    CLumbermark(
+        const FLOAT* mst_d, const Py_ssize_t* mst_i, Py_ssize_t m, Py_ssize_t n,
+        const Py_ssize_t* cumdeg, const Py_ssize_t* inc
+    ) :
+        mst_d(mst_d), mst_i(mst_i), m(m), n(n), cumdeg(cumdeg), inc(inc)
     {
         if (n == 0) return;
 
-        for (Py_ssize_t e=0; e<m; ++e) {
-            //LUMBERMARK_ASSERT(mst_i[2*e+0] >= 0);  // TODO: add to cutlist
-            //LUMBERMARK_ASSERT(mst_i[2*e+1] >= 0);  // TODO: add to cutlist
+        if (m != n-1)
+            throw std::domain_error("m != n-1");
 
+        for (Py_ssize_t e=1; e<m; ++e) {
             // check if edge weights are sorted increasingly
-            LUMBERMARK_ASSERT(e == 0 || mst_d[e-1] <= mst_d[e]);
+            LUMBERMARK_ASSERT(mst_d[e-1] <= mst_d[e]);
         }
-
-        deg.resize(n);
-        _incdata.resize(2*m);
-        inc.resize(n+1);  // +sentinel
-
-        // set up this->deg:
-        Cget_graph_node_degrees(mst_i, m, n, /*out:*/this->deg.data());
-
-        //for (Py_ssize_t v=0; v<n; ++v) {
-        //    LUMBERMARK_ASSERT(deg[v] > 0);  // doesn't hold if the graph is not connected
-        //}
-
-        Cget_graph_node_inclists(
-            mst_i, m, n, this->deg.data(),
-            /*out:*/this->_incdata.data(), /*out:*/this->inc.data()
-        );
     }
 
 
@@ -324,7 +191,10 @@ public:
 
         Py_ssize_t n_skip = 0;  // count unreachable vertices
         for (Py_ssize_t v=0; v<n; ++v)
-            if (deg[v] <= 0) n_skip++;
+            if (cumdeg[v+1]-cumdeg[v] <= 0) n_skip++;
+
+        if (n_skip > 0)
+            throw std::domain_error("there are unreachable vertices");
 
         min_cluster_size = std::max(
             min_cluster_size,
@@ -383,8 +253,8 @@ public:
                 LUMBERMARK_ASSERT(labels[v] > 0);
 
                 Py_ssize_t tot = 1;
-                for (Py_ssize_t* e2 = inc[v]; e2 != inc[v+1]; e2++) {
-                    tot += visitk(v, *e2, labels[v]);
+                for (const Py_ssize_t* pe = inc+cumdeg[v]; pe != inc+cumdeg[v+1]; pe++) {
+                    tot += visitk(v, *pe, labels[v]);
                 }
 
                 cluster_sizes[labels[v]] = tot;
@@ -395,18 +265,18 @@ public:
     }
 
 
-    /*! Set res[i] to true if vertex i is unreachable.
-     *
-     *  @param res [out] array of length n
-     */
-    void get_is_unreachable(bool* res) const
-    {
-        for (Py_ssize_t v=0; v<n; ++v) {
-            //LUMBERMARK_ASSERT(labels[v] != LUMBERMARK_UNSET);
-            LUMBERMARK_ASSERT(labels[v] != 0);
-            res[v] = (bool)(labels[v] < 0);
-        }
-    }
+    // /*! Set res[i] to true if vertex i is unreachable.
+    //  *
+    //  *  @param res [out] array of length n
+    //  */
+    // void get_is_unreachable(bool* res) const
+    // {
+    //     for (Py_ssize_t v=0; v<n; ++v) {
+    //         //LUMBERMARK_ASSERT(labels[v] != LUMBERMARK_UNSET);
+    //         LUMBERMARK_ASSERT(labels[v] != 0);
+    //         res[v] = (bool)(labels[v] < 0);
+    //     }
+    // }
 
 
 
