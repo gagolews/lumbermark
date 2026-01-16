@@ -57,7 +57,7 @@ ctypedef fused floatT:
 
 
 
-cdef extern from "../src/c_lumbermark.h":
+cdef extern from "c_lumbermark.h":
     cdef cppclass CLumbermark[T]:
 
         CLumbermark() except +
