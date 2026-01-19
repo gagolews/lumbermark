@@ -236,8 +236,8 @@ class Lumbermark(deadwood.MSTClusterer):
             min_cluster_factor=self.min_cluster_factor
         )
 
-        self.labels_     = res["labels"]
         self.n_clusters_ = res["n_clusters"]
+        self.labels_     = res["labels"]
         self._cut_edges_ = res["cut_edges"]
         #self._iters_     = res["iters"]
 

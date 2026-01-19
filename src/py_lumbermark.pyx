@@ -121,19 +121,17 @@ cpdef dict lumbermark_from_mst(
         Output cluster sizes won't be smaller than
         `min_cluster_factor/n_clusters*n_points` (excluding outliers)
 
+
     Returns
     -------
 
     res : dict, with the following elements:
-        labels : ndarray, shape (n,)
-            ``labels[i]`` gives the cluster ID of the `i`-th input point;
-            a number between `0` and `n_clusters-1`
-
         n_clusters : integer
             actual number of clusters found, 0 if ``labels`` is ``None``
 
-        iters : None
-            unused
+        labels : ndarray, shape (n,)
+            ``labels[i]`` gives the cluster ID of the `i`-th input point;
+            a number between `0` and `n_clusters-1`
 
         cut_edges : ndarray, shape (n_clusters-1, )
             indexes of the cut edges of the spanning tree; their removal
@@ -180,12 +178,8 @@ cpdef dict lumbermark_from_mst(
     labels_ = np.empty(n, dtype=np.intp)
     lm.get_labels(&labels_[0])
 
-    #is_unreachable_ = np.empty(n, dtype=np.bool)
-    #lm.get_is_unreachable(&is_unreachable_[0])  # label == -1 == unreachable
-
     return dict(
-        labels=labels_,
         n_clusters=n_clusters_,
-        cut_edges=cut_edges_
-        #is_unreachable=is_unreachable_
+        labels=labels_,
+        cut_edges=cut_edges_,
     )
