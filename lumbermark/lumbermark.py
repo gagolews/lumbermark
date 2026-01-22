@@ -211,7 +211,6 @@ class Lumbermark(deadwood.MSTClusterer):
         self.n_clusters_ = None
         self._cut_edges_ = None
 
-
         self._check_params()  # re-check, they might have changed
         self._get_mst(X)  # sets n_samples_, n_features_, _tree_d, _tree_i, _d_core, etc.
 
@@ -220,9 +219,6 @@ class Lumbermark(deadwood.MSTClusterer):
 
         if self.verbose:
             print("[lumbermark] Determining clusters with Lumbermark.", file=sys.stderr)
-
-
-        # TODO: degrees and inclists......
 
         # apply the Lumbermark algorithm:
         res = core.lumbermark_from_mst(
