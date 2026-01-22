@@ -210,10 +210,10 @@ class Lumbermark(deadwood.MSTClusterer):
         self.labels_     = None
         self.n_clusters_ = None
         self._cut_edges_ = None
-        #self._iters_     = None
+
 
         self._check_params()  # re-check, they might have changed
-        self._get_mst(X)  # sets n_samples_, n_features_, _tree_w, _tree_i, _d_core, etc.
+        self._get_mst(X)  # sets n_samples_, n_features_, _tree_d, _tree_i, _d_core, etc.
 
         if not (1 <= self.n_clusters < self.n_samples_):
             raise ValueError("n_clusters must be between 1 and n_samples_-1")
@@ -226,7 +226,7 @@ class Lumbermark(deadwood.MSTClusterer):
 
         # apply the Lumbermark algorithm:
         res = core.lumbermark_from_mst(
-            self._tree_w_,
+            self._tree_d_,
             self._tree_i_,
             self._tree_cumdeg_,
             self._tree_inc_,
