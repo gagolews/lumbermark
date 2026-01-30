@@ -82,34 +82,30 @@ cpdef dict lumbermark_from_mst(
         Py_ssize_t[:,::1] mst_i,
         Py_ssize_t[::1] mst_cumdeg,
         Py_ssize_t[::1] mst_inc,
-        Py_ssize_t n,
         Py_ssize_t n_clusters,
         Py_ssize_t min_cluster_size=10,
         floatT min_cluster_factor=0.15,
     ):
-    """The Lumbermark Clustering Algorithm
+    """
+    lumbermark.lumbermark_from_mst(mst_d, mst_i, mst_cumdeg, mst_inc, n_clusters, min_cluster_size=10, min_cluster_factor=0.15)
 
-    Determines a dataset's partition based on a precomputed spanning tree.
+    The Lumbermark Clustering Algorithm
 
-    TODO: citation
-    M. Gagolewski, *Lumbermark*, in preparation, 2026, TODO
+    Determines a dataset's partition based on a precomputed Euclidean spanning tree.
 
 
     Parameters
     ----------
 
     mst_d, mst_i : ndarray
-        a spanning tree with m==n-1 edges defined by a pair
-        (mst_i, mst_d); see ``quitefastmst.mst_euclid``
+        a spanning tree with `m=n-1` edges defined by a pair
+        `(mst_i, mst_d)`; see ``quitefastmst.mst_euclid``
 
     mst_cumdeg : ndarray, length n+1
         see `deadwood.graph_vertex_incidences`
 
     mst_inc : ndarray, length 2*m
         see `deadwood.graph_vertex_incidences`
-
-    n : int
-        the number of points in the dataset
 
     n_clusters : int
         the number of clusters requested
@@ -138,14 +134,20 @@ cpdef dict lumbermark_from_mst(
             leads to the formation of clusters (connected components)
 
 
+    References
+    ----------
+
+    .. [1]
+        M. Gagolewski, *Lumbermark*, in preparation, 2026, TODO
     """
     cdef Py_ssize_t m = mst_i.shape[0]
+    cdef Py_ssize_t n = m+1
 
     if not m == mst_d.shape[0] or m != n-1 or mst_i.shape[1] != 2:
         raise ValueError("ill-defined spanning tree")
 
     if mst_cumdeg.shape[0] != n+1:
-        raise ValueError("mst_inc should be of length n+1")
+        raise ValueError("mst_cumdeg should be of length n+1")
 
     if mst_inc.shape[0] != 2*m:
         raise ValueError("mst_inc should be of length 2*m")

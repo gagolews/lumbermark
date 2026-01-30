@@ -226,7 +226,6 @@ class Lumbermark(deadwood.MSTClusterer):
             self._tree_i_,
             self._tree_cumdeg_,
             self._tree_inc_,
-            n=self.n_samples_,
             n_clusters=self.n_clusters,
             min_cluster_size=self.min_cluster_size,
             min_cluster_factor=self.min_cluster_factor
