@@ -26,6 +26,6 @@
 #'
 #' @useDynLib lumbermark, .registration=TRUE
 #' @importFrom Rcpp evalCpp
-#' @importFrom genieclust mst
+#' @importFrom deadwood mst
 #' @keywords internal
 "_PACKAGE"
