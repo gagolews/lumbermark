@@ -7,3 +7,6 @@ d <- rpois(1, 10)+2
 X <- matrix(rnorm(n*d), nrow=n)
 
 # TODO
+lumbermark(X)
+expect_true(FALSE)
+
