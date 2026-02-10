@@ -10,6 +10,7 @@ See \code{\link{lumbermark}()} for more details.
 }
 \seealso{
 The official online manual of \pkg{lumbermark} at \url{https://lumbermark.gagolewski.com/}
+
 Useful links:
 \itemize{
   \item \url{https://lumbermark.gagolewski.com/}

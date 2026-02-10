@@ -53,15 +53,13 @@ class Lumbermark(deadwood.MSTClusterer):
         ``min_cluster_factor*n_points/n_clusters``
 
     M : int
-        The smoothing factor for the mutual reachability distance [2]_.
-        *M = 1* and *M = 2* indicate the original distance as given by
-        the *metric* parameter; see :any:`genieclust.MSTClusterMixin`
-        for more details.
+        Smoothing factor for the mutual reachability distance [2]_.
+        `M = 0` and `M = 1` select the original distance as given by
+        the `metric` parameter; see :any:`deadwood.MSTBase`
 
-    metric : str
-        The metric used to compute the linkage; see
-        :any:`genieclust.MSTClusterMixin` for more details.
-        Defaults to ``"l2"``, i.e., the Euclidean distance.
+    metric : str, default='l2'
+        The metric used to compute the linkage; see :any:`deadwood.MSTBase`
+        for more details.  Defaults to the Euclidean distance.
 
     quitefastmst_params : dict
         Additional parameters to be passed to ``quitefastmst.mst_euclid``
@@ -80,8 +78,6 @@ class Lumbermark(deadwood.MSTClusterer):
 
         It is an integer vector such that ``labels_[i]`` gives
         the cluster ID (between 0 and `n_clusters_` - 1) of the `i`-th object.
-        If *M > 1*, noise/boundary points are labelled ``-1`` (unless taken care
-        of at the postprocessing stage).
 
     n_clusters_ : int
         The actual number of clusters detected by the algorithm.
@@ -101,7 +97,7 @@ class Lumbermark(deadwood.MSTClusterer):
     aiming to detect a specific number of clusters.
 
 
-    The Genie algorithm itself has :math:`O(TODO)` time complexity provided
+    The Deadwood algorithm itself has :math:`O(TODO)` time complexity provided
     that a minimum spanning tree of the pairwise distance graph is given.
     If the Euclidean distance is selected, then
     ``quitefastmst.mst_euclid`` is used to compute the MST;
@@ -147,9 +143,9 @@ class Lumbermark(deadwood.MSTClusterer):
             *,
             min_cluster_size=10,
             min_cluster_factor=0.15,
-            M=0,
+            M=5,  # TODO set default
             metric="l2",
-            quitefastmst_params=dict(mutreach_ties="dcore_min", mutreach_leaves="reconnect_dcore_min"),
+            quitefastmst_params=None,  # TODO: set default ?dict(mutreach_ties="dcore_min", mutreach_leaves="reconnect_dcore_min"),
             verbose=False
         ):
         # # # # # # # # # # # #
