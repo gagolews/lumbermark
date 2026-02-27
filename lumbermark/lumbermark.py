@@ -142,10 +142,10 @@ class Lumbermark(deadwood.MSTClusterer):
             n_clusters=2,
             *,
             min_cluster_size=10,
-            min_cluster_factor=0.15,
+            min_cluster_factor=0.20,
             M=5,  # TODO set default
             metric="l2",
-            quitefastmst_params=None,  # TODO: set default ?dict(mutreach_ties="dcore_min", mutreach_leaves="reconnect_dcore_min"),
+            quitefastmst_params=dict(mutreach_ties="dcore_min", mutreach_leaves="reconnect_dcore_min"),
             verbose=False
         ):
         # # # # # # # # # # # #
