@@ -16,7 +16,10 @@ def test_basic():
     y_pred = lumbermark.Lumbermark(n_clusters=2).fit_predict(X)
     assert np.all(y_true==y_pred) or np.all(y_true==1-y_pred)
 
-    y_pred = lumbermark.Lumbermark(n_clusters=2, M=10, min_cluster_size=10, min_cluster_factor=0.1).fit_predict(X)
+    y_pred = lumbermark.Lumbermark(n_clusters=2, M=10, min_cluster_size=10, min_cluster_factor=0.1, skip_leaves=False).fit_predict(X)
+    assert np.all(y_true==y_pred) or np.all(y_true==1-y_pred)
+
+    y_pred = lumbermark.Lumbermark(n_clusters=2, M=10, min_cluster_size=10, min_cluster_factor=0.1, skip_leaves=True).fit_predict(X)
     assert np.all(y_true==y_pred) or np.all(y_true==1-y_pred)
 
 
@@ -26,10 +29,11 @@ def test_iris():
     X = np.vstack((X,X))
     y_true = np.r_[y_true, y_true]
     for M in [0, 1, 2, 5, 10]:
-        L = lumbermark.Lumbermark(n_clusters=3, M=M).fit(X)
-        assert L.n_clusters_ == 3
-        assert np.all(L.labels_ >= 0)
-        assert np.all(L.labels_ < 3)
+        for skip_leaves in [True, False, "auto"]:
+            L = lumbermark.Lumbermark(n_clusters=3, M=M, skip_leaves=skip_leaves).fit(X)
+            assert L.n_clusters_ == 3
+            assert np.all(L.labels_ >= 0)
+            assert np.all(L.labels_ < 3)
 
 
 def test_deadwood():
@@ -40,20 +44,21 @@ def test_deadwood():
         np.random.rand(n2, 2)+[1.2, 0]
     ))
 
-    for M in [1, 2, 10, 25]:
-        G = lumbermark.Lumbermark(2, M=M).fit(X)
-        y = G.labels_
-        #genieclust.plots.plot_scatter(X, labels=y, asp=1, asp=1)
-        #plt.show()
+    for M in [0, 1, 2, 10, 25]:
+        for skip_leaves in [True, False, "auto"]:
+            G = lumbermark.Lumbermark(2, M=M, skip_leaves=skip_leaves).fit(X)
+            y = G.labels_
+            #genieclust.plots.plot_scatter(X, labels=y, asp=1, asp=1)
+            #plt.show()
 
-        D = deadwood.Deadwood()
-        o = D.fit_predict(G)
-        print(D.contamination_)
-        #w = o.copy(); w[w>0] = y[w>0]
-        # genieclust.plots.plot_scatter(X, labels=o, asp=1)
-        # plt.show()
-        assert (o[:n1]<0).mean() > 0.1
-        assert (o[n1:]<0).mean() > 0.1
+            D = deadwood.Deadwood()
+            o = D.fit_predict(G)
+            print(D.contamination_)
+            #w = o.copy(); w[w>0] = y[w>0]
+            # genieclust.plots.plot_scatter(X, labels=o, asp=1)
+            # plt.show()
+            assert (o[:n1]<0).mean() > 0.1
+            assert (o[n1:]<0).mean() > 0.1
 
 
 if __name__ == "__main__":

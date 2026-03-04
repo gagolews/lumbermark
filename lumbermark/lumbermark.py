@@ -52,8 +52,9 @@ class Lumbermark(deadwood.MSTClusterer):
         Output cluster sizes will not be smaller than
         ``min_cluster_factor*n_points/n_clusters``
 
-    skip_leaves : bool, default=True
-        Whether the MST leaves be omitted from cluster size counting.
+    skip_leaves : bool, default='auto'
+        Whether the MST leaves be omitted from cluster size counting;
+         ``"auto"`` selects True if `M > 0`.
 
     M : int
         Smoothing factor for the mutual reachability distance [2]_.
@@ -146,7 +147,7 @@ class Lumbermark(deadwood.MSTClusterer):
             *,
             min_cluster_size=10,
             min_cluster_factor=0.25,
-            skip_leaves=True,
+            skip_leaves="auto",
             M=5,
             metric="l2",
             quitefastmst_params=dict(),  # dist_min is generally better than dcore_min
@@ -177,7 +178,8 @@ class Lumbermark(deadwood.MSTClusterer):
         if self.min_cluster_size < 1:
             raise ValueError("min_cluster_size must be >= 1.")
 
-        self.skip_leaves = bool(self.skip_leaves)
+        if self.skip_leaves != "auto":
+            self.skip_leaves = bool(self.skip_leaves)
 
 
     def fit(self, X, y=None):
@@ -232,7 +234,7 @@ class Lumbermark(deadwood.MSTClusterer):
             n_clusters=self.n_clusters,
             min_cluster_size=self.min_cluster_size,
             min_cluster_factor=self.min_cluster_factor,
-            skip_leaves=skip_leaves,
+            skip_leaves=self.skip_leaves if self.skip_leaves!="auto" else (self.M>0)
         )
 
         self.n_clusters_ = res["n_clusters"]

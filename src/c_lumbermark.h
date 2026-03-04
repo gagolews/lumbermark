@@ -75,7 +75,7 @@ protected:
 
         mst_labels[e] = labels[w] = labels[v];
 
-        Py_ssize_t tot = (skip_leaves && is_leaf(v));  // how many vertices in total?
+        Py_ssize_t tot = 1-(skip_leaves && is_leaf(w));  // how many vertices in total?
         for (const Py_ssize_t* pe = inc+cumdeg[w]; pe != inc+cumdeg[w+1]; pe++) {
             if (*pe != e) tot += visit(w, *pe);
         }
@@ -95,7 +95,7 @@ protected:
         Py_ssize_t v = mst_i[2*0+0];
         labels[v] = 0;
 
-        Py_ssize_t tot = (skip_leaves && is_leaf(v));
+        Py_ssize_t tot = 1-(skip_leaves && is_leaf(v));
         for (const Py_ssize_t* pe = inc+cumdeg[v]; pe != inc+cumdeg[v+1]; pe++) {
             tot += visit(v, *pe);
         }
