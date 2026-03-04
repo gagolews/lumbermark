@@ -1,4 +1,4 @@
-# *Lumbermark*: Fast and Robust Clustering with Outlier Detection
+# *Lumbermark*: Resistant Clustering via Splitting Mutual Reachability Minimum Spanning Trees
 
 
 **Keywords**: Lumbermark, clustering, Genie, HDBSCAN\*, DBSCAN, outliers,

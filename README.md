@@ -1,7 +1,7 @@
 <a href="https://lumbermark.gagolewski.com/"><img src="https://www.gagolewski.com/_static/img/lumbermark.png" align="right" height="128" width="128" /></a>
 # [**lumbermark**](https://lumbermark.gagolewski.com/) Package for R and Python
 
-### *Lumbermark*: Fast and Robust Clustering with Outlier Detection
+### *Lumbermark*: Resistant Clustering via Splitting Mutual Reachability Minimum Spanning Trees
 
 ![lumbermark for Python](https://github.com/gagolews/lumbermark/workflows/lumbermark%20for%20Python/badge.svg)
 ![lumbermark for R](https://github.com/gagolews/lumbermark/workflows/lumbermark%20for%20R/badge.svg)

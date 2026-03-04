@@ -51,10 +51,10 @@ ctypedef fused T:
     float
     double
 
+
 ctypedef fused floatT:
     float
     double
-
 
 
 cdef extern from "c_lumbermark.h":
@@ -64,7 +64,7 @@ cdef extern from "c_lumbermark.h":
 
         CLumbermark(
             T* mst_d, Py_ssize_t* mst_i, Py_ssize_t m, Py_ssize_t n,
-            const Py_ssize_t* cumdeg, const Py_ssize_t* inc
+            bool skip_leaves, const Py_ssize_t* cumdeg, const Py_ssize_t* inc
         ) except +
 
         Py_ssize_t compute(
@@ -85,6 +85,7 @@ cpdef dict lumbermark_from_mst(
         Py_ssize_t n_clusters,
         Py_ssize_t min_cluster_size=10,
         floatT min_cluster_factor=0.15,
+        bool skip_leaves=True
     ):
     """
     lumbermark.lumbermark_from_mst(mst_d, mst_i, mst_cumdeg, mst_inc, n_clusters, min_cluster_size=10, min_cluster_factor=0.15)
@@ -116,6 +117,9 @@ cpdef dict lumbermark_from_mst(
     min_cluster_factor : float
         Output cluster sizes won't be smaller than
         `min_cluster_factor/n_clusters*n_points` (excluding outliers)
+
+    skip_leaves : bool
+        Whether the MST leaves should be omitted from cluster size counting.
 
 
     Returns
@@ -162,7 +166,7 @@ cpdef dict lumbermark_from_mst(
 
     cdef CLumbermark[floatT] lm
     lm = CLumbermark[floatT](
-        &mst_d[0], &mst_i[0,0], m, n, &mst_cumdeg[0], &mst_inc[0]
+        &mst_d[0], &mst_i[0,0], m, n, skip_leaves, &mst_cumdeg[0], &mst_inc[0]
     )
 
     n_clusters_ = lm.compute(

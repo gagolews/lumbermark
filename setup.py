@@ -123,7 +123,7 @@ with open("lumbermark/__init__.py", "r", encoding="utf8") as fh:
 setuptools.setup(
     name="lumbermark",
     version=__version__,
-    description="Lumbermark: Fast and Robust Clustering with Outlier Detection",
+    description="Lumbermark: Resistant Clustering via Splitting Mutual Reachability Minimum Spanning Trees",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Marek Gagolewski",

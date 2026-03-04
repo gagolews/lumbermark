@@ -45,6 +45,7 @@ protected:
     const Py_ssize_t* mst_i;  //<! 2*m edge definitions
     Py_ssize_t m;             //<! number of edges, must be n-1
     Py_ssize_t n;             //<! number of points
+    bool skip_leaves;         //<! whether the MST leaves should be omitted from cluster counting
 
     const Py_ssize_t* cumdeg;  // length n+1; see Cgraph_vertex_incidences in 'deadwood'
     const Py_ssize_t* inc;     // length 2*m; see Cgraph_vertex_incidences in 'deadwood'
@@ -74,7 +75,7 @@ protected:
 
         mst_labels[e] = labels[w] = labels[v];
 
-        Py_ssize_t tot = 1;  // how many vertices in total?
+        Py_ssize_t tot = (skip_leaves && is_leaf(v));  // how many vertices in total?
         for (const Py_ssize_t* pe = inc+cumdeg[w]; pe != inc+cumdeg[w+1]; pe++) {
             if (*pe != e) tot += visit(w, *pe);
         }
@@ -94,7 +95,7 @@ protected:
         Py_ssize_t v = mst_i[2*0+0];
         labels[v] = 0;
 
-        Py_ssize_t tot = 1;
+        Py_ssize_t tot = (skip_leaves && is_leaf(v));
         for (const Py_ssize_t* pe = inc+cumdeg[v]; pe != inc+cumdeg[v+1]; pe++) {
             tot += visit(v, *pe);
         }
@@ -109,14 +110,14 @@ protected:
 
 
 public:
-    CLumbermark() : CLumbermark(nullptr, nullptr, 0, false, nullptr, nullptr) { }
+    CLumbermark() : CLumbermark(nullptr, nullptr, 0, 0, false, nullptr, nullptr) { }
 
     CLumbermark(
         const FLOAT* mst_d, const Py_ssize_t* mst_i, Py_ssize_t m, Py_ssize_t n,
-        const Py_ssize_t* cumdeg, const Py_ssize_t* inc
+        bool skip_leaves, const Py_ssize_t* cumdeg, const Py_ssize_t* inc
     ) :
-        mst_d(mst_d), mst_i(mst_i), m(m), n(n), cumdeg(cumdeg), inc(inc),
-        labels(n), mst_labels(m), mst_cutsizes(m)
+        mst_d(mst_d), mst_i(mst_i), m(m), n(n), skip_leaves(skip_leaves),
+        cumdeg(cumdeg), inc(inc), labels(n), mst_labels(m), mst_cutsizes(m)
     {
         if (n == 0) return;
 
@@ -130,33 +131,40 @@ public:
     }
 
 
+    inline bool is_leaf(Py_ssize_t v) const {
+        return (cumdeg[v+1]-cumdeg[v] <= 1);
+    }
+
+
     /*! Run the Lumbermark algorithm
      *
      * @param n_clusters number of clusters to find
      * @param min_cluster_size minimal cluster size
      * @param min_cluster_factor output cluster sizes won't be smaller than
      *    min_cluster_factor*n_points/n_clusters
+
      *
      * @return number of clusters detected (can be smaller than the requested one)
      */
     Py_ssize_t compute(
-        Py_ssize_t n_clusters, Py_ssize_t min_cluster_size, FLOAT min_cluster_factor
+        Py_ssize_t n_clusters,
+        Py_ssize_t min_cluster_size,
+        FLOAT min_cluster_factor
     ) {
         LUMBERMARK_ASSERT(n > 2);
 
         if (n_clusters < 1)
             throw std::domain_error("n_clusters must be >= 1");
 
-        // Py_ssize_t n_skip = 0;  // count unreachable vertices
-        // for (Py_ssize_t v=0; v<n; ++v)
-        //     if (cumdeg[v+1]-cumdeg[v] <= 0) n_skip++;
-        //
-        // if (n_skip > 0)
-        //     throw std::domain_error("unreachable vertices are not allowed");
+        Py_ssize_t n_skip = 0;  // count unreachable vertices
+        if (skip_leaves) {
+            for (Py_ssize_t v=0; v<n; ++v)
+                if (is_leaf(v)) n_skip++;
+        }
 
         min_cluster_size = std::max(
             min_cluster_size,
-            (Py_ssize_t)(min_cluster_factor*(n/*-n_skip*/)/(FLOAT)n_clusters)
+            (Py_ssize_t)(min_cluster_factor*(n-n_skip)/(FLOAT)n_clusters)
         );
 
         cut_edges.resize(n_clusters-1);
@@ -169,6 +177,7 @@ public:
 
         while (n_clusters_ < n_clusters)
         {
+            // find the longest unconsumed edge to cut out
             do {
                 e_last--;
                 if (e_last < 0) {
@@ -176,7 +185,8 @@ public:
                     return n_clusters_;  // unfortunately, that's it.
                 }
             } while (!(
-                mst_labels[e_last] >= 0 &&
+                mst_labels[e_last] >= 0 &&  // currently always true
+                !(skip_leaves && (is_leaf(mst_i[2*e_last+0]) || is_leaf(mst_i[2*e_last+1]))) &&
                 std::min(
                     mst_cutsizes[e_last],
                     cluster_sizes[mst_labels[e_last]]-mst_cutsizes[e_last]
@@ -194,7 +204,7 @@ public:
                 if (iv == 1) labels[v] = n_clusters_-1;
                 // else labels[v] stays the same
 
-                Py_ssize_t tot = 1;
+                Py_ssize_t tot = 1-(skip_leaves && is_leaf(v));
                 for (const Py_ssize_t* pe = inc+cumdeg[v]; pe != inc+cumdeg[v+1]; pe++) {
                     tot += visit(v, *pe);  // update vertex and edge labels and cutsizes
                 }
