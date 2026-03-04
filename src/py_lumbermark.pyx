@@ -88,11 +88,14 @@ cpdef dict lumbermark_from_mst(
         bool skip_leaves=True
     ):
     """
-    lumbermark.lumbermark_from_mst(mst_d, mst_i, mst_cumdeg, mst_inc, n_clusters, min_cluster_size=10, min_cluster_factor=0.15)
+    lumbermark.lumbermark_from_mst(
+        mst_d, mst_i, mst_cumdeg, mst_inc,
+        n_clusters, min_cluster_size=10, min_cluster_factor=0.15, skip_leaves=True
+    )
 
     The Lumbermark Clustering Algorithm
 
-    Determines a dataset's partition based on a precomputed Euclidean spanning tree.
+    Determines a dataset's partition based on a precomputed spanning tree.
 
 
     Parameters
@@ -112,14 +115,14 @@ cpdef dict lumbermark_from_mst(
         the number of clusters requested
 
     min_cluster_size : int
-        Minimal cluster size.
+        minimal cluster size
 
     min_cluster_factor : float
-        Output cluster sizes won't be smaller than
+        output cluster sizes won't be smaller than
         `min_cluster_factor/n_clusters*n_points` (excluding outliers)
 
     skip_leaves : bool
-        Whether the MST leaves should be omitted from cluster size counting.
+        whether the MST leaves should be omitted from cluster size counting
 
 
     Returns

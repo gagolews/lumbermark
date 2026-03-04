@@ -36,7 +36,20 @@ import deadwood
 
 class Lumbermark(deadwood.MSTClusterer):
     """
-    Lumbermark: TODO DESCRIBE
+    Lumbermark [1]_ is a fast and robust divisive clustering algorithm
+    which identifies a specified number of clusters.
+
+    It iteratively splits a mutual reachability minimum spanning tree by
+    removing edges in decreasing order of weights minding that the chopped
+    off chunks are sizeable.
+
+    The use of a mutual reachability distance [2]_ pulls peripheral points
+    farther away from each other.  When combined with the ``deadwood`` package,
+    it can act as an outlier detector.
+
+    Once the spanning tree is determined (:math:`\\Omega(n \\log n)` –
+    :math:`O(n^2)`), the Lumbermark algorithm runs in :math:`O(n)` time.
+    Memory use is also :math:`O(n)`.
 
 
     Parameters
@@ -50,7 +63,7 @@ class Lumbermark(deadwood.MSTClusterer):
 
     min_cluster_factor : float in [0,1]
         Output cluster sizes will not be smaller than
-        ``min_cluster_factor*n_points/n_clusters``
+        ``min_cluster_factor*n_points/n_clusters``.
 
     skip_leaves : bool, default='auto'
         Whether the MST leaves be omitted from cluster size counting;
@@ -67,7 +80,7 @@ class Lumbermark(deadwood.MSTClusterer):
 
     quitefastmst_params : dict
         Additional parameters to be passed to ``quitefastmst.mst_euclid``
-        if ``metric`` is ``"l2"``
+        if ``metric`` is ``"l2"``.
 
     verbose : bool
         Whether to print diagnostic messages and progress information
@@ -91,36 +104,6 @@ class Lumbermark(deadwood.MSTClusterer):
 
     n_features_ : int or None
         The number of features in the dataset.
-
-
-    Notes
-    -----
-
-    TODO: describe Lumbermark
-    A robust divisive clustering algorithm based on spanning trees,
-    aiming to detect a specific number of clusters.
-
-
-    The Deadwood algorithm itself has :math:`O(TODO)` time complexity provided
-    that a minimum spanning tree of the pairwise distance graph is given.
-    If the Euclidean distance is selected, then
-    ``quitefastmst.mst_euclid`` is used to compute the MST;
-    it is quite fast in low-dimensional spaces.
-    Otherwise, an implementation of the Jarník (Prim/Dijkstra)-like
-    :math:`O(n^2)`-time algorithm is called.
-
-    The Lumbermark algorithm with the smoothing factor *M > 1*
-    controlling the mutual reachability distance gives a version of the
-    HDBSCAN\\* [2]_ algorithm that, contrary to its predecessor, is able to
-    detect a *predefined* number of clusters.
-
-    Note that *M = 1* corresponds to the original distance.
-
-
-    :Environment variables:
-        OMP_NUM_THREADS
-            Controls the number of threads used when computing the minimum
-            spanning tree.
 
 
     References
@@ -252,4 +235,3 @@ class Lumbermark(deadwood.MSTClusterer):
             print("[lumbermark] Done.", file=sys.stderr)
 
         return self
-
