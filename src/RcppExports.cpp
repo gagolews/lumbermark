@@ -11,18 +11,24 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // dot_lumbermark
-RObject dot_lumbermark();
-RcppExport SEXP _lumbermark_dot_lumbermark() {
+IntegerVector dot_lumbermark(NumericMatrix mst, int k, int min_cluster_size, double min_cluster_factor, bool skip_leaves, bool verbose);
+RcppExport SEXP _lumbermark_dot_lumbermark(SEXP mstSEXP, SEXP kSEXP, SEXP min_cluster_sizeSEXP, SEXP min_cluster_factorSEXP, SEXP skip_leavesSEXP, SEXP verboseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(dot_lumbermark());
+    Rcpp::traits::input_parameter< NumericMatrix >::type mst(mstSEXP);
+    Rcpp::traits::input_parameter< int >::type k(kSEXP);
+    Rcpp::traits::input_parameter< int >::type min_cluster_size(min_cluster_sizeSEXP);
+    Rcpp::traits::input_parameter< double >::type min_cluster_factor(min_cluster_factorSEXP);
+    Rcpp::traits::input_parameter< bool >::type skip_leaves(skip_leavesSEXP);
+    Rcpp::traits::input_parameter< bool >::type verbose(verboseSEXP);
+    rcpp_result_gen = Rcpp::wrap(dot_lumbermark(mst, k, min_cluster_size, min_cluster_factor, skip_leaves, verbose));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_lumbermark_dot_lumbermark", (DL_FUNC) &_lumbermark_dot_lumbermark, 0},
+    {"_lumbermark_dot_lumbermark", (DL_FUNC) &_lumbermark_dot_lumbermark, 6},
     {NULL, NULL, 0}
 };
 

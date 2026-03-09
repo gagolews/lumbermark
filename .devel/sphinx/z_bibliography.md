@@ -4,7 +4,7 @@
 ## How to Cite
 
 When using *genieclust* in research publications, please cite
-{cite}`genieclust` and {cite}`genieins` as specified below.  Thank you.
+{cite}`genieclust` and {cite}`genieins` as specified below.
 -->
 
 ## See Also
@@ -13,8 +13,9 @@ When using *genieclust* in research publications, please cite
 
 * *fast_hdbscan*: <https://fast-hdbscan.readthedocs.io/en/latest/index.html>
 
-* *genieclust*: <https://genieclust.gagolewski.com>
+* *genieclust*: <https://genieclust.gagolewski.com/>
 
+* *deadwood*: <https://deadwood.gagolewski.com/>
 
 
 ## Bibliography

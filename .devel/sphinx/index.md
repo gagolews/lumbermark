@@ -1,12 +1,27 @@
-# *Lumbermark*: Resistant Clustering via Splitting Mutual Reachability Minimum Spanning Trees
+# *Lumbermark*: Resistant Clustering via Chopping Up Mutual Reachability Minimum Spanning Trees
+
+::::{image} _static/img/lumbermark_toy_example.png
+:class: img-right-align-always
+:alt: Lumbermark
+:width: 128px
+::::
 
 
-**Keywords**: Lumbermark, clustering, Genie, HDBSCAN\*, DBSCAN, outliers,
+**Keywords**: Lumbermark, clustering, HDBSCAN\*, DBSCAN, outliers,
 minimum spanning tree, MST, density estimation, mutual reachability distance.
 
-TODO
 
+*Lumbermark* is a fast and resistant divisive clustering algorithm which
+identifies a specified number of clusters.
 
+It iteratively chops off sizeable limbs that are joined by protruding segments
+of a dataset's mutual reachability minimum spanning tree.
+
+The use of a mutual reachability distance pulls peripheral points farther
+away from each other.
+
+When combined with the [**deadwood**](https://deadwood.gagolewski.com/) package,
+it can act as an outlier detector.
 
 
 ## Contributing
@@ -43,13 +58,20 @@ CRAN Entry <https://CRAN.R-project.org/package=lumbermark>
 
 ::::{toctree}
 :maxdepth: 1
-:caption: Documentation
+:caption: Python API
 :hidden:
 
-weave/definitions
-weave/benchmarks
 weave/python
+weave/sklearn_toy_example
 pythonapi
+::::
+
+
+::::{toctree}
+:maxdepth: 1
+:caption: R API
+:hidden:
+
 weave/r
 rapi
 ::::

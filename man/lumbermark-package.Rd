@@ -2,9 +2,8 @@
 % Please edit documentation in R/lumbermark-package.R
 \docType{package}
 \name{lumbermark-package}
-\alias{lumbermark}
 \alias{lumbermark-package}
-\title{The Lumbermark Clustering Algorithm (TODO)}
+\title{Lumbermark: Resistant Clustering via Splitting Mutual Reachability Minimum Spanning Trees}
 \description{
 See \code{\link{lumbermark}()} for more details.
 }

@@ -39,17 +39,22 @@ class Lumbermark(deadwood.MSTClusterer):
     Lumbermark [1]_ is a fast and robust divisive clustering algorithm
     which identifies a specified number of clusters.
 
-    It iteratively splits a mutual reachability minimum spanning tree by
-    removing edges in decreasing order of weights minding that the chopped
-    off chunks are sizeable.
+    It iteratively chops off sizeable limbs that are joined by protruding
+    segments of a dataset's mutual reachability minimum spanning tree.
 
     The use of a mutual reachability distance [2]_ pulls peripheral points
     farther away from each other.  When combined with the ``deadwood`` package,
     it can act as an outlier detector.
 
     Once the spanning tree is determined (:math:`\\Omega(n \\log n)` –
-    :math:`O(n^2)`), the Lumbermark algorithm runs in :math:`O(n)` time.
-    Memory use is also :math:`O(n)`.
+    :math:`O(n^2)`), the Lumbermark algorithm runs in :math:`O(kn)` time,
+    where :math:`k` is the number of clusters sought.  Memory use is
+    :math:`O(n)`.
+
+    As with all distance-based methods (this includes k-means and DBSCAN as
+    well), applying data preprocessing and feature engineering techniques
+    (e.g., feature scaling, feature selection, dimensionality reduction)
+    might lead to more meaningful results.
 
 
     Parameters
@@ -58,21 +63,21 @@ class Lumbermark(deadwood.MSTClusterer):
     n_clusters : int
         The number of clusters to detect.
 
-    min_cluster_size : int
+    min_cluster_size : int, default=10
         Minimal cluster size.
 
-    min_cluster_factor : float in [0,1]
+    min_cluster_factor : float in [0,1], default=0.25
         Output cluster sizes will not be smaller than
         ``min_cluster_factor*n_points/n_clusters``.
 
     skip_leaves : bool, default='auto'
-        Whether the MST leaves be omitted from cluster size counting;
-         ``"auto"`` selects True if `M > 0`.
+        Whether the MST leaves should be omitted from cluster size counting;
+        ``"auto"`` selects True if `M > 0`.
 
-    M : int
+    M : int, default=5
         Smoothing factor for the mutual reachability distance [2]_.
         `M = 0` and `M = 1` select the original distance as given by
-        the `metric` parameter; see :any:`deadwood.MSTBase`
+        the `metric` parameter; see :any:`deadwood.MSTBase`.
 
     metric : str, default='l2'
         The metric used to compute the linkage; see :any:`deadwood.MSTBase`
@@ -82,7 +87,7 @@ class Lumbermark(deadwood.MSTClusterer):
         Additional parameters to be passed to ``quitefastmst.mst_euclid``
         if ``metric`` is ``"l2"``.
 
-    verbose : bool
+    verbose : bool, default=False
         Whether to print diagnostic messages and progress information
         onto ``stderr``.
 
@@ -110,16 +115,16 @@ class Lumbermark(deadwood.MSTClusterer):
     ----------
 
     .. [1]
-        M. Gagolewski, *Lumbermark*, in preparation, 2026, TODO
+        M. Gagolewski, *Lumbermark*, in preparation, 2026, TODO
 
     .. [2]
-        R.J.G.B. Campello, D. Moulavi, J. Sander,
+        R.J.G.B. Campello, D. Moulavi, J. Sander,
         Density-based clustering based on hierarchical density estimates,
         *Lecture Notes in Computer Science* 7819, 2013, 160-172,
         https://doi.org/10.1007/978-3-642-37456-2_14
 
     .. [3]
-        M. Gagolewski, A. Cena, M. Bartoszuk, Ł. Brzozowski,
+        M. Gagolewski, A. Cena, M. Bartoszuk, Ł. Brzozowski,
         Clustering with minimum spanning trees: How good can it be?,
         *Journal of Classification* 42, 2025, 90-112,
         https://doi.org/10.1007/s00357-024-09483-1
@@ -193,7 +198,6 @@ class Lumbermark(deadwood.MSTClusterer):
         -----
 
         Refer to the `labels_` and `n_clusters_` attributes for the result.
-
         """
         self.labels_     = None
         self.n_clusters_ = None

@@ -1,7 +1,7 @@
 <a href="https://lumbermark.gagolewski.com/"><img src="https://www.gagolewski.com/_static/img/lumbermark.png" align="right" height="128" width="128" /></a>
 # [**lumbermark**](https://lumbermark.gagolewski.com/) Package for R and Python
 
-### *Lumbermark*: Resistant Clustering via Splitting Mutual Reachability Minimum Spanning Trees
+### *Lumbermark*: Resistant Clustering via Chopping Up Mutual Reachability Minimum Spanning Trees
 
 ![lumbermark for Python](https://github.com/gagolews/lumbermark/workflows/lumbermark%20for%20Python/badge.svg)
 ![lumbermark for R](https://github.com/gagolews/lumbermark/workflows/lumbermark%20for%20R/badge.svg)
@@ -9,12 +9,26 @@
 **Keywords**: Lumbermark, clustering, Genie, HDBSCAN\*, DBSCAN, outliers,
 minimum spanning tree, MST, density estimation, mutual reachability distance.
 
-> **this package is a work in progress**
 
 Refer to the package **homepage** at <https://lumbermark.gagolewski.com/>
 for the reference manual, tutorials, examples, and benchmarks.
 
 **Author and Maintainer**: [Marek Gagolewski](https://www.gagolewski.com/)
+
+
+## About
+
+*Lumbermark* is a fast and resistant divisive clustering algorithm which
+identifies a specified number of clusters.
+
+It iteratively chops off sizeable limbs that are joined by protruding segments
+of a dataset's mutual reachability minimum spanning tree.
+
+The use of a mutual reachability distance pulls peripheral points farther
+away from each other.
+
+When combined with the [**deadwood**](https://deadwood.gagolewski.com/) package,
+it can act as an outlier detector.
 
 
 ## How to Install
