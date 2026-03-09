@@ -15,7 +15,7 @@ lumbermark(d, ...)
   min_cluster_size = 10,
   min_cluster_factor = 0.25,
   skip_leaves = (M > 0L),
-  M = 0L,
+  M = 5L,
   distance = c("euclidean", "l2", "manhattan", "cityblock", "l1", "cosine"),
   verbose = FALSE,
   ...
@@ -27,7 +27,7 @@ lumbermark(d, ...)
   min_cluster_size = 10,
   min_cluster_factor = 0.25,
   skip_leaves = (M > 0L),
-  M = 0L,
+  M = 5L,
   verbose = FALSE,
   ...
 )

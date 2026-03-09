@@ -20,7 +20,7 @@ lumbermark(
   min_cluster_size = 10,
   min_cluster_factor = 0.25,
   skip_leaves = (M > 0L),
-  M = 0L,
+  M = 5L,
   distance = c("euclidean", "l2", "manhattan", "cityblock", "l1", "cosine"),
   verbose = FALSE,
   ...
@@ -33,7 +33,7 @@ lumbermark(
   min_cluster_size = 10,
   min_cluster_factor = 0.25,
   skip_leaves = (M > 0L),
-  M = 0L,
+  M = 5L,
   verbose = FALSE,
   ...
 )
@@ -58,7 +58,7 @@ lumbermark(
 | `...` | further arguments passed to [`mst()`](https://deadwood.gagolewski.com/rapi/mst.html) |
 | `k` | integer; the desired number of clusters to detect |
 | `min_cluster_size` | integer; minimal cluster size |
-| `min_cluster_factor` | numeric value in (0,1); output cluster sizes will not be smaller than `min_cluster_factor*n/k`. |
+| `min_cluster_factor` | numeric value in (0,1); output cluster sizes will not be smaller than `min_cluster_factor*n/k` |
 | `skip_leaves` | logical; whether the MST leaves should be omitted from cluster size counting |
 | `M` | integer; smoothing factor; $M \leq 1$ gives the selected `distance`; otherwise, the mutual reachability distance is used |
 | `distance` | metric used to compute the linkage, one of: `"euclidean"` (synonym: `"l2"`), `"manhattan"` (a.k.a. `"l1"` and `"cityblock"`), `"cosine"` |
