@@ -38,10 +38,9 @@
 #ifndef LUMBERMARK_ASSERT
 #define __LUMBERMARK_STR(x) #x
 #define LUMBERMARK_STR(x) __LUMBERMARK_STR(x)
-
-#define LUMBERMARK_ASSERT(EXPR) { if (!(EXPR)) \
+#define LUMBERMARK_ASSERT(EXPR) do if (!(EXPR)) \
     throw std::runtime_error( "[lumbermark] Assertion " #EXPR " failed in "\
-        __FILE__ ":" LUMBERMARK_STR(__LINE__) ); }
+        __FILE__ ":" LUMBERMARK_STR(__LINE__) ); while(0)
 #endif
 
 

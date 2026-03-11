@@ -24,6 +24,7 @@ using namespace Rcpp;
  *  over a vertex set {0,...,n-1}.
  *
  *  NOTE This was taken from 'deadwood'!
+ *  TODO export Cgraph_vertex_degrees in deadwood
  *
  * @param ind c_contiguous matrix of size m*2,
  *     where {ind[i,0], ind[i,1]} is the i-th edge with ind[i,j] < n
@@ -62,6 +63,7 @@ void Cgraph_vertex_degrees(
  *  over a vertex set {0,...,n-1}.
  *
  *  NOTE This was taken from 'deadwood'!
+ *  TODO export Cgraph_vertex_incidences in deadwood
  *
  *  @param ind c_contiguous matrix of size m*2,
  *      where {ind[i,0], ind[i,1]} is the i-th edge with ind[i,j] < n
@@ -102,16 +104,6 @@ void Cgraph_vertex_incidences(
 
     LUMBERMARK_ASSERT(cumdeg[0] == 0);
     LUMBERMARK_ASSERT(cumdeg[n] == 2*m);
-
-
-// #ifdef DEBUG
-//     cumdeg = 0;
-//     inc[0] = data;
-//     for (Py_ssize_t i=0; i<n; ++i) {
-//         DEADWOOD_ASSERT(inc[i] == data+cumdeg);
-//         cumdeg += deg[i];
-//     }
-// #endif
 }
 
 // [[Rcpp::export(".lumbermark")]]
@@ -170,9 +162,6 @@ IntegerVector dot_lumbermark(
         cut_edges[i] = cut_edges_[i]+1;  // 1-based
     }
     res.attr("cut_edges") = cut_edges;
-
-    //std::vector<Py_ssize_t> links(n-1);
-    //g.get_links(links.data());
 
     if (verbose) LUMBERMARK_PRINT("[lumbermark] Done.\n");
 
