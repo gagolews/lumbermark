@@ -95,6 +95,7 @@ protected:
         Py_ssize_t v = mst_i[2*0+0];
         labels[v] = 0;
 
+        // TODO: start with a vertex of the highest degree, many threads
         Py_ssize_t tot = 1-(skip_leaves && is_leaf(v));
         for (const Py_ssize_t* pe = inc+cumdeg[v]; pe != inc+cumdeg[v+1]; pe++) {
             tot += visit(v, *pe);
@@ -198,6 +199,7 @@ public:
             mst_cutsizes[e_last] = -1;
             n_clusters_++;
 
+            // TODO: 2 threads or many threads, depending on the degrees of the two vertices
             for (Py_ssize_t iv=0; iv <= 1; ++iv) {  // iv in {0,1} - go "left" and "right" along e_last
                 Py_ssize_t v = mst_i[2*e_last+iv];
 

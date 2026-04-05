@@ -95,7 +95,6 @@ clean:
 	python3 setup.py clean
 	rm -rf lumbermark/__pycache__/
 	rm -rf lumbermark.egg-info/
-	rm -rf ../lumbermark/
 	rm -rf dist/
 	rm -rf build/
 	rm -rf .devel/pytest/__pycache__/
