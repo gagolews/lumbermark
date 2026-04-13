@@ -11,8 +11,8 @@
 minimum spanning tree, MST, density estimation, mutual reachability distance.
 
 
-*Lumbermark* is a fast and resistant divisive clustering algorithm which
-identifies a specified number of clusters.
+*Lumbermark* {cite}`Gagolewski2026:lumbermark` is a fast and resistant divisive
+clustering algorithm which identifies a specified number of clusters.
 
 It iteratively chops off sizeable limbs that are joined by protruding segments
 of a dataset's mutual reachability minimum spanning tree.

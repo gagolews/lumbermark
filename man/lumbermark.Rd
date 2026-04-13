@@ -132,7 +132,8 @@ points(X[!is_outlier, ], col=y_pred2[!is_outlier], pch=16)
 
 }
 \references{
-M. Gagolewski, lumbermark, in preparation, 2026
+M. Gagolewski, Lumbermark: Resistant clustering by chopping up mutual
+reachability minimum spanning trees, 2026, \doi{10.48550/arXiv.2604.07143}
 
 R.J.G.B. Campello, D. Moulavi, J. Sander,
 Density-based clustering based on hierarchical density estimates,

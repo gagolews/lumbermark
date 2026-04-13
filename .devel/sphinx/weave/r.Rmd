@@ -19,7 +19,8 @@ install.packages("lumbermark")
 
 ::::{note}
 This section is a work in progress.  In the meantime, take a look at
-the documentation of the [lumbermark](../rapi/lumbermark) function.
+the documentation of the [lumbermark](../rapi/lumbermark) function
+and the paper {cite}`Gagolewski2026:lumbermark`.
 ::::
 
 [wut/z2](https://clustering-benchmarks.gagolewski.com/) is an example

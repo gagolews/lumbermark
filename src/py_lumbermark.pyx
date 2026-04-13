@@ -145,7 +145,9 @@ cpdef dict lumbermark_from_mst(
     ----------
 
     .. [1]
-        M. Gagolewski, *Lumbermark*, in preparation, 2026, TODO
+        M. Gagolewski, Lumbermark: Resistant clustering by chopping up mutual
+        reachability minimum spanning trees, 2026,
+        https://doi.org/10.48550/arXiv.2604.07143
     """
     cdef Py_ssize_t m = mst_i.shape[0]
     cdef Py_ssize_t n = m+1

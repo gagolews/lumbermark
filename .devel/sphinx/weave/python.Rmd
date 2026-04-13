@@ -18,8 +18,9 @@ pip3 install lumbermark  # python3 -m pip install lumbermark
 ## Basic Use
 
 ::::{note}
-This section is a work in progress.
-In the meantime, take a look at the examples in the [reference manual](../pythonapi).
+This section is a work in progress.  In the meantime, take a look
+at the examples in the [reference manual](../pythonapi)
+and the paper {cite}`Gagolewski2026:lumbermark`.
 ::::
 
 

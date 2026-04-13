@@ -22,8 +22,9 @@ pip3 install lumbermark  # python3 -m pip install lumbermark
 ## Basic Use
 
 ::::{note}
-This section is a work in progress.
-In the meantime, take a look at the examples in the [reference manual](../pythonapi).
+This section is a work in progress.  In the meantime, take a look
+at the examples in the [reference manual](../pythonapi)
+and the paper {cite}`Gagolewski2026:lumbermark`.
 ::::
 
 
@@ -122,7 +123,7 @@ l = lumbermark.Lumbermark(n_clusters=2)
 l.fit(X)
 print("Elapsed time: %.2f secs." % (time.time()-t0))
 ## Lumbermark()
-## Elapsed time: 1.49 secs.
+## Elapsed time: 1.14 secs.
 ```
 
 Due to the curse of dimensionality, processing
@@ -152,7 +153,7 @@ g = genieclust.Genie(n_clusters=2)
 g.fit(X)
 print("Elapsed time: %.2f secs." % (time.time()-t0))
 ## Genie(quitefastmst_params={})
-## Elapsed time: 2.60 secs.
+## Elapsed time: 2.11 secs.
 ```
 
 A comparison against [**fast_hdbscan**](https://github.com/TutteInstitute/fast_hdbscan/):
@@ -165,5 +166,5 @@ h = fast_hdbscan.HDBSCAN()
 h.fit(X)
 print("Elapsed time: %.2f secs." % (time.time()-t0))
 ## HDBSCAN()
-## Elapsed time: 16.55 secs.
+## Elapsed time: 15.81 secs.
 ```

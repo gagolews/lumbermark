@@ -83,7 +83,9 @@ received a copy of the License along with this program. If not, see
 
 ## References
 
-TODO
+M. Gagolewski, Lumbermark: Resistant clustering by chopping up mutual
+reachability minimum spanning trees, 2026,
+DOI:[10.48550/arXiv.2604.07143](https://doi.org/10.48550/arXiv.2604.07143)
 
 See **lumbermark**'s [homepage](https://lumbermark.gagolewski.com/) for more
 references.

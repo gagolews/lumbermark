@@ -86,7 +86,7 @@ The `cut_edges` attribute gives the $k-1$ indexes of the MST edges whose omissio
 
 ## References
 
-M. Gagolewski, lumbermark, in preparation, 2026
+M. Gagolewski, Lumbermark: Resistant clustering by chopping up mutual reachability minimum spanning trees, 2026, [doi:10.48550/arXiv.2604.07143](https://doi.org/10.48550/arXiv.2604.07143)
 
 R.J.G.B. Campello, D. Moulavi, J. Sander, Density-based clustering based on hierarchical density estimates, *Lecture Notes in Computer Science* 7819, 2013, 160-172, [doi:10.1007/978-3-642-37456-2_14](https://doi.org/10.1007/978-3-642-37456-2_14)
 
