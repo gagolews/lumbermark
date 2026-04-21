@@ -46,8 +46,9 @@ class Lumbermark(deadwood.MSTClusterer):
     farther away from each other.  When combined with the ``deadwood`` package,
     it can act as an outlier detector.
 
-    Once the spanning tree is determined (:math:`\\Omega(n \\log n)` –
-    :math:`O(n^2)`), the Lumbermark algorithm runs in :math:`O(kn)` time,
+    Once the spanning tree with increasingly sorted edge weights
+    is determined (:math:`\\Omega(n \\log n)` – :math:`O(n^2)`),
+    the Lumbermark algorithm runs in :math:`O(kn)` time,
     where :math:`k` is the number of clusters sought.  Memory use is
     :math:`O(n)`.
 

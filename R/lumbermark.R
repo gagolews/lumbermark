@@ -47,8 +47,9 @@
 #' spaces; see \code{\link[quitefastmst]{mst_euclid}} from
 #' the \pkg{quitefastmst} package.
 #'
-#' Once a minimum spanning tree is determined, the Lumbermark algorithm runs in
-#' \eqn{O(kn)} time.  If you want to test different parameters or \eqn{k}s,
+#' Once a minimum spanning tree with increasingly sorted edge weights
+#' is determined, the Lumbermark algorithm runs in \eqn{O(kn)} time.
+#' If you want to test different parameters or \eqn{k}s,
 #' it is best to compute the MST explicitly beforehand.
 #'
 #'

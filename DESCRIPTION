@@ -2,7 +2,7 @@ Package: lumbermark
 Type: Package
 Title: Resistant Clustering via Chopping Up Mutual Reachability Minimum Spanning Trees
 Version: 0.9.0.9001
-Date: 2026-04-13
+Date: 2026-04-21
 Authors@R:
     person("Marek", "Gagolewski",
         role = c("aut", "cre", "cph"),
