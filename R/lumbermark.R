@@ -62,7 +62,8 @@
 #'     minimal cluster size
 #'
 #' @param min_cluster_factor numeric value in (0,1); output cluster sizes will
-#'     not be smaller than \code{min_cluster_factor*n/k}
+#'     not be smaller than \code{min_cluster_factor*n/k} (excluding leaves if
+#'     \code{skip_leaves} is requested)
 #'
 #' @param skip_leaves logical; whether the MST leaves should be omitted
 #'     from cluster size counting

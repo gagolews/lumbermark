@@ -118,8 +118,9 @@ cpdef dict lumbermark_from_mst(
         minimal cluster size
 
     min_cluster_factor : float
-        output cluster sizes won't be smaller than
-        `min_cluster_factor/n_clusters*n_points` (excluding outliers)
+        output cluster sizes will not be smaller than
+        `min_cluster_factor/n_clusters*n_points` (excluding leaves if
+        `skip_leaves` is requested)
 
     skip_leaves : bool
         whether the MST leaves should be omitted from cluster size counting

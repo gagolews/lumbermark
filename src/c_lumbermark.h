@@ -47,7 +47,7 @@ protected:
     const Py_ssize_t* mst_i;  //<! 2*m edge definitions
     Py_ssize_t m;             //<! number of edges, must be n-1
     Py_ssize_t n;             //<! number of points
-    bool skip_leaves;         //<! whether the MST leaves should be omitted from cluster counting
+    bool skip_leaves;         //<! whether the MST leaves should be omitted from cluster size counting
 
     const Py_ssize_t* cumdeg;  // length n+1; see Cgraph_vertex_incidences in 'deadwood'
     const Py_ssize_t* inc;     // length 2*m; see Cgraph_vertex_incidences in 'deadwood'
@@ -56,7 +56,7 @@ protected:
     // auxiliary data for generating clustering results:
     std::vector<Py_ssize_t> labels;        //<! node labels, size n, in 1..n_clusters and -1..-n_clusters (outliers/noise points)
     std::vector<Py_ssize_t> mst_labels;    //<! edge labels, size m
-    std::vector<Py_ssize_t> mst_cutsizes;  //<! size m, each pair gives the sizes of the clusters that are formed when we cut out the corresponding edge
+    std::vector<Py_ssize_t> mst_cutsizes;  //<! gives one of the sizes of the clusters that are formed when we cut out the corresponding edge
 
     std::vector<Py_ssize_t> cluster_sizes; //<! size n_clusters
     std::vector<Py_ssize_t> cut_edges;     //<! size n_clusters-1
@@ -165,11 +165,6 @@ public:
                 if (is_leaf(v)) n_skip++;
         }
 
-        min_cluster_size = std::max(
-            min_cluster_size,
-            (Py_ssize_t)(min_cluster_factor*(n-n_skip)/(FLOAT)n_clusters)
-        );
-
         cut_edges.resize(n_clusters-1);
         cluster_sizes.resize(n_clusters);
 
@@ -178,8 +173,15 @@ public:
         Py_ssize_t n_clusters_ = 1;
         Py_ssize_t e_last = m;  // edges are consumed in decreasing order
 
+        bool nested=false;  // TODO: param
+
         while (n_clusters_ < n_clusters)
         {
+            Py_ssize_t cur_min_cluster_size = std::max(
+                min_cluster_size,
+                (Py_ssize_t)(min_cluster_factor*(n-n_skip)/(FLOAT)(nested?(n_clusters_+1):n_clusters))
+            );
+
             // find the longest unconsumed edge to cut out
             do {
                 e_last--;
@@ -193,7 +195,7 @@ public:
                 std::min(
                     mst_cutsizes[e_last],
                     cluster_sizes[mst_labels[e_last]]-mst_cutsizes[e_last]
-                ) >= min_cluster_size
+                ) >= cur_min_cluster_size
             ));
 
             cut_edges[n_clusters_-1] = e_last;
@@ -201,7 +203,7 @@ public:
             mst_cutsizes[e_last] = -1;
             n_clusters_++;
 
-            // TODO: 2 threads or many threads, depending on the degrees of the two vertices
+            // TODO: two threads or many threads, depending on the degrees of the two vertices
             for (Py_ssize_t iv=0; iv <= 1; ++iv) {  // iv in {0,1} - go "left" and "right" along e_last
                 Py_ssize_t v = mst_i[2*e_last+iv];
 
