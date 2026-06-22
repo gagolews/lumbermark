@@ -43,7 +43,8 @@ class Lumbermark(deadwood.MSTClusterer):
     segments of a dataset's mutual reachability minimum spanning tree.
 
     The use of a mutual reachability distance [2]_ pulls peripheral points
-    farther away from each other.  When combined with the ``deadwood`` package,
+    farther away from each other.   Lumbermark is a viable alternative
+    to the HDBSCAN\* algorithm.  When combined with the ``deadwood`` package,
     it can act as an outlier detector.
 
     Once the spanning tree with increasingly sorted edge weights
@@ -64,21 +65,29 @@ class Lumbermark(deadwood.MSTClusterer):
     n_clusters : int
         The number of clusters to detect.
 
-    min_cluster_size : int, default=10
-        Minimal cluster size.
-
     min_cluster_factor : float in [0,1], default=0.25
         Output cluster sizes will not be smaller than
         ``min_cluster_factor*n_points/n_clusters``.
-
-    skip_leaves : bool, default='auto'
-        Whether the MST leaves should be omitted from cluster size counting;
-        ``"auto"`` selects True if `M > 0`.
 
     M : int, default=5
         Smoothing factor for the mutual reachability distance [2]_.
         `M = 0` and `M = 1` select the original distance as given by
         the `metric` parameter; see :any:`deadwood.MSTBase`.
+
+    nested : bool, default=False
+        If True, generating k clusters in the (k-1)th iteration
+        uses the `min_cluster_factor*n_points/k` size bound; this way,
+        the consecutively generated partitions are not dependent on the
+        initial `n_clusters`; however, this is somewhat slower and might
+        sometimes generate less sensible splits.
+
+    skip_leaves : bool, default='auto'
+        Whether the MST leaves should be omitted from cluster size counting;
+        ``"auto"`` selects True if `M > 0`.
+
+    min_cluster_size : int, default=10
+        Minimal cluster size; used as a safeguard for small `n_points`
+        and large `n_clusters`.
 
     metric : str, default='l2'
         The metric used to compute the linkage; see :any:`deadwood.MSTBase`
@@ -136,10 +145,11 @@ class Lumbermark(deadwood.MSTClusterer):
             self,
             n_clusters=2,
             *,
-            min_cluster_size=10,
             min_cluster_factor=0.25,
-            skip_leaves="auto",
             M=5,
+            nested=False,
+            skip_leaves="auto",
+            min_cluster_size=10,
             metric="l2",
             quitefastmst_params=dict(),  # dist_min is generally better than dcore_min
             verbose=False
@@ -156,6 +166,7 @@ class Lumbermark(deadwood.MSTClusterer):
         self.min_cluster_size      = min_cluster_size
         self.min_cluster_factor    = min_cluster_factor
         self.skip_leaves           = skip_leaves
+        self.nested                = nested
 
 
     def _check_params(self):
@@ -171,6 +182,8 @@ class Lumbermark(deadwood.MSTClusterer):
 
         if self.skip_leaves != "auto":
             self.skip_leaves = bool(self.skip_leaves)
+
+        self.nested = bool(self.nested)
 
 
     def fit(self, X, y=None):
@@ -222,9 +235,10 @@ class Lumbermark(deadwood.MSTClusterer):
             self._tree_cumdeg_,
             self._tree_inc_,
             n_clusters=self.n_clusters,
-            min_cluster_size=self.min_cluster_size,
             min_cluster_factor=self.min_cluster_factor,
-            skip_leaves=self.skip_leaves if self.skip_leaves!="auto" else (self.M>0)
+            nested=self.nested,
+            skip_leaves=self.skip_leaves if self.skip_leaves!="auto" else (self.M>0),
+            min_cluster_size=self.min_cluster_size,
         )
 
         self.n_clusters_ = res["n_clusters"]

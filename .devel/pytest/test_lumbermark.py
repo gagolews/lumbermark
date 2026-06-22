@@ -30,10 +30,11 @@ def test_iris():
     y_true = np.r_[y_true, y_true]
     for M in [0, 1, 2, 5, 10]:
         for skip_leaves in [True, False, "auto"]:
-            L = lumbermark.Lumbermark(n_clusters=3, M=M, skip_leaves=skip_leaves).fit(X)
-            assert L.n_clusters_ == 3
-            assert np.all(L.labels_ >= 0)
-            assert np.all(L.labels_ < 3)
+            for nested in [False, True]:
+                L = lumbermark.Lumbermark(n_clusters=3, M=M, skip_leaves=skip_leaves, nested=nested).fit(X)
+                assert L.n_clusters_ == 3
+                assert np.all(L.labels_ >= 0)
+                assert np.all(L.labels_ < 3)
 
 
 def test_deadwood():

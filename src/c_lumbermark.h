@@ -142,17 +142,26 @@ public:
     /*! Run the Lumbermark algorithm
      *
      * @param n_clusters number of clusters to find
-     * @param min_cluster_size minimal cluster size
+     *
+     * @param min_cluster_size minimal cluster size (as a safeguard for
+     *    small n_points and large n_clusters)
+     *
      * @param min_cluster_factor output cluster sizes won't be smaller than
      *    min_cluster_factor*n_points/n_clusters
-
+     *
+     * @param nested if True, generating k clusters in the (k-1)th iteration
+     *    uses the min_cluster_factor*n_points/k size bound; this way,
+     *    the consecutively generated partitions are not dependent on the
+     *    initial n_clusters; however, this is somewhat slower and might
+     *    generate less sensible splits
      *
      * @return number of clusters detected (can be smaller than the requested one)
      */
     Py_ssize_t compute(
         Py_ssize_t n_clusters,
         Py_ssize_t min_cluster_size,
-        FLOAT min_cluster_factor
+        FLOAT min_cluster_factor,
+        bool nested
     ) {
         LUMBERMARK_ASSERT(n > 2);
 
@@ -173,8 +182,6 @@ public:
         Py_ssize_t n_clusters_ = 1;
         Py_ssize_t e_last = m;  // edges are consumed in decreasing order
 
-        bool nested=false;  // TODO: param
-
         while (n_clusters_ < n_clusters)
         {
             Py_ssize_t cur_min_cluster_size = std::max(
@@ -190,7 +197,7 @@ public:
                     return n_clusters_;  // unfortunately, that's it.
                 }
             } while (!(
-                mst_labels[e_last] >= 0 &&  // currently always true
+                mst_labels[e_last] >= 0 &&  // always true if !nested
                 !(skip_leaves && (is_leaf(mst_i[2*e_last+0]) || is_leaf(mst_i[2*e_last+1]))) &&
                 std::min(
                     mst_cutsizes[e_last],
@@ -216,6 +223,8 @@ public:
                 }
                 cluster_sizes[labels[v]] = tot;
             }
+
+            if (nested) e_last = m;  // start from the beginning
         }
 
         return n_clusters_;

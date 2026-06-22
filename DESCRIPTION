@@ -1,8 +1,8 @@
 Package: lumbermark
 Type: Package
 Title: Resistant Clustering via Chopping Up Mutual Reachability Minimum Spanning Trees
-Version: 0.9.0.9002
-Date: 2026-06-18
+Version: 0.9.0.9003
+Date: 2026-06-22
 Authors@R:
     person("Marek", "Gagolewski",
         role = c("aut", "cre", "cph"),
@@ -14,11 +14,11 @@ Description:
     identifies a specified number of clusters: 'lumbermark' iteratively
     chops off sizeable limbs that are joined by protruding segments
     of a dataset's mutual reachability minimum spanning tree
-    (Gagolewski, 2026 <DOI:10.48550/arXiv.2604.07143>).
-    The use of a mutual reachability distance pulls peripheral points farther
-    away from each other.  When combined with the 'deadwood' package, it can
-    act as an outlier detector.  The 'Python' version of 'lumbermark' is
-    available via 'PyPI'.
+    (Gagolewski, 2026 <DOI:10.48550/arXiv.2604.07143>).  The use of a mutual
+    reachability distance pulls peripheral points farther away from each other.
+    It is a viable alternative to the 'HDBSCAN*'algorithm.  When combined with
+    the 'deadwood' package, it can act as an outlier detector.
+    The 'Python' version of 'lumbermark' is available via 'PyPI'.
 BugReports: https://github.com/gagolews/lumbermark/issues
 URL:
     https://lumbermark.gagolewski.com/,
@@ -33,4 +33,4 @@ Suggests:
 LinkingTo: Rcpp
 Encoding: UTF-8
 SystemRequirements: OpenMP
-RoxygenNote: 7.3.3
+Config/roxygen2/version: 8.0.0

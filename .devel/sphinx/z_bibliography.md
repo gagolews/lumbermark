@@ -1,11 +1,10 @@
 # References
 
-<!--
 ## How to Cite
 
-When using *genieclust* in research publications, please cite
-{cite}`genieclust` and {cite}`genieins` as specified below.
--->
+When using *lumbermark* in research publications, please cite
+{cite}`Gagolewski2026:lumbermark` as specified below.
+
 
 ## See Also
 

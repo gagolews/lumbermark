@@ -69,7 +69,7 @@ cdef extern from "c_lumbermark.h":
 
         Py_ssize_t compute(
             Py_ssize_t n_clusters, Py_ssize_t min_cluster_size,
-            T min_cluster_factor
+            T min_cluster_factor, bool nested
         ) except +
 
         void get_labels(Py_ssize_t* res)
@@ -83,14 +83,15 @@ cpdef dict lumbermark_from_mst(
         Py_ssize_t[::1] mst_cumdeg,
         Py_ssize_t[::1] mst_inc,
         Py_ssize_t n_clusters,
-        Py_ssize_t min_cluster_size=10,
-        floatT min_cluster_factor=0.15,
-        bool skip_leaves=True
+        floatT min_cluster_factor=0.25,
+        bool nested=False,
+        bool skip_leaves=True,
+        Py_ssize_t min_cluster_size=10
     ):
     """
     lumbermark.lumbermark_from_mst(
-        mst_d, mst_i, mst_cumdeg, mst_inc,
-        n_clusters, min_cluster_size=10, min_cluster_factor=0.15, skip_leaves=True
+        mst_d, mst_i, mst_cumdeg, mst_inc, n_clusters, min_cluster_factor=0.15,
+        nested=False, skip_leaves=True, min_cluster_size=10
     )
 
     The Lumbermark Clustering Algorithm
@@ -114,16 +115,24 @@ cpdef dict lumbermark_from_mst(
     n_clusters : int
         the number of clusters requested
 
-    min_cluster_size : int
-        minimal cluster size
-
     min_cluster_factor : float
         output cluster sizes will not be smaller than
         `min_cluster_factor/n_clusters*n_points` (excluding leaves if
         `skip_leaves` is requested)
 
+    nested : bool
+        if True, generating k clusters in the (k-1)th iteration
+        uses the `min_cluster_factor*n_points/k` size bound; this way,
+        the consecutively generated partitions are not dependent on the
+        initial `n_clusters`; however, this is somewhat slower and might
+        sometimes generate less sensible splits
+
     skip_leaves : bool
         whether the MST leaves should be omitted from cluster size counting
+
+    min_cluster_size : int
+        minimal cluster size; used as a safeguard for small `n_points`
+        and large `n_clusters`
 
 
     Returns
@@ -176,7 +185,7 @@ cpdef dict lumbermark_from_mst(
     )
 
     n_clusters_ = lm.compute(
-        n_clusters, min_cluster_size, min_cluster_factor
+        n_clusters, min_cluster_size, min_cluster_factor, nested
     )
 
     if n_clusters_ <= 0:

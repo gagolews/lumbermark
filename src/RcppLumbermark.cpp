@@ -106,6 +106,7 @@ void Cgraph_vertex_incidences(
     LUMBERMARK_ASSERT(cumdeg[n] == 2*m);
 }
 
+
 // [[Rcpp::export(".lumbermark")]]
 IntegerVector dot_lumbermark(
     NumericMatrix mst,
@@ -113,6 +114,7 @@ IntegerVector dot_lumbermark(
     int min_cluster_size,
     double min_cluster_factor,
     bool skip_leaves,
+    bool nested,
     bool verbose
 )
 {
@@ -140,7 +142,7 @@ IntegerVector dot_lumbermark(
     CLumbermark lm(mst_d.data(), mst_i.data(), n-1, n, skip_leaves, cumdeg.data(), inc.data());
 
     int k_detected = lm.compute(
-        k, min_cluster_size, min_cluster_factor
+        k, min_cluster_size, min_cluster_factor, nested
     );
 
     LUMBERMARK_ASSERT(k_detected>0);
