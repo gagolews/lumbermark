@@ -6,7 +6,7 @@ Lumbermark is a fast and robust divisive clustering algorithm which identifies a
 
 It iteratively chops off sizeable limbs that are joined by protruding segments of a dataset\'s mutual reachability minimum spanning tree.
 
-The use of a mutual reachability distance ($M>1$; Campello et al., 2013) pulls peripheral points farther away from each other. This way, Lumbermark gives an alternative to the HDBSCAN\* algorithm that is able to detect a predefined number of clusters and indicate outliers (via <span class="pkg">deadwood</span>; see Gagolewski, 2026).
+The use of a mutual reachability distance ($M>1$; Campello et al., 2013) pulls peripheral points farther away from each other.
 
 ## Usage
 
@@ -17,10 +17,11 @@ lumbermark(d, ...)
 lumbermark(
   d,
   k,
-  min_cluster_size = 10,
   min_cluster_factor = 0.25,
-  skip_leaves = (M > 0L),
   M = 5L,
+  nested = FALSE,
+  skip_leaves = (M > 0L),
+  min_cluster_size = 10,
   distance = c("euclidean", "l2", "manhattan", "cityblock", "l1", "cosine"),
   verbose = FALSE,
   ...
@@ -30,10 +31,11 @@ lumbermark(
 lumbermark(
   d,
   k,
-  min_cluster_size = 10,
   min_cluster_factor = 0.25,
-  skip_leaves = (M > 0L),
   M = 5L,
+  nested = FALSE,
+  skip_leaves = (M > 0L),
+  min_cluster_size = 10,
   verbose = FALSE,
   ...
 )
@@ -42,9 +44,10 @@ lumbermark(
 lumbermark(
   d,
   k,
-  min_cluster_size = 10,
   min_cluster_factor = 0.25,
+  nested = FALSE,
   skip_leaves = TRUE,
+  min_cluster_size = 10,
   verbose = FALSE,
   ...
 )
@@ -57,24 +60,27 @@ lumbermark(
 | `d` | a numeric matrix (or an object coercible to one, e.g., a data frame with numeric-like columns) or an object of class `dist` (see [`dist`](https://stat.ethz.ch/R-manual/R-devel/library/stats/help/dist.html)), or an object of class `mst` (see [`mst`](https://deadwood.gagolewski.com/rapi/mst.html)) |
 | `...` | further arguments passed to [`mst()`](https://deadwood.gagolewski.com/rapi/mst.html) |
 | `k` | integer; the desired number of clusters to detect |
-| `min_cluster_size` | integer; minimal cluster size |
-| `min_cluster_factor` | numeric value in (0,1); output cluster sizes will not be smaller than `min_cluster_factor*n/k` |
-| `skip_leaves` | logical; whether the MST leaves should be omitted from cluster size counting |
+| `min_cluster_factor` | numeric value in (0,1); output cluster sizes will not be smaller than `min_cluster_factor*n/k` (excluding leaves if `skip_leaves` is requested) |
 | `M` | integer; smoothing factor; $M \leq 1$ gives the selected `distance`; otherwise, the mutual reachability distance is used |
+| `nested` | if TRUE, generating $l$ clusters in the $(l-1)$-th iteration uses the `min_cluster_factor*n/k` size bound; this way, the consecutively generated partitions are not dependent on the initial `k`; however, this is somewhat slower and might sometimes generate less sensible splits |
+| `skip_leaves` | logical; whether the MST leaves should be omitted from cluster size counting |
+| `min_cluster_size` | integer; minimal cluster size; used as a safeguard for small `n` and large `k` |
 | `distance` | metric used to compute the linkage, one of: `"euclidean"` (synonym: `"l2"`), `"manhattan"` (a.k.a. `"l1"` and `"cityblock"`), `"cosine"` |
 | `verbose` | logical; whether to print diagnostic messages and progress information |
 
 ## Details
 
+Lumbermark is a viable alternative to the HDBSCAN\* algorithm that is able to detect a predefined number of clusters and indicate outliers (via <span class="pkg">deadwood</span>; see Gagolewski, 2026).
+
 As with all distance-based methods (this includes k-means and DBSCAN as well), applying data preprocessing and feature engineering techniques (e.g., feature scaling, feature selection, dimensionality reduction) might lead to more meaningful results.
 
 If `d` is a numeric matrix or an object of class `dist`, [`mst()`](https://deadwood.gagolewski.com/rapi/mst.html) will be called to compute an MST, which generally takes at most $O(n^2)$ time. However, by default, a faster algorithm based on K-d trees is selected automatically for low-dimensional Euclidean spaces; see [`mst_euclid`](https://quitefastmst.gagolewski.com/rapi/mst_euclid.html) from the <span class="pkg">quitefastmst</span> package.
 
-Once a minimum spanning tree is determined, the Lumbermark algorithm runs in $O(kn)$ time. If you want to test different parameters or $k$s, it is best to compute the MST explicitly beforehand.
+Once a minimum spanning tree with increasingly sorted edge weights is determined, the Lumbermark algorithm runs in $O(kn)$ time. If you want to test different parameters or $k$s, it is best to compute the MST explicitly beforehand.
 
 ## Value
 
-`lumbermark()` returns an object of class `mstclust`, which defines a $k$-partition, i.e., a vector whose $i$-th element denotes the $i$-th input point\'s cluster label between 1 and $k$.
+`lumbermark()` returns an object of class `mstclust`, which defines a $k$-partition of a given dataset, i.e., a vector whose $i$-th element denotes the $i$-th input point\'s cluster label between 1 and $k$.
 
 The `mst` attribute gives the computed minimum spanning tree which can be reused in further calls to the functions from <span class="pkg">genieclust</span>, <span class="pkg">lumbermark</span>, and <span class="pkg">deadwood</span>.
 
@@ -119,7 +125,7 @@ plot(X, col=y_pred, pch=y_test, asp=1, las=1)
 ![plot of chunk lumbermark](figure/lumbermark-1.png)
 
 ``` r
-# detect 3 clusters and find outliers with Deadwood
+# detect three clusters and find outliers with Deadwood
 library("deadwood")
 y_pred2 <- lumbermark(X, k=3)
 plot(X, col=y_pred2, asp=1, las=1)
