@@ -84,7 +84,7 @@ cpdef dict lumbermark_from_mst(
         Py_ssize_t[::1] mst_inc,
         Py_ssize_t n_clusters,
         floatT min_cluster_factor=0.25,
-        bool nested=False,
+        bool nested=True,
         bool skip_leaves=True,
         Py_ssize_t min_cluster_size=10
     ):
@@ -121,11 +121,12 @@ cpdef dict lumbermark_from_mst(
         `skip_leaves` is requested)
 
     nested : bool
-        if True, generating k clusters in the (k-1)th iteration
+        If True, generating k clusters in the (k-1)th iteration
         uses the `min_cluster_factor*n_points/k` size bound; this way,
         the consecutively generated partitions are not dependent on the
-        initial `n_clusters`; however, this is somewhat slower and might
-        sometimes generate less sensible splits
+        initial `n_clusters` and are thus properly nested.
+        On the other hand, if `nested = False`, then all clusters are of
+        size at least `min_cluster_factor*n_points/n_clusters`.
 
     skip_leaves : bool
         whether the MST leaves should be omitted from cluster size counting

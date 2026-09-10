@@ -150,10 +150,8 @@ public:
      *    min_cluster_factor*n_points/n_clusters
      *
      * @param nested if True, generating k clusters in the (k-1)th iteration
-     *    uses the min_cluster_factor*n_points/k size bound; this way,
-     *    the consecutively generated partitions are not dependent on the
-     *    initial n_clusters; however, this is somewhat slower and might
-     *    generate less sensible splits
+     *    uses the min_cluster_factor*n_points/k size bound; otherwise,
+     *    use min_cluster_factor*n_points/n_clusters.
      *
      * @return number of clusters detected (can be smaller than the requested one)
      */

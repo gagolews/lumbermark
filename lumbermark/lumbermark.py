@@ -43,7 +43,7 @@ class Lumbermark(deadwood.MSTClusterer):
     segments of a dataset's mutual reachability minimum spanning tree.
 
     The use of a mutual reachability distance [2]_ pulls peripheral points
-    farther away from each other.   Lumbermark is a viable alternative
+    farther away from each other.  Lumbermark is a viable alternative
     to the HDBSCAN\* algorithm.  When combined with the ``deadwood`` package,
     it can act as an outlier detector.
 
@@ -53,7 +53,7 @@ class Lumbermark(deadwood.MSTClusterer):
     where :math:`k` is the number of clusters sought.  Memory use is
     :math:`O(n)`.
 
-    As with all distance-based methods (this includes k-means and DBSCAN as
+    As with all distance-based methods (this includes k-means and HDBSCAN as
     well), applying data preprocessing and feature engineering techniques
     (e.g., feature scaling, feature selection, dimensionality reduction)
     might lead to more meaningful results.
@@ -74,16 +74,18 @@ class Lumbermark(deadwood.MSTClusterer):
         `M = 0` and `M = 1` select the original distance as given by
         the `metric` parameter; see :any:`deadwood.MSTBase`.
 
-    nested : bool, default=False
+    nested : bool, default=True
         If True, generating k clusters in the (k-1)th iteration
         uses the `min_cluster_factor*n_points/k` size bound; this way,
         the consecutively generated partitions are not dependent on the
-        initial `n_clusters`; however, this is somewhat slower and might
-        sometimes generate less sensible splits.
+        initial `n_clusters` and are thus properly nested.
+        On the other hand, if `nested = False`, then all clusters are of
+        size at least `min_cluster_factor*n_points/n_clusters`;
+        this is somewhat faster to compute.
 
     skip_leaves : bool, default='auto'
         Whether the MST leaves should be omitted from cluster size counting;
-        ``"auto"`` selects True if `M > 0`.
+        ``"auto"`` selects True if `M > 0` and False otherwise.
 
     min_cluster_size : int, default=10
         Minimal cluster size; used as a safeguard for small `n_points`
@@ -147,7 +149,7 @@ class Lumbermark(deadwood.MSTClusterer):
             *,
             min_cluster_factor=0.25,
             M=5,
-            nested=False,
+            nested=True,
             skip_leaves="auto",
             min_cluster_size=10,
             metric="l2",

@@ -12,7 +12,7 @@ X <- t(cbind(
 ))
 y_true <- rep(1:2, c(n1, n2))
 
-y <- deadwood(X, M=10)
+y <- deadwood(X, M=10, max_k=1)
 # plot(X, col=y+1, asp=1)
 expect_equal(mean(y[y_true==2]), 1)
 

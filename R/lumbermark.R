@@ -70,10 +70,12 @@
 #'     from cluster size counting
 #'
 #' @param nested if TRUE, generating \eqn{l} clusters in the \eqn{(l-1)}-th
-#'     iteration uses the \code{min_cluster_factor*n/k} size bound; this way,
+#'     iteration uses the \code{min_cluster_factor*n/l} size bound; this way,
 #'     the consecutively generated partitions are not dependent on the
-#'     initial \code{k}; however, this is somewhat slower and might
-#'     sometimes generate less sensible splits
+#'     initial \code{k} and are thus properly nested. On the other hand, if
+#'     \code{nested} is FALSE, then all clusters are of
+#'     size at least \code{min_cluster_factor*n/k};
+#'     this is somewhat faster to compute.
 #'
 #' @param distance metric used to compute the linkage, one of:
 #'     \code{"euclidean"} (synonym: \code{"l2"}),
@@ -159,7 +161,7 @@ lumbermark.default <- function(
     k,
     min_cluster_factor=0.25,
     M=5L,
-    nested=FALSE,
+    nested=TRUE,
     skip_leaves=(M>0L),
     min_cluster_size=10,
     distance=c("euclidean", "l2", "manhattan", "cityblock", "l1", "cosine"),
@@ -187,7 +189,7 @@ lumbermark.dist <- function(
     k,
     min_cluster_factor=0.25,
     M=5L,
-    nested=FALSE,
+    nested=TRUE,
     skip_leaves=(M>0L),
     min_cluster_size=10,
     verbose=FALSE,
@@ -212,7 +214,7 @@ lumbermark.mst <- function(
     d,
     k,
     min_cluster_factor=0.25,
-    nested=FALSE,
+    nested=TRUE,
     skip_leaves=TRUE,
     min_cluster_size=10,
     verbose=FALSE,
