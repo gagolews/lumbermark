@@ -17,6 +17,24 @@ To install the package from [CRAN](https://CRAN.R-project.org/package=lumbermark
 install.packages("lumbermark")
 ```
 
+::::{note}
+For best performance, advanced users will benefit from compiling the package
+from sources:
+
+
+```r
+Sys.setenv(CXX_DEFS="-O3 -march=native")  # for gcc and clang
+install.packages(c("quitefastmst", "deadwood", "lumbermark"), type="source")
+```
+
+To enable OpenMP on macOS, execute `brew install libomp`, and then call in R:
+
+
+```r
+Sys.setenv(CXX_DEFS="-O3 -march=native -Xpreprocessor -fopenmp")
+install.packages(c("quitefastmst", "deadwood", "lumbermark"), type="source")
+```
+::::
 
 
 ## Basic Use
@@ -46,12 +64,11 @@ The z2 dataset
 ```
 
 
-
 ## Outlier Detection in the Case of Clusters of Heterogeneous Densities
 
 The recently-developed [*Deadwood*](https://deadwood.gagolewski.com/)
-outlier detection algorithm works quite well in the case of clusters
-of similar densities. However, we can combine it with *Lumbermark*
+outlier detection algorithm works already quite well in the case of clusters
+of heterogeneous densities.  Still, we can combine it with *Lumbermark*
 to detect outliers in each detected cluster separately.
 
 
@@ -74,5 +91,3 @@ plot(Z2, asp=1, xlab=NA, ylab=NA,
 ```{figure} r-figures/r_z2_deadwood-1.*
 Outlier detection of the *z2* dataset
 ```
-
-

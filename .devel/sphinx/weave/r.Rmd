@@ -12,7 +12,22 @@ To install the package from [CRAN](https://CRAN.R-project.org/package=lumbermark
 install.packages("lumbermark")
 ```
 
-<!-- TODO: for best performance, install quitefastmst from sources -->
+::::{note}
+For best performance, advanced users will benefit from compiling the package
+from sources:
+
+```r
+Sys.setenv(CXX_DEFS="-O3 -march=native")  # for gcc and clang
+install.packages(c("quitefastmst", "deadwood", "lumbermark"), type="source")
+```
+
+To enable OpenMP on macOS, execute `brew install libomp`, and then call in R:
+
+```r
+Sys.setenv(CXX_DEFS="-O3 -march=native -Xpreprocessor -fopenmp")
+install.packages(c("quitefastmst", "deadwood", "lumbermark"), type="source")
+```
+::::
 
 
 ## Basic Use
@@ -37,12 +52,11 @@ plot(Z2, asp=1, ann=FALSE, col=lumbermark_labels)
 ```
 
 
-
 ## Outlier Detection in the Case of Clusters of Heterogeneous Densities
 
 The recently-developed [*Deadwood*](https://deadwood.gagolewski.com/)
-outlier detection algorithm works quite well in the case of clusters
-of similar densities. However, we can combine it with *Lumbermark*
+outlier detection algorithm works already quite well in the case of clusters
+of heterogeneous densities.  Still, we can combine it with *Lumbermark*
 to detect outliers in each detected cluster separately.
 
 
@@ -60,5 +74,3 @@ is_outlier_hetero <- deadwood(lumbermark_labels)
 plot(Z2, asp=1, xlab=NA, ylab=NA,
     col=c("#00000055","#ff333333")[is_outlier_hetero+1], main="Deadwood+Lumbermark")
 ```
-
-

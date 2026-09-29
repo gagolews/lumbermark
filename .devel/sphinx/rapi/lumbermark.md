@@ -19,7 +19,7 @@ lumbermark(
   k,
   min_cluster_factor = 0.25,
   M = 5L,
-  nested = FALSE,
+  nested = TRUE,
   skip_leaves = (M > 0L),
   min_cluster_size = 10,
   distance = c("euclidean", "l2", "manhattan", "cityblock", "l1", "cosine"),
@@ -33,7 +33,7 @@ lumbermark(
   k,
   min_cluster_factor = 0.25,
   M = 5L,
-  nested = FALSE,
+  nested = TRUE,
   skip_leaves = (M > 0L),
   min_cluster_size = 10,
   verbose = FALSE,
@@ -45,7 +45,7 @@ lumbermark(
   d,
   k,
   min_cluster_factor = 0.25,
-  nested = FALSE,
+  nested = TRUE,
   skip_leaves = TRUE,
   min_cluster_size = 10,
   verbose = FALSE,
@@ -62,7 +62,7 @@ lumbermark(
 | `k` | integer; the desired number of clusters to detect |
 | `min_cluster_factor` | numeric value in (0,1); output cluster sizes will not be smaller than `min_cluster_factor*n/k` (excluding leaves if `skip_leaves` is requested) |
 | `M` | integer; smoothing factor; $M \leq 1$ gives the selected `distance`; otherwise, the mutual reachability distance is used |
-| `nested` | if TRUE, generating $l$ clusters in the $(l-1)$-th iteration uses the `min_cluster_factor*n/k` size bound; this way, the consecutively generated partitions are not dependent on the initial `k`; however, this is somewhat slower and might sometimes generate less sensible splits |
+| `nested` | if TRUE, generating $l$ clusters in the $(l-1)$-th iteration uses the `min_cluster_factor*n/l` size bound; this way, the consecutively generated partitions are not dependent on the initial `k` and are thus properly nested. On the other hand, if `nested` is FALSE, then all clusters are of size at least `min_cluster_factor*n/k`; this is somewhat faster to compute. |
 | `skip_leaves` | logical; whether the MST leaves should be omitted from cluster size counting |
 | `min_cluster_size` | integer; minimal cluster size; used as a safeguard for small `n` and large `k` |
 | `distance` | metric used to compute the linkage, one of: `"euclidean"` (synonym: `"l2"`), `"manhattan"` (a.k.a. `"l1"` and `"cityblock"`), `"cosine"` |

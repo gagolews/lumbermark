@@ -210,7 +210,7 @@
 <a class="sidebar-brand" href="../index.html">lumbermark</a>
 </span>
 <div class="sidebar-brand">
-0.9.0
+0.9.1
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -295,7 +295,7 @@
 <h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
 <p>Lumbermark is a fast and robust divisive clustering algorithm which identifies a specified number of clusters.</p>
 <p>It iteratively chops off sizeable limbs that are joined by protruding segments of a dataset’s mutual reachability minimum spanning tree.</p>
-<p>The use of a mutual reachability distance (<span class="math notranslate nohighlight">\(M&gt;1\)</span>; Campello et al., 2013) pulls peripheral points farther away from each other. This way, Lumbermark gives an alternative to the HDBSCAN* algorithm that is able to detect a predefined number of clusters and indicate outliers (via <span class="pkg">deadwood</span>; see Gagolewski, 2026).</p>
+<p>The use of a mutual reachability distance (<span class="math notranslate nohighlight">\(M&gt;1\)</span>; Campello et al., 2013) pulls peripheral points farther away from each other.</p>
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
@@ -305,10 +305,11 @@
 <span class="nf">lumbermark</span><span class="p">(</span>
 <span class="w">  </span><span class="n">d</span><span class="p">,</span>
 <span class="w">  </span><span class="n">k</span><span class="p">,</span>
-<span class="w">  </span><span class="n">min_cluster_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span>
 <span class="w">  </span><span class="n">min_cluster_factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.25</span><span class="p">,</span>
-<span class="w">  </span><span class="n">skip_leaves</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">M</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0L</span><span class="p">),</span>
 <span class="w">  </span><span class="n">M</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5L</span><span class="p">,</span>
+<span class="w">  </span><span class="n">nested</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span>
+<span class="w">  </span><span class="n">skip_leaves</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">M</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0L</span><span class="p">),</span>
+<span class="w">  </span><span class="n">min_cluster_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span>
 <span class="w">  </span><span class="n">distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;euclidean&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;l2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;manhattan&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;cityblock&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;l1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;cosine&quot;</span><span class="p">),</span>
 <span class="w">  </span><span class="n">verbose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span>
 <span class="w">  </span><span class="kc">...</span>
@@ -318,10 +319,11 @@
 <span class="nf">lumbermark</span><span class="p">(</span>
 <span class="w">  </span><span class="n">d</span><span class="p">,</span>
 <span class="w">  </span><span class="n">k</span><span class="p">,</span>
-<span class="w">  </span><span class="n">min_cluster_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span>
 <span class="w">  </span><span class="n">min_cluster_factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.25</span><span class="p">,</span>
-<span class="w">  </span><span class="n">skip_leaves</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">M</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0L</span><span class="p">),</span>
 <span class="w">  </span><span class="n">M</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5L</span><span class="p">,</span>
+<span class="w">  </span><span class="n">nested</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span>
+<span class="w">  </span><span class="n">skip_leaves</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">M</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0L</span><span class="p">),</span>
+<span class="w">  </span><span class="n">min_cluster_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span>
 <span class="w">  </span><span class="n">verbose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span>
 <span class="w">  </span><span class="kc">...</span>
 <span class="p">)</span>
@@ -330,9 +332,10 @@
 <span class="nf">lumbermark</span><span class="p">(</span>
 <span class="w">  </span><span class="n">d</span><span class="p">,</span>
 <span class="w">  </span><span class="n">k</span><span class="p">,</span>
-<span class="w">  </span><span class="n">min_cluster_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span>
 <span class="w">  </span><span class="n">min_cluster_factor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.25</span><span class="p">,</span>
+<span class="w">  </span><span class="n">nested</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span>
 <span class="w">  </span><span class="n">skip_leaves</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span>
+<span class="w">  </span><span class="n">min_cluster_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span>
 <span class="w">  </span><span class="n">verbose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span>
 <span class="w">  </span><span class="kc">...</span>
 <span class="p">)</span>
@@ -358,22 +361,25 @@
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">k</span></code></p></td>
 <td><p>integer; the desired number of clusters to detect</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_cluster_size</span></code></p></td>
-<td><p>integer; minimal cluster size</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">min_cluster_factor</span></code></p></td>
-<td><p>numeric value in (0,1); output cluster sizes will not be smaller than <code class="docutils literal notranslate"><span class="pre">min_cluster_factor*n/k</span></code></p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">skip_leaves</span></code></p></td>
-<td><p>logical; whether the MST leaves should be omitted from cluster size counting</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_cluster_factor</span></code></p></td>
+<td><p>numeric value in (0,1); output cluster sizes will not be smaller than <code class="docutils literal notranslate"><span class="pre">min_cluster_factor*n/k</span></code> (excluding leaves if <code class="docutils literal notranslate"><span class="pre">skip_leaves</span></code> is requested)</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">M</span></code></p></td>
 <td><p>integer; smoothing factor; <span class="math notranslate nohighlight">\(M \leq 1\)</span> gives the selected <code class="docutils literal notranslate"><span class="pre">distance</span></code>; otherwise, the mutual reachability distance is used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">distance</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nested</span></code></p></td>
+<td><p>if TRUE, generating <span class="math notranslate nohighlight">\(l\)</span> clusters in the <span class="math notranslate nohighlight">\((l-1)\)</span>-th iteration uses the <code class="docutils literal notranslate"><span class="pre">min_cluster_factor*n/l</span></code> size bound; this way, the consecutively generated partitions are not dependent on the initial <code class="docutils literal notranslate"><span class="pre">k</span></code> and are thus properly nested. On the other hand, if <code class="docutils literal notranslate"><span class="pre">nested</span></code> is FALSE, then all clusters are of size at least <code class="docutils literal notranslate"><span class="pre">min_cluster_factor*n/k</span></code>; this is somewhat faster to compute.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">skip_leaves</span></code></p></td>
+<td><p>logical; whether the MST leaves should be omitted from cluster size counting</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_cluster_size</span></code></p></td>
+<td><p>integer; minimal cluster size; used as a safeguard for small <code class="docutils literal notranslate"><span class="pre">n</span></code> and large <code class="docutils literal notranslate"><span class="pre">k</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">distance</span></code></p></td>
 <td><p>metric used to compute the linkage, one of: <code class="docutils literal notranslate"><span class="pre">&quot;euclidean&quot;</span></code> (synonym: <code class="docutils literal notranslate"><span class="pre">&quot;l2&quot;</span></code>), <code class="docutils literal notranslate"><span class="pre">&quot;manhattan&quot;</span></code> (a.k.a. <code class="docutils literal notranslate"><span class="pre">&quot;l1&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;cityblock&quot;</span></code>), <code class="docutils literal notranslate"><span class="pre">&quot;cosine&quot;</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code></p></td>
 <td><p>logical; whether to print diagnostic messages and progress information</p></td>
 </tr>
 </tbody>
@@ -382,13 +388,14 @@
 </section>
 <section id="details">
 <h2>Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h2>
+<p>Lumbermark is a viable alternative to the HDBSCAN* algorithm that is able to detect a predefined number of clusters and indicate outliers (via <span class="pkg">deadwood</span>; see Gagolewski, 2026).</p>
 <p>As with all distance-based methods (this includes k-means and DBSCAN as well), applying data preprocessing and feature engineering techniques (e.g., feature scaling, feature selection, dimensionality reduction) might lead to more meaningful results.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">d</span></code> is a numeric matrix or an object of class <code class="docutils literal notranslate"><span class="pre">dist</span></code>, <a class="reference external" href="https://deadwood.gagolewski.com/rapi/mst.html"><code class="docutils literal notranslate"><span class="pre">mst()</span></code></a> will be called to compute an MST, which generally takes at most <span class="math notranslate nohighlight">\(O(n^2)\)</span> time. However, by default, a faster algorithm based on K-d trees is selected automatically for low-dimensional Euclidean spaces; see <a class="reference external" href="https://quitefastmst.gagolewski.com/rapi/mst_euclid.html"><code class="docutils literal notranslate"><span class="pre">mst_euclid</span></code></a> from the <span class="pkg">quitefastmst</span> package.</p>
-<p>Once a minimum spanning tree is determined, the Lumbermark algorithm runs in <span class="math notranslate nohighlight">\(O(kn)\)</span> time. If you want to test different parameters or <span class="math notranslate nohighlight">\(k\)</span>s, it is best to compute the MST explicitly beforehand.</p>
+<p>Once a minimum spanning tree with increasingly sorted edge weights is determined, the Lumbermark algorithm runs in <span class="math notranslate nohighlight">\(O(kn)\)</span> time. If you want to test different parameters or <span class="math notranslate nohighlight">\(k\)</span>s, it is best to compute the MST explicitly beforehand.</p>
 </section>
 <section id="value">
 <h2>Value<a class="headerlink" href="#value" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">lumbermark()</span></code> returns an object of class <code class="docutils literal notranslate"><span class="pre">mstclust</span></code>, which defines a <span class="math notranslate nohighlight">\(k\)</span>-partition, i.e., a vector whose <span class="math notranslate nohighlight">\(i\)</span>-th element denotes the <span class="math notranslate nohighlight">\(i\)</span>-th input point’s cluster label between 1 and <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">lumbermark()</span></code> returns an object of class <code class="docutils literal notranslate"><span class="pre">mstclust</span></code>, which defines a <span class="math notranslate nohighlight">\(k\)</span>-partition of a given dataset, i.e., a vector whose <span class="math notranslate nohighlight">\(i\)</span>-th element denotes the <span class="math notranslate nohighlight">\(i\)</span>-th input point’s cluster label between 1 and <span class="math notranslate nohighlight">\(k\)</span>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">mst</span></code> attribute gives the computed minimum spanning tree which can be reused in further calls to the functions from <span class="pkg">genieclust</span>, <span class="pkg">lumbermark</span>, and <span class="pkg">deadwood</span>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">cut_edges</span></code> attribute gives the <span class="math notranslate nohighlight">\(k-1\)</span> indexes of the MST edges whose omission leads to the requested <span class="math notranslate nohighlight">\(k\)</span>-partition (connected components of the resulting spanning forest).</p>
 </section>
@@ -398,7 +405,7 @@
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading">¶</a></h2>
-<p>M. Gagolewski, lumbermark, in preparation, 2026</p>
+<p>M. Gagolewski, Lumbermark: Resistant clustering by chopping up mutual reachability minimum spanning trees, 2026, <a class="reference external" href="https://doi.org/10.48550/arXiv.2604.07143">doi:10.48550/arXiv.2604.07143</a></p>
 <p>R.J.G.B. Campello, D. Moulavi, J. Sander, Density-based clustering based on hierarchical density estimates, <em>Lecture Notes in Computer Science</em> 7819, 2013, 160-172, <a class="reference external" href="https://doi.org/10.1007/978-3-642-37456-2_14">doi:10.1007/978-3-642-37456-2_14</a></p>
 <p>M. Gagolewski, A. Cena, M. Bartoszuk, Ł. Brzozowski, Clustering with minimum spanning trees: How good can it be?, <em>Journal of Classification</em> 42, 2025, 90-112, <a class="reference external" href="https://doi.org/10.1007/s00357-024-09483-1">doi:10.1007/s00357-024-09483-1</a></p>
 <p>M. Gagolewski, deadwood, in preparation, 2026</p>
@@ -420,7 +427,7 @@
 </pre></div>
 </div>
 <p><img alt="plot of chunk lumbermark" src="../_images/lumbermark-1.png" /></p>
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># detect 3 clusters and find outliers with Deadwood</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># detect three clusters and find outliers with Deadwood</span>
 <span class="nf">library</span><span class="p">(</span><span class="s">&quot;deadwood&quot;</span><span class="p">)</span>
 <span class="n">y_pred2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lumbermark</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="o">=</span><span class="m">3</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="n">y_pred2</span><span class="p">,</span><span class="w"> </span><span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">las</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
@@ -467,7 +474,7 @@
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2026-03-09T18:45:49+0100.
+              Last updated on 2026-09-29T11:54:53+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -509,7 +516,7 @@
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=39bb1c6d"></script>
+</div><script src="../_static/documentation_options.js?v=9dc39874"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

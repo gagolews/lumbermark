@@ -12,8 +12,16 @@ To install the package from [PyPI](https://pypi.org/project/lumbermark), call:
 pip3 install lumbermark  # python3 -m pip install lumbermark
 ```
 
-<!-- TODO: for best performance, install quitefastmst from sources -->
+::::{note}
+For best performance, advanced users will benefit from compiling the package
+from sources:
 
+```bash
+CPPFLAGS="-O3 -march=native" pip3 install quitefastmst deadwood lumbermark --force --no-binary="quitefastmst,deadwood,lumbermark"
+```
+
+🚧 TO DO (help needed): How to enable OpenMP support on macOS in **quitefastmst**?
+::::
 
 ## Basic Use
 
@@ -52,13 +60,11 @@ plt.show()
 Note the [**scikit-learn**](https://scikit-learn.org/)-compatible API.
 
 
-
-
 ## Outlier Detection in the Case of Clusters of Heterogeneous Densities
 
 The recently-developed [*Deadwood*](https://deadwood.gagolewski.com/)
-outlier detection algorithm works quite well in the case of clusters
-of similar densities. However, we can combine it with *Lumbermark*
+outlier detection algorithm works already quite well in the case of clusters
+of heterogeneous densities.  Still, we can combine it with *Lumbermark*
 to detect outliers in each detected cluster separately.
 
 
@@ -75,7 +81,6 @@ plt.title("Deadwood+Lumbermark")
 
 plt.show()
 ```
-
 
 
 ## Run Times

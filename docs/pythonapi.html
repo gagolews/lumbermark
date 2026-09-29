@@ -210,7 +210,7 @@
 <a class="sidebar-brand" href="index.html">lumbermark</a>
 </span>
 <div class="sidebar-brand">
-0.9.0
+0.9.1
 </div>
 <form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -303,19 +303,21 @@
 <p id="module-lumbermark">lumbermark Python Package</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="lumbermark.Lumbermark">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lumbermark.</span></span><span class="sig-name descname"><span class="pre">Lumbermark</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_cluster_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_cluster_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_leaves</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'l2'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quitefastmst_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lumbermark.Lumbermark" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lumbermark.</span></span><span class="sig-name descname"><span class="pre">Lumbermark</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_clusters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_cluster_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nested</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_leaves</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_cluster_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'l2'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quitefastmst_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lumbermark.Lumbermark" title="Link to this definition">¶</a></dt>
 <dd><p>Lumbermark <a class="reference internal" href="#rc756358a2b9d-1" id="id2">[1]</a> is a fast and robust divisive clustering algorithm
 which identifies a specified number of clusters.</p>
 <p>It iteratively chops off sizeable limbs that are joined by protruding
 segments of a dataset’s mutual reachability minimum spanning tree.</p>
 <p>The use of a mutual reachability distance <a class="reference internal" href="#rc756358a2b9d-2" id="id3">[2]</a> pulls peripheral points
-farther away from each other.  When combined with the <code class="docutils literal notranslate"><span class="pre">deadwood</span></code> package,
+farther away from each other.  Lumbermark is a viable alternative
+to the HDBSCAN* algorithm.  When combined with the <code class="docutils literal notranslate"><span class="pre">deadwood</span></code> package,
 it can act as an outlier detector.</p>
-<p>Once the spanning tree is determined (<span class="math notranslate nohighlight">\(\Omega(n \log n)\)</span> –
-<span class="math notranslate nohighlight">\(O(n^2)\)</span>), the Lumbermark algorithm runs in <span class="math notranslate nohighlight">\(O(kn)\)</span> time,
+<p>Once the spanning tree with increasingly sorted edge weights
+is determined (<span class="math notranslate nohighlight">\(\Omega(n \log n)\)</span> – <span class="math notranslate nohighlight">\(O(n^2)\)</span>),
+the Lumbermark algorithm runs in <span class="math notranslate nohighlight">\(O(kn)\)</span> time,
 where <span class="math notranslate nohighlight">\(k\)</span> is the number of clusters sought.  Memory use is
 <span class="math notranslate nohighlight">\(O(n)\)</span>.</p>
-<p>As with all distance-based methods (this includes k-means and DBSCAN as
+<p>As with all distance-based methods (this includes k-means and HDBSCAN as
 well), applying data preprocessing and feature engineering techniques
 (e.g., feature scaling, feature selection, dimensionality reduction)
 might lead to more meaningful results.</p>
@@ -324,17 +326,26 @@ might lead to more meaningful results.</p>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>n_clusters</strong><span class="classifier">int</span></dt><dd><p>The number of clusters to detect.</p>
 </dd>
-<dt><strong>min_cluster_size</strong><span class="classifier">int, default=10</span></dt><dd><p>Minimal cluster size.</p>
-</dd>
 <dt><strong>min_cluster_factor</strong><span class="classifier">float in [0,1], default=0.25</span></dt><dd><p>Output cluster sizes will not be smaller than
 <code class="docutils literal notranslate"><span class="pre">min_cluster_factor*n_points/n_clusters</span></code>.</p>
-</dd>
-<dt><strong>skip_leaves</strong><span class="classifier">bool, default=’auto’</span></dt><dd><p>Whether the MST leaves should be omitted from cluster size counting;
-<code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code> selects True if <cite>M &gt; 0</cite>.</p>
 </dd>
 <dt><strong>M</strong><span class="classifier">int, default=5</span></dt><dd><p>Smoothing factor for the mutual reachability distance <a class="reference internal" href="#rc756358a2b9d-2" id="id4">[2]</a>.
 <cite>M = 0</cite> and <cite>M = 1</cite> select the original distance as given by
 the <cite>metric</cite> parameter; see <code class="xref any docutils literal notranslate"><span class="pre">deadwood.MSTBase</span></code>.</p>
+</dd>
+<dt><strong>nested</strong><span class="classifier">bool, default=True</span></dt><dd><p>If True, generating k clusters in the (k-1)th iteration
+uses the <cite>min_cluster_factor*n_points/k</cite> size bound; this way,
+the consecutively generated partitions are not dependent on the
+initial <cite>n_clusters</cite> and are thus properly nested.
+On the other hand, if <cite>nested = False</cite>, then all clusters are of
+size at least <cite>min_cluster_factor*n_points/n_clusters</cite>;
+this is somewhat faster to compute.</p>
+</dd>
+<dt><strong>skip_leaves</strong><span class="classifier">bool, default=’auto’</span></dt><dd><p>Whether the MST leaves should be omitted from cluster size counting;
+<code class="docutils literal notranslate"><span class="pre">&quot;auto&quot;</span></code> selects True if <cite>M &gt; 0</cite> and False otherwise.</p>
+</dd>
+<dt><strong>min_cluster_size</strong><span class="classifier">int, default=10</span></dt><dd><p>Minimal cluster size; used as a safeguard for small <cite>n_points</cite>
+and large <cite>n_clusters</cite>.</p>
 </dd>
 <dt><strong>metric</strong><span class="classifier">str, default=’l2’</span></dt><dd><p>The metric used to compute the linkage; see <code class="xref any docutils literal notranslate"><span class="pre">deadwood.MSTBase</span></code>
 for more details.  Defaults to the Euclidean distance.</p>
@@ -367,7 +378,9 @@ the cluster ID (between 0 and <cite>n_clusters_</cite> - 1) of the <cite>i</cite
 <div class="citation" id="rc756358a2b9d-1" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
-<p>M. Gagolewski, <em>Lumbermark</em>, in preparation, 2026, TODO</p>
+<p>M. Gagolewski, Lumbermark: Resistant clustering by chopping up mutual
+reachability minimum spanning trees, 2026,
+<a class="reference external" href="https://doi.org/10.48550/arXiv.2604.07143">https://doi.org/10.48550/arXiv.2604.07143</a></p>
 </div>
 <div class="citation" id="rc756358a2b9d-2" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
@@ -450,7 +463,7 @@ see <code class="xref any docutils literal notranslate"><span class="pre">deadwo
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2026-03-09T18:45:49+0100.
+              Last updated on 2026-09-29T11:54:53+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -487,7 +500,7 @@ see <code class="xref any docutils literal notranslate"><span class="pre">deadwo
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=39bb1c6d"></script>
+</div><script src="_static/documentation_options.js?v=9dc39874"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>

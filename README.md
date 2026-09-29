@@ -27,6 +27,8 @@ of a dataset's mutual reachability minimum spanning tree.
 The use of a mutual reachability distance pulls peripheral points farther away
 from each other.  *Lumbermark* is a viable alternative to the HDBSCAN\* algorithm.
 The resulting partitions of different granularities are properly nested.
+*Lumbermark* can be viewed as a divisive version of
+[**genieclust**](https://genieclust.gagolewski.com/).
 
 When combined with the [**deadwood**](https://deadwood.gagolewski.com/) package,
 it can act as an outlier detector.
@@ -46,6 +48,16 @@ pip3 install lumbermark  # python3 -m pip install lumbermark
 [Minimalist Data Wrangling in Python](https://datawranglingpy.gagolewski.com/).
 
 
+For best performance, advanced users will benefit from compiling the package
+from sources:
+
+```bash
+CPPFLAGS="-O3 -march=native" pip3 install quitefastmst deadwood lumbermark --force --no-binary="quitefastmst,deadwood,lumbermark"
+```
+
+🚧 TO DO (help needed): How to enable OpenMP support on macOS in **quitefastmst**?
+
+
 ### R Version
 
 To install from [CRAN](https://CRAN.R-project.org/package=lumbermark), call:
@@ -56,6 +68,22 @@ install.packages("lumbermark")
 
 *To learn more about R, check out my open-access textbook*
 [Deep R Programming](https://deepr.gagolewski.com/).
+
+
+For best performance, advanced users will benefit from compiling the package
+from sources:
+
+```r
+Sys.setenv(CXX_DEFS="-O3 -march=native")  # for gcc and clang
+install.packages(c("quitefastmst", "deadwood", "lumbermark"), type="source")
+```
+
+To enable OpenMP on macOS, execute `brew install libomp`, and then call in R:
+
+```r
+Sys.setenv(CXX_DEFS="-O3 -march=native -Xpreprocessor -fopenmp")
+install.packages(c("quitefastmst", "deadwood", "lumbermark"), type="source")
+```
 
 
 ### Other

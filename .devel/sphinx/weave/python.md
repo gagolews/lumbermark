@@ -17,7 +17,17 @@ To install the package from [PyPI](https://pypi.org/project/lumbermark), call:
 pip3 install lumbermark  # python3 -m pip install lumbermark
 ```
 
+::::{note}
+For best performance, advanced users will benefit from compiling the package
+from sources:
 
+
+```bash
+CPPFLAGS="-O3 -march=native" pip3 install quitefastmst deadwood lumbermark --force --no-binary="quitefastmst,deadwood,lumbermark"
+```
+
+🚧 TO DO (help needed): How to enable OpenMP support on macOS in **quitefastmst**?
+::::
 
 ## Basic Use
 
@@ -63,13 +73,11 @@ The clustered *z2* dataset
 Note the [**scikit-learn**](https://scikit-learn.org/)-compatible API.
 
 
-
-
 ## Outlier Detection in the Case of Clusters of Heterogeneous Densities
 
 The recently-developed [*Deadwood*](https://deadwood.gagolewski.com/)
-outlier detection algorithm works quite well in the case of clusters
-of similar densities. However, we can combine it with *Lumbermark*
+outlier detection algorithm works already quite well in the case of clusters
+of heterogeneous densities.  Still, we can combine it with *Lumbermark*
 to detect outliers in each detected cluster separately.
 
 
@@ -92,7 +100,6 @@ plt.show()
 ```{figure} python-figures/py_z2_deadwood-3.*
 Outlier detection of the *z2* dataset
 ```
-
 
 
 ## Run Times
@@ -140,7 +147,7 @@ k = sklearn.cluster.KMeans(n_clusters=2)
 k.fit(X)
 print("Elapsed time: %.2f secs." % (time.time()-t0))
 ## KMeans(n_clusters=2)
-## Elapsed time: 0.18 secs.
+## Elapsed time: 0.19 secs.
 ```
 
 A comparison against [*Genie*](https://genieclust.gagolewski.com/):
@@ -153,7 +160,7 @@ g = genieclust.Genie(n_clusters=2)
 g.fit(X)
 print("Elapsed time: %.2f secs." % (time.time()-t0))
 ## Genie(quitefastmst_params={})
-## Elapsed time: 2.11 secs.
+## Elapsed time: 2.10 secs.
 ```
 
 A comparison against [**fast_hdbscan**](https://github.com/TutteInstitute/fast_hdbscan/):
@@ -166,5 +173,5 @@ h = fast_hdbscan.HDBSCAN()
 h.fit(X)
 print("Elapsed time: %.2f secs." % (time.time()-t0))
 ## HDBSCAN()
-## Elapsed time: 15.81 secs.
+## Elapsed time: 12.29 secs.
 ```

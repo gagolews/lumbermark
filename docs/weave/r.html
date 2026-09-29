@@ -210,7 +210,7 @@
 <a class="sidebar-brand" href="../index.html">lumbermark</a>
 </span>
 <div class="sidebar-brand">
-0.9.0
+0.9.1
 </div>
 <form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -299,13 +299,28 @@
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;lumbermark&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For best performance, advanced users will benefit from compiling the package
+from sources:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">Sys.setenv</span><span class="p">(</span><span class="n">CXX_DEFS</span><span class="o">=</span><span class="s">&quot;-O3 -march=native&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1"># for gcc and clang</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;quitefastmst&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;deadwood&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;lumbermark&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;source&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To enable OpenMP on macOS, execute <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">libomp</span></code>, and then call in R:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">Sys.setenv</span><span class="p">(</span><span class="n">CXX_DEFS</span><span class="o">=</span><span class="s">&quot;-O3 -march=native -Xpreprocessor -fopenmp&quot;</span><span class="p">)</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;quitefastmst&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;deadwood&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;lumbermark&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;source&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </section>
 <section id="basic-use">
 <h2>Basic Use<a class="headerlink" href="#basic-use" title="Link to this heading">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This section is a work in progress.  In the meantime, take a look at
-the documentation of the <a class="reference internal" href="../rapi/lumbermark.html"><span class="doc std std-doc">lumbermark</span></a> function.</p>
+the documentation of the <a class="reference internal" href="../rapi/lumbermark.html"><span class="doc std std-doc">lumbermark</span></a> function
+and the paper <span id="id1">[<a class="reference internal" href="../z_bibliography.html#id3" title="Gagolewski, M. (2026).  Lumbermark: Resistant clustering by chopping up mutual reachability minimum spanning trees. under review (preprint). DOI: 10.48550/arXiv.2604.07143.">2</a>]</span>.</p>
 </div>
 <p><a class="reference external" href="https://clustering-benchmarks.gagolewski.com/">wut/z2</a> is an example
 dataset with five clusters of rather non-homogeneous densities.
@@ -317,18 +332,18 @@ tuning:</p>
 <span class="nf">plot</span><span class="p">(</span><span class="n">Z2</span><span class="p">,</span><span class="w"> </span><span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">ann</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="n">lumbermark_labels</span><span class="p">)</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id1">
+<figure class="align-default" id="id2">
 <span id="fig-r-z2-dataset"></span><img alt="../_images/r_z2_dataset-1.png" src="../_images/r_z2_dataset-1.png" />
 <figcaption>
-<p><span class="caption-number">Figure 4 </span><span class="caption-text">The z2 dataset</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+<p><span class="caption-number">Figure 4 </span><span class="caption-text">The z2 dataset</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="outlier-detection-in-the-case-of-clusters-of-heterogeneous-densities">
 <h2>Outlier Detection in the Case of Clusters of Heterogeneous Densities<a class="headerlink" href="#outlier-detection-in-the-case-of-clusters-of-heterogeneous-densities" title="Link to this heading">¶</a></h2>
 <p>The recently-developed <a class="reference external" href="https://deadwood.gagolewski.com/"><em>Deadwood</em></a>
-outlier detection algorithm works quite well in the case of clusters
-of similar densities. However, we can combine it with <em>Lumbermark</em>
+outlier detection algorithm works already quite well in the case of clusters
+of heterogeneous densities.  Still, we can combine it with <em>Lumbermark</em>
 to detect outliers in each detected cluster separately.</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">))</span>
 
@@ -343,10 +358,10 @@ to detect outliers in each detected cluster separately.</p>
 <span class="w">    </span><span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;#00000055&quot;</span><span class="p">,</span><span class="s">&quot;#ff333333&quot;</span><span class="p">)[</span><span class="n">is_outlier_hetero</span><span class="m">+1</span><span class="p">],</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;Deadwood+Lumbermark&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<figure class="align-default" id="id2">
+<figure class="align-default" id="id3">
 <span id="fig-r-z2-deadwood"></span><img alt="../_images/r_z2_deadwood-1.png" src="../_images/r_z2_deadwood-1.png" />
 <figcaption>
-<p><span class="caption-number">Figure 5 </span><span class="caption-text">Outlier detection of the <em>z2</em> dataset</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+<p><span class="caption-number">Figure 5 </span><span class="caption-text">Outlier detection of the <em>z2</em> dataset</span><a class="headerlink" href="#id3" title="Link to this image">¶</a></p>
 </figcaption>
 </figure>
 </section>
@@ -387,7 +402,7 @@ to detect outliers in each detected cluster separately.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2026-03-09T18:45:49+0100.
+              Last updated on 2026-09-29T11:54:53+0200.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -423,7 +438,7 @@ to detect outliers in each detected cluster separately.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=39bb1c6d"></script>
+</div><script src="../_static/documentation_options.js?v=9dc39874"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

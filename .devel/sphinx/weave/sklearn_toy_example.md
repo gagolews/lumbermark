@@ -25,7 +25,6 @@ from sklearn.preprocessing import StandardScaler
 from itertools import cycle, islice
 import lumbermark
 import genieclust
-
 np.random.seed(1234)
 ```
 
@@ -280,7 +279,7 @@ plt.show()
 Outputs of clustering algorithms
 ```
 
-The out-of-the-box Lumbermark algorithm generates quite meaningful partitions.
+The out-of-the-box *Lumbermark* algorithm generates quite meaningful partitions.
 It is also very fast.  Even though no algorithm is perfect in all the possible
 scenarios, give Lumbermark a go in your next data mining challenge.
 

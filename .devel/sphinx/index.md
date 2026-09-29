@@ -19,7 +19,9 @@ of a dataset's mutual reachability minimum spanning tree.
 
 The use of a mutual reachability distance {cite}`hdbscan2` pulls peripheral
 points farther away from each other.   *Lumbermark* is a viable alternative
-to the HDBSCAN\* algorithm.
+to the HDBSCAN\* algorithm.  The resulting partitions of different granularities
+are properly nested.  *Lumbermark* can be viewed as a divisive version of
+[**genieclust**](https://genieclust.gagolewski.com/).
 
 When combined with the [**deadwood**](https://deadwood.gagolewski.com/) package,
 it can act as an outlier detector.
