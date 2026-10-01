@@ -7,12 +7,12 @@
     based on the labels of points' nearest-neighbours.
 
 
-## 0.9.1 (2026-09-29)
+## 0.9.1 (2026-10-01)
 
 *   [Python, R] [BACKWARD INCOMPATIBILITY]  Lumbermark is now equipped with
     the `nested` parameter, which defaults to `True`, resulting in the same
     partition hierarchy regardless of `n_clusters` selected.  For the previous
-    behaviour (a quasi-hierarchical algorithm which might be a bit faster),
+    behaviour (a quasi-hierarchical algorithm which might be slightly faster),
     select `nested=False`.
 
 
