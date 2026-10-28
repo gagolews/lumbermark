@@ -7,10 +7,10 @@
         <link rel="canonical" href="https://lumbermark.gagolewski.com/weave/r.html">
         <link rel="prefetch" href="https://www.gagolewski.com/_static/img/lumbermark.png" as="image">
 
-    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/lumbermark.png"><!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
+    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/lumbermark.png"><!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
         <title>R Examples - Python and R Package lumbermark</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -296,20 +296,20 @@
 <section id="how-to-install">
 <h2>How to Install<a class="headerlink" href="#how-to-install" title="Link to this heading">¶</a></h2>
 <p>To install the package from <a class="reference external" href="https://CRAN.R-project.org/package=lumbermark">CRAN</a>, call:</p>
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;lumbermark&quot;</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">"lumbermark"</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For best performance, advanced users will benefit from compiling the package
 from sources:</p>
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">Sys.setenv</span><span class="p">(</span><span class="n">CXX_DEFS</span><span class="o">=</span><span class="s">&quot;-O3 -march=native&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1"># for gcc and clang</span>
-<span class="nf">install.packages</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;quitefastmst&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;deadwood&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;lumbermark&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;source&quot;</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">Sys.setenv</span><span class="p">(</span><span class="n">CXX_DEFS</span><span class="o">=</span><span class="s">"-O3 -march=native"</span><span class="p">)</span><span class="w">  </span><span class="c1"># for gcc and clang</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">"quitefastmst"</span><span class="p">,</span><span class="w"> </span><span class="s">"deadwood"</span><span class="p">,</span><span class="w"> </span><span class="s">"lumbermark"</span><span class="p">),</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">"source"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>To enable OpenMP on macOS, execute <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">libomp</span></code>, and then call in R:</p>
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">Sys.setenv</span><span class="p">(</span><span class="n">CXX_DEFS</span><span class="o">=</span><span class="s">&quot;-O3 -march=native -Xpreprocessor -fopenmp&quot;</span><span class="p">)</span>
-<span class="nf">install.packages</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;quitefastmst&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;deadwood&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;lumbermark&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;source&quot;</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">Sys.setenv</span><span class="p">(</span><span class="n">CXX_DEFS</span><span class="o">=</span><span class="s">"-O3 -march=native -Xpreprocessor -fopenmp"</span><span class="p">)</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">"quitefastmst"</span><span class="p">,</span><span class="w"> </span><span class="s">"deadwood"</span><span class="p">,</span><span class="w"> </span><span class="s">"lumbermark"</span><span class="p">),</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">"source"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -320,14 +320,14 @@ from sources:</p>
 <p class="admonition-title">Note</p>
 <p>This section is a work in progress.  In the meantime, take a look at
 the documentation of the <a class="reference internal" href="../rapi/lumbermark.html"><span class="doc std std-doc">lumbermark</span></a> function
-and the paper <span id="id1">[<a class="reference internal" href="../z_bibliography.html#id3" title="Gagolewski, M. (2026).  Lumbermark: Resistant clustering by chopping up mutual reachability minimum spanning trees. under review (preprint). DOI: 10.48550/arXiv.2604.07143.">2</a>]</span>.</p>
+and the paper <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../z_bibliography.html#id3" title="Gagolewski, M. (2026).  Lumbermark: Resistant clustering by chopping up mutual reachability minimum spanning trees. under review (preprint). DOI: 10.48550/arXiv.2604.07143.">2</a>]</span>.</p>
 </div>
 <p><a class="reference external" href="https://clustering-benchmarks.gagolewski.com/">wut/z2</a> is an example
 dataset with five clusters of rather non-homogeneous densities.
 <em>Lumbermark</em> separates them correctly with no need for further parameter
 tuning:</p>
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">Z2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.matrix</span><span class="p">(</span><span class="nf">read.table</span><span class="p">(</span><span class="s">&quot;z2.data.gz&quot;</span><span class="p">))</span>
-<span class="nf">library</span><span class="p">(</span><span class="s">&quot;lumbermark&quot;</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">Z2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.matrix</span><span class="p">(</span><span class="nf">read.table</span><span class="p">(</span><span class="s">"z2.data.gz"</span><span class="p">))</span>
+<span class="nf">library</span><span class="p">(</span><span class="s">"lumbermark"</span><span class="p">)</span>
 <span class="n">lumbermark_labels</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lumbermark</span><span class="p">(</span><span class="n">Z2</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">Z2</span><span class="p">,</span><span class="w"> </span><span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">ann</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="n">lumbermark_labels</span><span class="p">)</span>
 </pre></div>
@@ -347,15 +347,15 @@ of heterogeneous densities.  Still, we can combine it with <em>Lumbermark</em>
 to detect outliers in each detected cluster separately.</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">))</span>
 
-<span class="nf">library</span><span class="p">(</span><span class="s">&quot;deadwood&quot;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="s">"deadwood"</span><span class="p">)</span>
 
 <span class="n">is_outlier_homo</span><span class="w">   </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">deadwood</span><span class="p">(</span><span class="n">Z2</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">Z2</span><span class="p">,</span><span class="w"> </span><span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="kc">NA</span><span class="p">,</span>
-<span class="w">    </span><span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;#00000055&quot;</span><span class="p">,</span><span class="s">&quot;#ff333333&quot;</span><span class="p">)[</span><span class="n">is_outlier_homo</span><span class="m">+1</span><span class="p">],</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;Deadwood&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">"#00000055"</span><span class="p">,</span><span class="s">"#ff333333"</span><span class="p">)[</span><span class="n">is_outlier_homo</span><span class="m">+1</span><span class="p">],</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">"Deadwood"</span><span class="p">)</span>
 
 <span class="n">is_outlier_hetero</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">deadwood</span><span class="p">(</span><span class="n">lumbermark_labels</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">Z2</span><span class="p">,</span><span class="w"> </span><span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="kc">NA</span><span class="p">,</span>
-<span class="w">    </span><span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;#00000055&quot;</span><span class="p">,</span><span class="s">&quot;#ff333333&quot;</span><span class="p">)[</span><span class="n">is_outlier_hetero</span><span class="m">+1</span><span class="p">],</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;Deadwood+Lumbermark&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">"#00000055"</span><span class="p">,</span><span class="s">"#ff333333"</span><span class="p">)[</span><span class="n">is_outlier_hetero</span><span class="m">+1</span><span class="p">],</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">"Deadwood+Lumbermark"</span><span class="p">)</span>
 </pre></div>
 </div>
 <figure class="align-default" id="id3">
@@ -402,7 +402,7 @@ to detect outliers in each detected cluster separately.</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2026-10-01T11:01:43+0200.
+              Last updated on 2026-10-28T10:55:23+0100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -439,8 +439,8 @@ to detect outliers in each detected cluster separately.</p>
     </aside>
   </div>
 </div><script src="../_static/documentation_options.js?v=9dc39874"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     </body>
 </html>

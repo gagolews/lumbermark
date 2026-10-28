@@ -7,10 +7,10 @@
         <link rel="canonical" href="https://lumbermark.gagolewski.com/weave/python.html">
         <link rel="prefetch" href="https://www.gagolewski.com/_static/img/lumbermark.png" as="image">
 
-    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/lumbermark.png"><!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
+    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/lumbermark.png"><!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
         <title>Python Examples - Python and R Package lumbermark</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -303,7 +303,7 @@
 <p class="admonition-title">Note</p>
 <p>For best performance, advanced users will benefit from compiling the package
 from sources:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CPPFLAGS</span><span class="o">=</span><span class="s2">&quot;-O3 -march=native&quot;</span><span class="w"> </span>pip3<span class="w"> </span>install<span class="w"> </span>quitefastmst<span class="w"> </span>deadwood<span class="w"> </span>lumbermark<span class="w"> </span>--force<span class="w"> </span>--no-binary<span class="o">=</span><span class="s2">&quot;quitefastmst,deadwood,lumbermark&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CPPFLAGS</span><span class="o">=</span><span class="s2">"-O3 -march=native"</span><span class="w"> </span>pip3<span class="w"> </span>install<span class="w"> </span>quitefastmst<span class="w"> </span>deadwood<span class="w"> </span>lumbermark<span class="w"> </span>--force<span class="w"> </span>--no-binary<span class="o">=</span><span class="s2">"quitefastmst,deadwood,lumbermark"</span>
 </pre></div>
 </div>
 <p>🚧 TO DO (help needed): How to enable OpenMP support on macOS in <strong>quitefastmst</strong>?</p>
@@ -315,7 +315,7 @@ from sources:</p>
 <p class="admonition-title">Note</p>
 <p>This section is a work in progress.  In the meantime, take a look
 at the examples in the <a class="reference internal" href="../pythonapi.html"><span class="doc std std-doc">reference manual</span></a>
-and the paper <span id="id1">[<a class="reference internal" href="../z_bibliography.html#id3" title="Gagolewski, M. (2026).  Lumbermark: Resistant clustering by chopping up mutual reachability minimum spanning trees. under review (preprint). DOI: 10.48550/arXiv.2604.07143.">2</a>]</span>.</p>
+and the paper <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../z_bibliography.html#id3" title="Gagolewski, M. (2026).  Lumbermark: Resistant clustering by chopping up mutual reachability minimum spanning trees. under review (preprint). DOI: 10.48550/arXiv.2604.07143.">2</a>]</span>.</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -323,7 +323,7 @@ and the paper <span id="id1">[<a class="reference internal" href="../z_bibliogra
 <span class="kn">import</span><span class="w"> </span><span class="nn">deadwood</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">plot_scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">deadwood</span><span class="o">.</span><span class="n">plot_scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">asp</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">deadwood</span><span class="o">.</span><span class="n">plot_scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">asp</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">markers</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><a class="reference external" href="https://clustering-benchmarks.gagolewski.com/">wut/z2</a> is an example
@@ -331,7 +331,7 @@ dataset with five clusters of rather non-homogeneous densities.
 <em>Lumbermark</em> separates them correctly with no need for further parameter
 tuning:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">lumbermark</span>
-<span class="n">Z2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;z2.data.gz&quot;</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">Z2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">"z2.data.gz"</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">lmark</span> <span class="o">=</span> <span class="n">lumbermark</span><span class="o">.</span><span class="n">Lumbermark</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">labels</span> <span class="o">=</span> <span class="n">lmark</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">Z2</span><span class="p">)</span>
 <span class="n">plot_scatter</span><span class="p">(</span><span class="n">Z2</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
@@ -355,12 +355,12 @@ to detect outliers in each detected cluster separately.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
 <span class="n">is_outlier_homo</span>   <span class="o">=</span> <span class="n">deadwood</span><span class="o">.</span><span class="n">Deadwood</span><span class="p">()</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">Z2</span><span class="p">)</span>
 <span class="n">plot_scatter</span><span class="p">(</span><span class="n">Z2</span><span class="p">,</span> <span class="p">(</span><span class="n">is_outlier_homo</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Deadwood&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Deadwood"</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
 <span class="n">is_outlier_hetero</span> <span class="o">=</span> <span class="n">deadwood</span><span class="o">.</span><span class="n">Deadwood</span><span class="p">()</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">lmark</span><span class="p">)</span>
 <span class="n">plot_scatter</span><span class="p">(</span><span class="n">Z2</span><span class="p">,</span> <span class="p">(</span><span class="n">is_outlier_hetero</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Deadwood+Lumbermark&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Deadwood+Lumbermark"</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -391,9 +391,9 @@ of low intrinsic dimensionality.</p>
 <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">l</span> <span class="o">=</span> <span class="n">lumbermark</span><span class="o">.</span><span class="n">Lumbermark</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">l</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Elapsed time: </span><span class="si">%.2f</span><span class="s2"> secs.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Elapsed time: </span><span class="si">%.2f</span><span class="s2"> secs."</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t0</span><span class="p">))</span>
 <span class="c1">## Lumbermark()</span>
-<span class="c1">## Elapsed time: 1.14 secs.</span>
+<span class="c1">## Elapsed time: 0.82 secs.</span>
 </pre></div>
 </div>
 <p>Due to the curse of dimensionality, processing
@@ -404,9 +404,9 @@ for small <em>k</em>):</p>
 <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">k</span> <span class="o">=</span> <span class="n">sklearn</span><span class="o">.</span><span class="n">cluster</span><span class="o">.</span><span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">k</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Elapsed time: </span><span class="si">%.2f</span><span class="s2"> secs.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Elapsed time: </span><span class="si">%.2f</span><span class="s2"> secs."</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t0</span><span class="p">))</span>
 <span class="c1">## KMeans(n_clusters=2)</span>
-<span class="c1">## Elapsed time: 0.19 secs.</span>
+<span class="c1">## Elapsed time: 0.14 secs.</span>
 </pre></div>
 </div>
 <p>A comparison against <a class="reference external" href="https://genieclust.gagolewski.com/"><em>Genie</em></a>:</p>
@@ -414,9 +414,9 @@ for small <em>k</em>):</p>
 <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">g</span> <span class="o">=</span> <span class="n">genieclust</span><span class="o">.</span><span class="n">Genie</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Elapsed time: </span><span class="si">%.2f</span><span class="s2"> secs.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Elapsed time: </span><span class="si">%.2f</span><span class="s2"> secs."</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t0</span><span class="p">))</span>
 <span class="c1">## Genie(quitefastmst_params={})</span>
-<span class="c1">## Elapsed time: 2.10 secs.</span>
+<span class="c1">## Elapsed time: 1.14 secs.</span>
 </pre></div>
 </div>
 <p>A comparison against <a class="reference external" href="https://github.com/TutteInstitute/fast_hdbscan/"><strong>fast_hdbscan</strong></a>:</p>
@@ -424,9 +424,9 @@ for small <em>k</em>):</p>
 <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">h</span> <span class="o">=</span> <span class="n">fast_hdbscan</span><span class="o">.</span><span class="n">HDBSCAN</span><span class="p">()</span>
 <span class="n">h</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Elapsed time: </span><span class="si">%.2f</span><span class="s2"> secs.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Elapsed time: </span><span class="si">%.2f</span><span class="s2"> secs."</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t0</span><span class="p">))</span>
 <span class="c1">## HDBSCAN()</span>
-<span class="c1">## Elapsed time: 12.29 secs.</span>
+<span class="c1">## Elapsed time: 6.71 secs.</span>
 </pre></div>
 </div>
 </section>
@@ -467,7 +467,7 @@ for small <em>k</em>):</p>
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2026-10-01T11:01:43+0200.
+              Last updated on 2026-10-28T10:55:23+0100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -505,10 +505,10 @@ for small <em>k</em>):</p>
     </aside>
   </div>
 </div><script src="../_static/documentation_options.js?v=9dc39874"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     </body>
 </html>

@@ -5,6 +5,8 @@
 *   A multi-threaded version of Lumbermark.
 *   A way to assign new points to existing clusters (predict)
     based on the labels of points' nearest-neighbours.
+*   Speed up using skip lists.
+*   Output parts of the cluster hierarchy.
 
 
 ## 0.9.1 (2026-10-01)

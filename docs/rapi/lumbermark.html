@@ -7,10 +7,10 @@
         <link rel="canonical" href="https://lumbermark.gagolewski.com/rapi/lumbermark.html">
         <link rel="prefetch" href="https://www.gagolewski.com/_static/img/lumbermark.png" as="image">
 
-    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/lumbermark.png"><!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
+    <link rel="shortcut icon" href="https://www.gagolewski.com/_static/img/lumbermark.png"><!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
         <title>lumbermark: Lumbermark: Fast and Robust Clustering - Python and R Package lumbermark</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -310,12 +310,12 @@
 <span class="w">  </span><span class="n">nested</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span>
 <span class="w">  </span><span class="n">skip_leaves</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">M</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0L</span><span class="p">),</span>
 <span class="w">  </span><span class="n">min_cluster_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span>
-<span class="w">  </span><span class="n">distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;euclidean&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;l2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;manhattan&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;cityblock&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;l1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;cosine&quot;</span><span class="p">),</span>
+<span class="w">  </span><span class="n">distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">"euclidean"</span><span class="p">,</span><span class="w"> </span><span class="s">"l2"</span><span class="p">,</span><span class="w"> </span><span class="s">"manhattan"</span><span class="p">,</span><span class="w"> </span><span class="s">"cityblock"</span><span class="p">,</span><span class="w"> </span><span class="s">"l1"</span><span class="p">,</span><span class="w"> </span><span class="s">"cosine"</span><span class="p">),</span>
 <span class="w">  </span><span class="n">verbose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span>
 <span class="w">  </span><span class="kc">...</span>
 <span class="p">)</span>
 
-<span class="c1">## S3 method for class &#39;dist&#39;</span>
+<span class="c1">## S3 method for class 'dist'</span>
 <span class="nf">lumbermark</span><span class="p">(</span>
 <span class="w">  </span><span class="n">d</span><span class="p">,</span>
 <span class="w">  </span><span class="n">k</span><span class="p">,</span>
@@ -328,7 +328,7 @@
 <span class="w">  </span><span class="kc">...</span>
 <span class="p">)</span>
 
-<span class="c1">## S3 method for class &#39;mst&#39;</span>
+<span class="c1">## S3 method for class 'mst'</span>
 <span class="nf">lumbermark</span><span class="p">(</span>
 <span class="w">  </span><span class="n">d</span><span class="p">,</span>
 <span class="w">  </span><span class="n">k</span><span class="p">,</span>
@@ -418,8 +418,8 @@
 </section>
 <section id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h2>
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="s">&quot;datasets&quot;</span><span class="p">)</span>
-<span class="nf">data</span><span class="p">(</span><span class="s">&quot;iris&quot;</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="s">"datasets"</span><span class="p">)</span>
+<span class="nf">data</span><span class="p">(</span><span class="s">"iris"</span><span class="p">)</span>
 <span class="n">X</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">jitter</span><span class="p">(</span><span class="nf">as.matrix</span><span class="p">(</span><span class="n">iris</span><span class="p">[</span><span class="m">3</span><span class="o">:</span><span class="m">4</span><span class="p">]))</span>
 <span class="n">y_pred</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lumbermark</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="o">=</span><span class="m">3</span><span class="p">)</span>
 <span class="n">y_test</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="n">iris</span><span class="p">[,</span><span class="m">5</span><span class="p">])</span>
@@ -428,7 +428,7 @@
 </div>
 <p><img alt="plot of chunk lumbermark" src="../_images/lumbermark-1.png" /></p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># detect three clusters and find outliers with Deadwood</span>
-<span class="nf">library</span><span class="p">(</span><span class="s">&quot;deadwood&quot;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="s">"deadwood"</span><span class="p">)</span>
 <span class="n">y_pred2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lumbermark</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="o">=</span><span class="m">3</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="n">y_pred2</span><span class="p">,</span><span class="w"> </span><span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">las</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
 <span class="n">is_outlier</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">deadwood</span><span class="p">(</span><span class="n">y_pred2</span><span class="p">)</span>
@@ -474,7 +474,7 @@
               Some rights reserved. Licensed under <a href='https://creativecommons.org/licenses/by-nc-nd/4.0/'>CC BY-NC-ND 4.0</a>.
               Built with <a href="https://sphinx-doc.org/">Sphinx</a>
               and a customised <a href="https://github.com/pradyunsg/furo">Furo</a> theme.
-              Last updated on 2026-10-01T11:01:43+0200.
+              Last updated on 2026-10-28T10:55:23+0100.
               This site will never display any ads: it is a non-profit project.
               It does not collect any data.
             </div>
@@ -517,10 +517,10 @@
     </aside>
   </div>
 </div><script src="../_static/documentation_options.js?v=9dc39874"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     </body>
 </html>

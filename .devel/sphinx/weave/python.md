@@ -130,7 +130,7 @@ l = lumbermark.Lumbermark(n_clusters=2)
 l.fit(X)
 print("Elapsed time: %.2f secs." % (time.time()-t0))
 ## Lumbermark()
-## Elapsed time: 1.14 secs.
+## Elapsed time: 0.82 secs.
 ```
 
 Due to the curse of dimensionality, processing
@@ -147,7 +147,7 @@ k = sklearn.cluster.KMeans(n_clusters=2)
 k.fit(X)
 print("Elapsed time: %.2f secs." % (time.time()-t0))
 ## KMeans(n_clusters=2)
-## Elapsed time: 0.19 secs.
+## Elapsed time: 0.14 secs.
 ```
 
 A comparison against [*Genie*](https://genieclust.gagolewski.com/):
@@ -160,7 +160,7 @@ g = genieclust.Genie(n_clusters=2)
 g.fit(X)
 print("Elapsed time: %.2f secs." % (time.time()-t0))
 ## Genie(quitefastmst_params={})
-## Elapsed time: 2.10 secs.
+## Elapsed time: 1.14 secs.
 ```
 
 A comparison against [**fast_hdbscan**](https://github.com/TutteInstitute/fast_hdbscan/):
@@ -173,5 +173,5 @@ h = fast_hdbscan.HDBSCAN()
 h.fit(X)
 print("Elapsed time: %.2f secs." % (time.time()-t0))
 ## HDBSCAN()
-## Elapsed time: 12.29 secs.
+## Elapsed time: 6.71 secs.
 ```
