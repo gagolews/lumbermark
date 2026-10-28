@@ -249,10 +249,13 @@ class Lumbermark(deadwood.MSTClusterer):
         #self._iters_     = res["iters"]
 
         if self.n_clusters_ != self.n_clusters:
-            warnings.warn("The number of clusters detected (%d) is "
-                          "different from the requested one (%d)." % (
-                            self.n_clusters_,
-                            self.n_clusters))
+            warnings.warn("The number of clusters detected (%d) is different "
+                "from the requested one (%d); perhaps your dataset is too small "
+                "and the number of clusters requested is too large; "
+                "you may try decreasing min_cluster_size" % (
+                    self.n_clusters_,
+                    self.n_clusters
+                ))
 
         if self.verbose:
             print("[lumbermark] Done.", file=sys.stderr)

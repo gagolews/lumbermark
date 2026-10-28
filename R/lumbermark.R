@@ -241,7 +241,8 @@ lumbermark.mst <- function(
         verbose=verbose
     )
 
-    stopifnot(length(attr(clusters, "cut_edges")) == k-1)
+    if (length(attr(clusters, "cut_edges")) != k-1)
+        warning("the number of clusters detected is different from the requested one; perhaps your dataset is too small and the number of clusters requested is too large; you may try decreasing min_cluster_size")
 
     structure(
         clusters,
